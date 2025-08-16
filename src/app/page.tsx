@@ -1,5 +1,7 @@
 // src/app/page.tsx
 import Link from "next/link";
+import CategoryCard from "./_components/category-cards";
+import { IconCareer, IconTech, IconWellness, IconWellbeing } from "./_components/icons";
 
 export default function Page() {
   return (
@@ -39,11 +41,32 @@ export default function Page() {
       {/* Contents */}
       <section className="container py-10 md:py-14">
         <h3 className="text-xl font-extrabold text-primary">Contents</h3>
+        {/* PC 2x2 / SP 縦 */}
         <div className="mt-4 grid gap-6 md:grid-cols-2">
-          <CategoryCard title="キャリア" href="/categories/career" />
-          <CategoryCard title="テック" href="/categories/tech" />
-          <CategoryCard title="ウェルネス" href="/categories/wellness" />
-          <CategoryCard title="ウェルビーイング" href="/categories/wellbeing" />
+          <CategoryCard
+            href="/categories/career"
+            title="キャリア"
+            desc="気の利いた説明。実体験とか仕事・キャリア形成などのあれこれ"
+            icon={<IconCareer />}
+          />
+          <CategoryCard
+            href="/categories/tech"
+            title="テック"
+            desc="開発メモ、Next.js、ツールや検証結果、作ったものの話など"
+            icon={<IconTech />}
+          />
+          <CategoryCard
+            href="/categories/wellness"
+            title="ウェルネス"
+            desc="運動・食事・睡眠。コンディションを上げる日々の実験記録"
+            icon={<IconWellness />}
+          />
+          <CategoryCard
+            href="/categories/wellbeing"
+            title="ウェルビーイング"
+            desc="医療や身の回り、ファッションや嗜好品など心地よさの話"
+            icon={<IconWellbeing />}
+          />
         </div>
       </section>
     </main>
