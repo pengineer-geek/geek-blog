@@ -15,11 +15,14 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        "accent-1": "#FAFAFA",
-        "accent-2": "#EAEAEA",
-        "accent-7": "#333",
-        success: "#0070f3",
-        cyan: "#79FFE1",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        background: "var(--color-background)",
+        text: "var(--color-text)",
+        accent: "var(--color-accent)",
+        link: "var(--color-link)",
+        border: "var(--color-border)",
+        footer: "var(--color-footer-bg)",
       },
       spacing: {
         28: "7rem",
@@ -34,11 +37,17 @@ const config: Config = {
         "8xl": "6.25rem",
       },
       boxShadow: {
-        sm: "0 5px 10px rgba(0, 0, 0, 0.12)",
-        md: "0 8px 30px rgba(0, 0, 0, 0.12)",
+        "soft-sm": "0 5px 10px rgba(0, 0, 0, 0.12)",
+        "soft-md": "0 8px 30px rgba(0, 0, 0, 0.12)",
+      },
+      container: {
+        center: true,
+        padding: "1rem",
+        screens: { "2xl": "1200px" }, // レイアウト安定
       },
     },
   },
   plugins: [],
-};
+} satisfies Config;
+
 export default config;
