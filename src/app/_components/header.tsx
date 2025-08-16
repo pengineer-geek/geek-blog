@@ -6,7 +6,7 @@ export default function Header() {
     <header className="bg-primary">
       <div className="container flex h-12 items-center justify-between">
         <Link href="/" className="text-sm font-extrabold text-white">
-          ペンジニアの技育（ギーク）
+          ペンジニアの技育(ギーク)ブログ
         </Link>
         {/* 右側は空（今はリンク無し） */}
       </div>
