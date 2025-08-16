@@ -46,40 +46,29 @@ export default function Page() {
           <CategoryCard
             href="/categories/career"
             title="キャリア"
-            desc="気の利いた説明。実体験とか仕事・キャリア形成などのあれこれ"
+            desc="実体験ベースのダイアリーや仕事・キャリア形成についてのコラムなど"
             icon={<IconCareer />}
           />
           <CategoryCard
             href="/categories/tech"
             title="テック"
-            desc="開発メモ、Next.js、ツールや検証結果、作ったものの話など"
+            desc="開発メモ、作ったものの話など"
             icon={<IconTech />}
           />
           <CategoryCard
             href="/categories/wellness"
             title="ウェルネス"
-            desc="運動・食事・睡眠。コンディションを上げる日々の実験記録"
+            desc="運動・食事・睡眠。コンディションを上げるためのノウハウなど"
             icon={<IconWellness />}
           />
           <CategoryCard
             href="/categories/wellbeing"
             title="ウェルビーイング"
-            desc="医療や身の回り、ファッションや嗜好品など心地よさの話"
+            desc="心と思考を整えるためのあれこれ"
             icon={<IconWellbeing />}
           />
         </div>
       </section>
     </main>
-  );
-}
-
-function CategoryCard({ title, href }: { title: string; href: string }) {
-  return (
-    <Link
-      href={href}
-      className="flex h-28 items-center justify-center rounded-xl border border-border bg-background shadow-soft-sm transition hover:border-primary hover:shadow-md"
-    >
-      <span className="text-lg font-bold text-text">{title}</span>
-    </Link>
   );
 }
