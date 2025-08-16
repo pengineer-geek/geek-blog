@@ -7,24 +7,12 @@ export default function Intro() {
     <section className="mb-16">
       {/* ===== ヘッダー（バナー） ===== */}
       <div className="relative">
-        {/* 背景バナー */}
-        <Image
-          src="/banner-yokohama.png"
-          alt="横浜とペンジニア"
-          width={1920}
-          height={640}
-          priority
-          className="h-[320px] w-full object-cover md:h-[380px]"
-        />
-        {/* 左からのグラデでテキストの視認性をUP */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/35 to-transparent" />
-
         {/* コンテンツ */}
         <div className="absolute inset-0">
           <div className="container flex h-full items-center">
             <div className="grid w-full grid-cols-[84px_1fr] items-center gap-4 md:grid-cols-[96px_1fr] md:gap-6">
               <Image
-                src="/avatar-pengineer.png"
+                src="/avatar-pengineer.jpeg"
                 alt="ペンジニアのアバター"
                 width={84}
                 height={84}
