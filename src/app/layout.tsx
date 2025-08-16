@@ -54,7 +54,7 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </head>
       <body className={cn(inter.className, "bg-background text-text")}>
-        {/* ヘッダーを使うならここに <Header /> を置く */}
+        <Header />
         <div className="min-h-screen">{children}</div>
         <Footer />
       </body>
