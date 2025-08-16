@@ -10,7 +10,7 @@ export default function CategoryCard({
 }: {
   href: string;
   title: string;
-  desc: string;
+  desc: ReactNode;
   icon: ReactNode; // currentColor で塗るSVGを想定
 }) {
   return (
