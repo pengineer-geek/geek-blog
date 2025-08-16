@@ -46,7 +46,13 @@ export default function Page() {
           <CategoryCard
             href="/categories/career"
             title="キャリア"
-            desc="実体験ベースのダイアリーや仕事・キャリア形成についてのコラムなど"
+            desc={
+              <>
+                実体験ベースのダイアリーや
+                <br />
+                仕事・キャリア形成についてのコラムなど
+              </>
+            }
             icon={<IconCareer />}
           />
           <CategoryCard
