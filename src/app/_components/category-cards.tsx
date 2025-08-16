@@ -16,8 +16,7 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-5 rounded-2xl bg-white p-6 shadow-sm transition
-                 hover:shadow-md md:p-7"
+      className="group flex items-center gap-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-primary hover:shadow-md md:p-7"
     >
       {/* アイコン（淡いプレートのみ・枠線/グリッドなし） */}
       <div
@@ -35,10 +34,18 @@ export default function CategoryCard({
         <p className="mt-1 text-text/70 md:text-lg">{desc}</p>
       </div>
 
-      {/* 右端の矢印（装飾。なくてもOK） */}
+      {/* 右端の矢印 */}
       <div className="ml-auto hidden shrink-0 items-center justify-center rounded-full bg-primary/5 p-2 text-primary transition group-hover:bg-primary/10 md:flex">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <path d="M5 12h14" /><path d="m13 5 7 7-7 7" />
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        >
+          <path d="M5 12h14" />
+          <path d="m13 5 7 7-7 7" />
         </svg>
       </div>
     </Link>
