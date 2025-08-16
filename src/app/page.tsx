@@ -1,30 +1,35 @@
-import Container from "@/app/_components/container";
-import { HeroPost } from "@/app/_components/hero-post";
-import { Intro } from "@/app/_components/intro";
-import { MoreStories } from "@/app/_components/more-stories";
-import { getAllPosts } from "@/lib/api";
+import Image from "next/image";
 
-export default function Index() {
-  const allPosts = getAllPosts();
-
-  const heroPost = allPosts[0];
-
-  const morePosts = allPosts.slice(1);
-
+export default function Page() {
   return (
     <main>
-      <Container>
-        <Intro />
-        <HeroPost
-          title={heroPost.title}
-          coverImage={heroPost.coverImage}
-          date={heroPost.date}
-          author={heroPost.author}
-          slug={heroPost.slug}
-          excerpt={heroPost.excerpt}
+      {/* トップバナー */}
+      <div className="relative w-full h-64 md:h-96">
+        {/* 背景画像 */}
+        <Image
+          src="/banner-yokohama.png" // 横浜＋ペンジニアの合成イラスト
+          alt="横浜とペンジニア"
+          fill
+          style={{ objectFit: "cover" }}
         />
-        {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-      </Container>
+
+        {/* 左側：タイトルとキャッチコピー */}
+        <div className="absolute left-8 top-1/2 -translate-y-1/2 text-white drop-shadow-lg">
+          <h1 className="text-3xl md:text-5xl font-bold">
+            ペンジニアの技育（ギーク）ブログ
+          </h1>
+          <p className="mt-2 text-lg md:text-xl">
+            開発・転職・副業など、エンジニアとして得た知見と<br />
+            育児・格闘技・趣味など、人間として得た実感を記録しています。<br />
+            いつかどこかの誰かが、寒い海を渡るヒントになりますように。
+          </p>
+        </div>
+      </div>
+
+      {/* 記事一覧 */}
+      <section className="p-8">
+        {/* 記事リストのコンポーネントはそのまま */}
+      </section>
     </main>
   );
 }
