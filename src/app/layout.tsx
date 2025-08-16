@@ -10,11 +10,16 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pengineer-geek-blog.vercel.app"),
   title: `ペンジニアの技育(ギーク)ブログ`,
   description: `IT業界の荒波に揉まれるうちにペンギンになってしまったエンジニア.`,
-  openGraph: {
-    images: [HOME_OG_IMAGE_URL],
-  },
+  images: [
+      {
+        url: "/banner-yokohama.png",
+        width: 1200,
+        height: 630,
+        alt: "ペンジニアの技育（ギーク）ブログ",
+      },
 };
 
 export default function RootLayout({
