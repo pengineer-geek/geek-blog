@@ -1,14 +1,15 @@
+// src/app/_components/header.tsx
 import Link from "next/link";
 
-const Header = () => {
+export default function Header() {
   return (
-    <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-20 mt-8 flex items-center">
-      <Link href="/" className="hover:underline">
-        Blog
-      </Link>
-      .
-    </h2>
+    <header className="bg-primary">
+      <div className="container flex h-12 items-center justify-between">
+        <Link href="/" className="text-sm font-extrabold text-white">
+          ペンジニアの技育（ギーク）
+        </Link>
+        {/* 右側は空（今はリンク無し） */}
+      </div>
+    </header>
   );
-};
-
-export default Header;
+}
