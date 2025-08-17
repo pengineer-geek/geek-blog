@@ -11,10 +11,15 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://pengineer-geek-blog.vercel.app"),
   title: "ペンジニアの技育（ギーク）ブログ",
+  appleWebApp: {
+    capable: true,
+    title: "ペンジニアの技育（ギーク）ブログ",
+    statusBarStyle: "default",
+  },
   icons: {
-    icon: "/favicon.ico",        // デフォルト
-    shortcut: "/favicon.ico",    // ショートカット用
-    apple: "/apple-touch-icon.png", // iOS用（180×180 PNG）
+    icon: "/favicon/favicon.ico",        // デフォルト
+    shortcut: "/favicon/favicon.ico",    // ショートカット用
+    apple: "/favicon/apple-touch-icon-180.png", // iOS用（180×180 PNG）
   },
   description: "IT業界の荒波に揉まれるうちにペンギンになってしまったエンジニア。",
   openGraph: {
@@ -58,6 +63,7 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
       </head>
       <body className={cn(inter.className, "bg-background text-text")}>
         <Header />
