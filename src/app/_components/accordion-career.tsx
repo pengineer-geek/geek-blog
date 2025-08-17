@@ -202,9 +202,44 @@ export default function AccordionCareer() {
                                 <li key={i}>
                                   <Link
                                     href={p.href}
-                                    className="block rounded-lg px-3 py-2 text-text/80 transition hover:bg-primary/5 hover:text-primary"
+                                    prefetch={false}
+                                    className="
+                                      group/link flex items-center justify-between gap-3
+                                      rounded-lg px-3 py-2
+                                      text-link/85 hover:text-link
+                                      hover:bg-primary/5
+                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50
+                                      transition
+                                    "
                                   >
-                                    {p.title}
+                                    {/* 左：小アイコン + タイトル（下線） */}
+                                    <span className="inline-flex items-center gap-2">
+                                      {/* 小さなリンクドット（アイコンでもOK） */}
+                                      <span className="h-1.5 w-1.5 rounded-full bg-link/70 group-hover/link:bg-link" />
+                                      <span
+                                        className="
+                                          underline underline-offset-2
+                                          decoration-link/30 group-hover/link:decoration-link
+                                        "
+                                      >
+                                        {p.title}
+                                      </span>
+                                    </span>
+
+                                    {/* 右：矢印（ほんの少しスライド） */}
+                                    <svg
+                                      className="h-4 w-4 translate-x-0 text-link/70 transition group-hover/link:translate-x-0.5 group-hover/link:text-link"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="1.8"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      aria-hidden="true"
+                                    >
+                                      <path d="M5 12h14" />
+                                      <path d="m13 5 7 7-7 7" />
+                                    </svg>
                                   </Link>
                                 </li>
                               ))}
