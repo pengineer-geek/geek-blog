@@ -11,6 +11,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://pengineer-geek-blog.vercel.app"),
   title: "ペンジニアの技育（ギーク）ブログ",
+  icons: {
+    icon: "/favicon.ico",        // デフォルト
+    shortcut: "/favicon.ico",    // ショートカット用
+    apple: "/apple-touch-icon.png", // iOS用（180×180 PNG）
+  },
   description: "IT業界の荒波に揉まれるうちにペンギンになってしまったエンジニア。",
   openGraph: {
     type: "website",
