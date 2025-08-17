@@ -150,9 +150,31 @@ export default function AccordionWellness() {
                                 <li key={i}>
                                   <Link
                                     href={p.href}
-                                    className="block rounded-lg px-3 py-2 text-text/80 transition hover:bg-primary/5 hover:text-primary"
+                                    className="
+                                      group flex items-center justify-between rounded-lg
+                                      border border-transparent bg-primary/5/50
+                                      px-3 py-2 text-link
+                                      transition
+                                      hover:bg-primary/10 hover:border-primary/30
+                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40
+                                    "
                                   >
-                                    {p.title}
+                                    <span className="inline-flex items-center gap-2">
+                                      {/* ドットのアクセント */}
+                                      <span className="h-1.5 w-1.5 rounded-full bg-primary/70 group-hover:bg-primary" />
+                                      {/* タイトルは下線＋色変化 */}
+                                      <span className="underline underline-offset-4 decoration-border/60 group-hover:decoration-primary group-hover:text-primary">
+                                        {p.title}
+                                      </span>
+                                    </span>
+
+                                    {/* 右端の矢印（装飾） */}
+                                    <svg
+                                      width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                      stroke="currentColor" strokeWidth="1.8" className="opacity-60 group-hover:opacity-100"
+                                    >
+                                      <path d="M5 12h14" /><path d="m13 5 7 7-7 7" />
+                                    </svg>
                                   </Link>
                                 </li>
                               ))}
