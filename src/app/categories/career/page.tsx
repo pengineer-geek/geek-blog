@@ -1,6 +1,6 @@
 // src/app/categories/career/page.tsx
 import AccordionCareer from "@/app/_components/accordion-career";
-import { IconBoxes } from "@/app/_components/icons";
+import { IconCareer } from "@/app/_components/icons";
 
 const sections = [
   {
@@ -68,7 +68,7 @@ export default function CareerCategoryPage() {
       {/* タイトル（アイコン付き） */}
       <div className="flex items-center gap-4">
         <div className="rounded-2xl bg-primary/5 p-3 text-primary">
-          <IconBoxes className="h-8 w-8" />
+          <IconCareer className="h-8 w-8" />
         </div>
         <div>
           <h1 className="text-3xl font-extrabold text-primary md:text-4xl">キャリア</h1>
