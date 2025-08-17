@@ -1,12 +1,12 @@
 import AccordionWellbeing from "@/app/_components/accordion-wellbeing";
-import { IconHeartHandshake } from "@/app/_components/icons";
+import { IconWellbeing } from "@/app/_components/icons";
 
 export default function Page() {
   return (
     <main className="container py-10 md:py-14">
       <div className="mb-6 flex items-center gap-3">
         <span className="text-primary">
-          <IconHeartHandshake className="h-7 w-7" />
+          <IconWellbeing className="h-7 w-7" />
         </span>
         <h1 className="text-4xl font-extrabold text-text md:text-5xl">ウェルビーイング</h1>
       </div>
