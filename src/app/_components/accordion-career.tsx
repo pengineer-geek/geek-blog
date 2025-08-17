@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IconBookHeart, IconNotebookText } from "@/app/_components/icons";
+import { IconDiary, IconColumn } from "@/app/_components/icons";
 
 type Post = { title: string; href: string };
 type Sub = { key: string; title: string; posts: Post[] };
@@ -20,7 +20,7 @@ const sections: Section[] = [
     key: "diary",
     title: "ペンジニア Real Diary",
     desc: "時系列に沿ったペンジニアのリアルな記録",
-    icon: <IconBookHeart className="h-6 w-6" />,
+    icon: <IconDiary className="h-6 w-6" />,
     subs: [
       {
         key: "hs",
@@ -105,7 +105,7 @@ const sections: Section[] = [
     key: "column",
     title: "コラム",
     desc: "キャリア形成や働き方などに関するあれこれ",
-    icon: <IconNotebookText className="h-6 w-6" />,
+    icon: <IconColumn className="h-6 w-6" />,
     subs: [
       { key: "for-students", title: "学生向け", posts: [{ title: "大学でやると得なこと", href: "#" }] },
       { key: "for-workers", title: "働いている人向け", posts: [{ title: "燃え尽きない働き方", href: "#" }] },
