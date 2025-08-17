@@ -18,7 +18,7 @@ type Section = {
 const sections: Section[] = [
   {
     key: "diary",
-    title: "ペンジニア Real Diary",
+    title: "ペンジニア's Real Diary",
     desc: "時系列に沿ったペンジニアのリアルな記録",
     icon: <IconDiary className="h-6 w-6" />,
     subs: [
