@@ -11,7 +11,7 @@ export default function CareerPage() {
         <h1 className="text-3xl font-extrabold text-text md:text-4xl">キャリア</h1>
       </div>
       <p className="mb-6 text-text/80">
-        実体験ベースのダイアリーや、仕事・キャリア形成に関するコラムなど。
+        実体験ダイアリーや、仕事・キャリア形成に関するコラムなど。
       </p>
 
       {/* ここは props なしで呼ぶ */}
