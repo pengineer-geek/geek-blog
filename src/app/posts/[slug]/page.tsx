@@ -1,72 +1,156 @@
-import { Metadata } from "next";
+// src/app/posts/[...slug]/page.tsx
+import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPostBySlug } from "@/lib/api";
-import { CMS_NAME } from "@/lib/constants";
-import markdownToHtml from "@/lib/markdownToHtml";
-import Alert from "@/app/_components/alert";
-import Container from "@/app/_components/container";
-import Header from "@/app/_components/header";
-import { PostBody } from "@/app/_components/post-body";
-import { PostHeader } from "@/app/_components/post-header";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-export default async function Post(props: Params) {
-  const params = await props.params;
-  const post = getPostBySlug(params.slug);
+import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 
-  if (!post) {
-    return notFound();
-  }
-
-  const content = await markdownToHtml(post.content || "");
-
-  return (
-    <main>
-      <Alert preview={post.preview} />
-      <Container>
-        <Header />
-        <article className="mb-32">
-          <PostHeader
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author}
-          />
-          <PostBody content={content} />
-        </article>
-      </Container>
-    </main>
-  );
+// --- ルーティング (SSG) ---
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-type Params = {
-  params: Promise<{
-    slug: string;
-  }>;
+// --- メタデータ生成 ---
+export async function generateMetadata(
+  { params }: { params: { slug: string[] } }
+): Promise<Metadata> {
+  try {
+    const post = await getPostBySlug(params.slug);
+    const title = post.data.title ?? post.slug.at(-1) ?? "Post";
+    const desc = post.data.excerpt ?? "";
+    const ogImage =
+      post.data.cover ??
+      `/api/og?title=${encodeURIComponent(title)}`;
+
+    return {
+      title,
+      description: desc,
+      openGraph: {
+        title,
+        description: desc,
+        images: [{ url: ogImage }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description: desc,
+        images: [ogImage],
+      },
+    };
+  } catch {
+    return { title: "Post" };
+  }
+}
+
+// --- MDX内で使うコンポーネント（必要に応じて拡張） ---
+const mdxComponents = {
+  img: (props: any) => (
+    // MDX内 <img> を next/image に寄せたい場合はお好みで
+    // ここでは素の img を維持
+    // eslint-disable-next-line @next/next/no-img-element
+    <img {...props} className="my-4 rounded-lg" />
+  ),
+  h2: (props: any) => <h2 {...props} className="mt-10 mb-3 text-2xl font-bold" />,
+  h3: (props: any) => <h3 {...props} className="mt-8 mb-2 text-xl font-bold" />,
+  p:  (props: any) => <p  {...props} className="my-4 leading-relaxed" />,
+  ul: (props: any) => <ul {...props} className="my-4 list-disc pl-6 space-y-1" />,
+  ol: (props: any) => <ol {...props} className="my-4 list-decimal pl-6 space-y-1" />,
+  code: (props: any) => (
+    <code
+      {...props}
+      className={`rounded bg-gray-100 px-1 py-0.5 text-sm ${props.className ?? ""}`}
+    />
+  ),
+  pre: (props: any) => (
+    <pre
+      {...props}
+      className={`my-4 overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100 ${props.className ?? ""}`}
+    />
+  ),
 };
 
-export async function generateMetadata(props: Params): Promise<Metadata> {
-  const params = await props.params;
-  const post = getPostBySlug(params.slug);
-
-  if (!post) {
-    return notFound();
+export default async function PostPage(
+  { params }: { params: { slug: string[] } }
+) {
+  let post;
+  try {
+    post = await getPostBySlug(params.slug);
+  } catch {
+    notFound();
   }
 
-  const title = `${post.title} | Next.js Blog Example with ${CMS_NAME}`;
+  const { data, content } = post;
+  const date = data.updated ?? data.date;
 
-  return {
-    title,
-    openGraph: {
-      title,
-      images: [post.ogImage.url],
-    },
-  };
-}
+  return (
+    <main className="container mx-auto max-w-3xl px-4 py-10">
+      {/* タイトル */}
+      <header className="mb-6">
+        <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+          {data.title}
+        </h1>
+        {date && (
+          <p className="mt-2 text-sm text-gray-500">
+            {new Date(date).toLocaleDateString("ja-JP")}
+          </p>
+        )}
+        {data.tags?.length ? (
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {data.tags.map((t) => (
+              <li key={t} className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
+                #{t}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </header>
 
-export async function generateStaticParams() {
-  const posts = getAllPosts();
+      {/* カバー画像（任意） */}
+      {data.cover && (
+        <div className="mb-8 overflow-hidden rounded-xl border">
+          {/* 可能ならサイズ指定に変更 */}
+          <Image
+            src={data.cover}
+            alt={data.title ?? ""}
+            width={1600}
+            height={900}
+            className="h-auto w-full"
+            priority
+          />
+        </div>
+      )}
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+      {/* 本文（MDX） */}
+      <article className="prose prose-zinc max-w-none dark:prose-invert">
+        <MDXRemote
+          source={content}
+          components={mdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [
+                rehypeSlug,
+                [rehypeAutolinkHeadings, { behavior: "wrap" }],
+              ],
+            },
+          }}
+        />
+      </article>
+
+      {/* 戻る系（任意で） */}
+      <div className="mt-10">
+        <a
+          href="/"
+          className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
+        >
+          ← トップへ戻る
+        </a>
+      </div>
+    </main>
+  );
 }
