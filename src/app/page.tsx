@@ -14,7 +14,7 @@ export default function Page() {
         <p className="mt-3 max-w-3xl leading-relaxed text-text/80">
           開発・転職・副業など、エンジニアとして得た知見と<br />
           育児・格闘技・趣味など、 人間として得た実感を記録しています。<br />
-          ──いつかどこかの誰かが、荒い海を渡るヒントになりますように。
+          ──いつか誰かの、荒い海を渡るヒントになりますように。
         </p>
       </section>
 
