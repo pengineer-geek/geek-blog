@@ -58,19 +58,33 @@ export default function Page() {
           <CategoryCard
             href="/categories/tech"
             title="テック"
-            desc="開発メモ、作ったものの話など"
+            desc={
+              <>
+                開発メモ、<br />
+                作ったものの話など
+              </>
+            }
             icon={<IconTech />}
           />
           <CategoryCard
             href="/categories/wellness"
             title="ウェルネス"
-            desc="運動・食事・睡眠。コンディションを上げるためのノウハウなど"
+            desc={
+              <>
+                運動・食事・睡眠。<br />
+                コンディションを上げるためのノウハウなど
+              </>
+            }
             icon={<IconWellness />}
           />
           <CategoryCard
             href="/categories/wellbeing"
             title="ウェルビーイング"
-            desc="心と思考を整えるためのあれこれ"
+            desc={
+              <>
+                心と思考を整えるためのあれこれ
+              </>
+            }
             icon={<IconWellbeing />}
           />
         </div>
