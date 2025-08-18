@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IconBlog, IconWrench } from "@/app/_components/icons";
+import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons";
 
 type Post = { title: string; href: string };
 type Sub = { key: string; title: string; posts: Post[] };
@@ -48,6 +48,24 @@ const sections: Section[] = [
         key: "automation",
         title: "業務効率化",
         posts: [{ title: "日常業務を自動化する小技集", href: "#" }],
+      },
+    ],
+  },
+  {
+    key: "gadget",
+    title: "ガジェット",
+    desc: "気になるデバイスやツールの紹介",
+    icon: <IconGadget className="h-6 w-6" />,
+    subs: [
+      {
+        key: "keyboard",
+        title: "キーボード・入力デバイス",
+        posts: [{ title: "メカニカルキーボードレビュー", href: "#" }],
+      },
+      {
+        key: "other",
+        title: "その他のガジェット",
+        posts: [{ title: "お気に入りデバイスの紹介", href: "#" }],
       },
     ],
   },
