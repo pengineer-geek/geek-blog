@@ -16,26 +16,33 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex items-center gap-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-primary hover:shadow-md md:p-7"
+      className="
+        group grid grid-cols-[6rem_1fr_auto] gap-5
+        rounded-2xl border border-gray-200 bg-white p-6 md:p-7
+        shadow-sm transition hover:border-primary hover:shadow-md
+      "
     >
-      {/* アイコン（淡いプレートのみ・枠線/グリッドなし） */}
+      {/* アイコン（固定幅ボックスで位置を統一） */}
       <div
-        className="flex size-20 items-center justify-center rounded-xl bg-primary/5 text-primary md:size-24"
+        className="flex h-20 w-20 md:h-24 md:w-24 items-center justify-center rounded-xl bg-primary/5 text-primary"
         aria-hidden
+        role="presentation"
       >
         <div className="[&_svg]:h-10 [&_svg]:w-10 md:[&_svg]:h-12 md:[&_svg]:w-12">
           {icon}
         </div>
       </div>
 
-      {/* タイトル & 説明 */}
-      <div className="min-w-0">
-        <h3 className="text-2xl font-extrabold text-text md:text-3xl">{title}</h3>
-        <p className="mt-1 text-text/70 md:text-lg">{desc}</p>
+      {/* タイトル & 説明（縦センター・タイトルはプライマリー） */}
+      <div className="min-w-0 self-center">
+        <h3 className="text-2xl md:text-3xl font-extrabold text-primary">
+          {title}
+        </h3>
+        <p className="mt-1 md:text-lg text-text/70">{desc}</p>
       </div>
 
-      {/* 右端の矢印 */}
-      <div className="ml-auto hidden shrink-0 items-center justify-center rounded-full bg-primary/5 p-2 text-primary transition group-hover:bg-primary/10 md:flex">
+      {/* 右端の矢印（装飾） */}
+      <div className="ml-auto hidden md:flex self-center shrink-0 items-center justify-center rounded-full bg-primary/5 p-2 text-primary transition group-hover:bg-primary/10">
         <svg
           width="22"
           height="22"
