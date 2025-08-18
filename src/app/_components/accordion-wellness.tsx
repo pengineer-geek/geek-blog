@@ -14,6 +14,8 @@ type Section = {
   subs: Sub[];
 };
 
+//const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+
 const sections: Section[] = [
   {
     key: "training",
@@ -25,16 +27,12 @@ const sections: Section[] = [
         key: "weight",
         title: "ウェイトトレーニング",
         posts: [
-          { title: "初心者メニューとフォームの基本", href: "#" },
-          { title: "プログレッションの考え方", href: "#" },
         ],
       },
       {
         key: "bjj",
         title: "ブラジリアン柔術",
         posts: [
-          { title: "白帯がまず覚えるべきムーブ", href: "#" },
-          { title: "スパーで意識する2つの軸", href: "#" },
         ],
       },
     ],
@@ -49,16 +47,12 @@ const sections: Section[] = [
         key: "recipe",
         title: "レシピ",
         posts: [
-          { title: "高タンパク・低脂質の定番ごはん", href: "#" },
-          { title: "5分で作れる作り置きスープ", href: "#" },
         ],
       },
       {
         key: "supplement",
         title: "サプリメント",
         posts: [
-          { title: "目的別サプリの使い分け", href: "#" },
-          { title: "最低限これだけでOKリスト", href: "#" },
         ],
       },
     ],
@@ -73,16 +67,12 @@ const sections: Section[] = [
         key: "sleep",
         title: "睡眠",
         posts: [
-          { title: "睡眠の質を上げるナイトルーティン", href: "#" },
-          { title: "朝の体調を決める2つの習慣", href: "#" },
         ],
       },
       {
         key: "relax",
         title: "リラックス",
         posts: [
-          { title: "副交感神経に寄せるセルフケア", href: "#" },
-          { title: "仕事後の切り替えスイッチ集", href: "#" },
         ],
       },
     ],

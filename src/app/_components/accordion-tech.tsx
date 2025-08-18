@@ -14,6 +14,8 @@ type Section = {
   subs: Sub[];
 };
 
+const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+
 const sections: Section[] = [
   {
     key: "blog",
@@ -21,16 +23,6 @@ const sections: Section[] = [
     desc: "本サイトを例に開設から運用まで",
     icon: <IconBlog className="h-6 w-6" />,
     subs: [
-      {
-        key: "how-to-start",
-        title: "個人サイトの始め方 (エンジニア向け)",
-        posts: [{ title: "はじめの一歩: 技術ブログを立ち上げる", href: "#" }],
-      },
-      {
-        key: "operation",
-        title: "運用のあれこれ",
-        posts: [{ title: "デプロイ・保守・改善の実際", href: "#" }],
-      },
     ],
   },
   {
@@ -39,16 +31,6 @@ const sections: Section[] = [
     desc: "日々の開発で使う技術のメモや紹介",
     icon: <IconWrench className="h-6 w-6" />,
     subs: [
-      {
-        key: "web",
-        title: "Webエンジニア",
-        posts: [{ title: "Next.js で作るモダンWebアプリ", href: "#" }],
-      },
-      {
-        key: "automation",
-        title: "業務効率化",
-        posts: [{ title: "日常業務を自動化する小技集", href: "#" }],
-      },
     ],
   },
   {
@@ -60,12 +42,12 @@ const sections: Section[] = [
       {
         key: "keyboard",
         title: "キーボード・入力デバイス",
-        posts: [{ title: "メカニカルキーボードレビュー", href: "#" }],
-      },
-      {
-        key: "other",
-        title: "その他のガジェット",
-        posts: [{ title: "お気に入りデバイスの紹介", href: "#" }],
+        posts: [
+          {
+            title: "メカニカルキーボードレビュー",
+            href: href("tech", "gadget", "keyboard-mechanical"),
+          },
+        ],
       },
     ],
   },

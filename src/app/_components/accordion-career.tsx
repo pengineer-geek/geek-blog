@@ -15,6 +15,9 @@ type Section = {
   subs: Sub[];
 };
 
+// TODO: ここにダイアリーの記事を追加する
+//const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+
 const sections: Section[] = [
   {
     key: "diary",

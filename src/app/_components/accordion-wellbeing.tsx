@@ -19,6 +19,8 @@ type Section = {
   posts: Post[];
 };
 
+//const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+
 const sections: Section[] = [
   {
     key: "hobby",
@@ -26,8 +28,6 @@ const sections: Section[] = [
     desc: "楽しみを深める活動",
     icon: <IconShirt className="h-6 w-6" />,
     posts: [
-      { title: "ファッションと身の回りのこだわり", href: "#" },
-      { title: "嗜好品との付き合い方", href: "#" },
     ],
   },
   {
@@ -36,8 +36,6 @@ const sections: Section[] = [
     desc: "子育てと日々の学び",
     icon: <IconBaby className="h-6 w-6" />,
     posts: [
-      { title: "育児で気づいたこと", href: "#" },
-      { title: "家庭と仕事の両立の工夫", href: "#" },
     ],
   },
   {
@@ -46,8 +44,6 @@ const sections: Section[] = [
     desc: "心地よさを整えるあれこれ",
     icon: <IconHeartHandshake className="h-6 w-6" />,
     posts: [
-      { title: "医療や健康に関する話", href: "#" },
-      { title: "暮らしをよくする工夫", href: "#" },
     ],
   },
 ];
