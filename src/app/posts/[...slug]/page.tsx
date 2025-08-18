@@ -11,9 +11,8 @@ import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 
 // --- ルーティング (SSG) ---
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs(); // => string[][]
-  // catch-all は { slug: string[] } の形で返す
-  return slugs.map((slug) => ({ slug }));
+  const slugs = await getAllPostSlugs(); // 例: string[][]
+  return slugs.map((slug) => ({ slug })); // slug は string[]
 }
 
 // --- メタデータ生成 ---
