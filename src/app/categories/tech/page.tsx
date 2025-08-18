@@ -1,10 +1,16 @@
 // src/app/categories/tech/page.tsx
 import AccordionTech from "@/app/_components/accordion-tech";
-import { IconTech } from "@/app/_components/icons"; // 既存のテック用アイコンがあれば
+import { IconTech } from "@/app/_components/icons";
+import BackLink from "@/app/_components/back-link";
 
 export default function Page() {
   return (
     <main className="container py-10 md:py-14">
+      {/* トップへ戻る */}
+      <div className="mb-6">
+        <BackLink href="/" label="トップに戻る" />
+      </div>
+
       <div className="mb-6 flex items-center gap-3">
         <span className="text-primary">
           <IconTech className="h-7 w-7" />

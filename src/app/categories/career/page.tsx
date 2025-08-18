@@ -1,10 +1,16 @@
 // src/app/categories/career/page.tsx
 import AccordionCareer from "@/app/_components/accordion-career";
 import { IconCareer } from "@/app/_components/icons";
+import BackLink from "@/app/_components/back-link";
 
 export default function CareerPage() {
   return (
     <main className="container py-10 md:py-14">
+      {/* トップへ戻る */}
+      <div className="mb-6">
+        <BackLink href="/" label="トップに戻る" />
+      </div>
+
       {/* 見出しなど */}
       <div className="mb-6 flex items-center gap-3 text-primary">
         <IconCareer className="h-7 w-7" />
