@@ -48,7 +48,7 @@ export default function Page() {
             title="キャリア"
             desc={
               <>
-                実体験ベースのダイアリーや
+                実体験ダイアリーや
                 <br />
                 仕事・キャリア形成についてのコラムなど
               </>
