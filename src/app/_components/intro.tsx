@@ -22,8 +22,9 @@ export default function Intro() {
             エンジニア。
           </h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-800 md:text-base">
-            開発・転職・副業など、エンジニアとして得た知見と育児・格闘技・趣味など、
-            人間として得た実感を記録しています。いつかどこかの誰かが、荒い海を渡るヒントになりますように。
+            開発・転職・副業など、エンジニアとして得た知見と<br className="block md:hidden" />
+            育児・格闘技・趣味など、人間として得た実感を記録しています。<br className="block md:hidden" />
+            ──いつか誰かの、荒い海を渡るヒントになりますように。
           </p>
         </div>
       </div>
