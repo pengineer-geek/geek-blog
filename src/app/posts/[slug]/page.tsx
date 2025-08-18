@@ -11,21 +11,24 @@ import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 
 // --- ルーティング (SSG) ---
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
+  const slugs = await getAllPostSlugs(); // => string[][]
+  // catch-all は { slug: string[] } の形で返す
   return slugs.map((slug) => ({ slug }));
 }
 
 // --- メタデータ生成 ---
+// ★ Next15/React19 RC では params は Promise
 export async function generateMetadata(
-  { params }: { params: { slug: string[] } }
+  { params }: { params: Promise<{ slug: string[] }> }
 ): Promise<Metadata> {
   try {
-    const post = await getPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
+
     const title = post.data.title ?? post.slug.at(-1) ?? "Post";
     const desc = post.data.excerpt ?? "";
     const ogImage =
-      post.data.cover ??
-      `/api/og?title=${encodeURIComponent(title)}`;
+      post.data.cover ?? `/api/og?title=${encodeURIComponent(title)}`;
 
     return {
       title,
@@ -49,12 +52,8 @@ export async function generateMetadata(
 
 // --- MDX内で使うコンポーネント（必要に応じて拡張） ---
 const mdxComponents = {
-  img: (props: any) => (
-    // MDX内 <img> を next/image に寄せたい場合はお好みで
-    // ここでは素の img を維持
-    // eslint-disable-next-line @next/next/no-img-element
-    <img {...props} className="my-4 rounded-lg" />
-  ),
+  // eslint-disable-next-line @next/next/no-img-element
+  img: (props: any) => <img {...props} className="my-4 rounded-lg" />,
   h2: (props: any) => <h2 {...props} className="mt-10 mb-3 text-2xl font-bold" />,
   h3: (props: any) => <h3 {...props} className="mt-8 mb-2 text-xl font-bold" />,
   p:  (props: any) => <p  {...props} className="my-4 leading-relaxed" />,
@@ -74,12 +73,15 @@ const mdxComponents = {
   ),
 };
 
+// ★ ここも params は Promise。最初に await してから使う
 export default async function PostPage(
-  { params }: { params: { slug: string[] } }
+  { params }: { params: Promise<{ slug: string[] }> }
 ) {
+  const { slug } = await params;
+
   let post;
   try {
-    post = await getPostBySlug(params.slug);
+    post = await getPostBySlug(slug);
   } catch {
     notFound();
   }
@@ -113,7 +115,6 @@ export default async function PostPage(
       {/* カバー画像（任意） */}
       {data.cover && (
         <div className="mb-8 overflow-hidden rounded-xl border">
-          {/* 可能ならサイズ指定に変更 */}
           <Image
             src={data.cover}
             alt={data.title ?? ""}
@@ -133,16 +134,13 @@ export default async function PostPage(
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
-              rehypePlugins: [
-                rehypeSlug,
-                [rehypeAutolinkHeadings, { behavior: "wrap" }],
-              ],
+              rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: "wrap" }]],
             },
           }}
         />
       </article>
 
-      {/* 戻る系（任意で） */}
+      {/* 戻る */}
       <div className="mt-10">
         <a
           href="/"
