@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <main>
       {/* About this site */}
-      <section className="container py-10 md:py-14">
+      <section className="container pt-4 pb-10 md:pt-6 md:pb-14">
         <h2 className="text-2xl font-extrabold text-primary md:text-3xl">
           About this site
         </h2>
