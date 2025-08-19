@@ -12,8 +12,10 @@ export default function Header() {
 
         {/* ここに“埋め込み”トリガーが出ます */}
         <SlideOutMenu
-          // 見た目を変えたいときはここで上書きOK
-          // buttonClassName="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-200 text-gray-800"
+          buttonClassName="inline-flex h-10 w-10 items-center justify-center 
+          rounded-md border border-white text-white
+          hover:bg-white/10 focus:outline-none 
+          focus:ring-2 focus:ring-white/50"
         />
       </div>
     </header>
