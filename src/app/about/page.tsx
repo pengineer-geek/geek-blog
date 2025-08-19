@@ -5,7 +5,7 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc"; // App RouterではRSC版を使う
 
 export default async function AboutPage() {
-  const filePath = path.join(process.cwd(), "content", "about.md");
+  const filePath = path.join(process.cwd(), "content", "about.mdx");
   const raw = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(raw);
 
