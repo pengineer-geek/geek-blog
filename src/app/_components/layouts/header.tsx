@@ -1,5 +1,6 @@
 // src/app/_components/header.tsx
 import Link from "next/link";
+import SlideOutMenu from "@/app/_components/navigation/slide-out-menu";
 
 export default function Header() {
   return (
@@ -10,6 +11,7 @@ export default function Header() {
         </Link>
         {/* 右側は空（今はリンク無し） */}
       </div>
+      <SlideOutMenu />
     </header>
   );
 }
