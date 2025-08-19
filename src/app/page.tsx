@@ -34,7 +34,7 @@ export default function Page() {
               IT業界の荒波に揉まれるうちに、いつのまにかペンギンになってしまったエンジニア。
               <br />── ペンジニア
             </p>
-              <Link href="/about" className="inline-flex items-center gap-1 font-medium hover:underline">
+              <Link href="/about" className="link-about">
                 自己紹介はこちら
               </Link>
           </div>

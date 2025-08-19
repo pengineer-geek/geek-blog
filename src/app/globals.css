@@ -12,3 +12,12 @@
   --color-border: #E0E0E0;
   --color-footer-bg: #F8F9FA;
 }
+
+.link-about {
+  color: #0284c7; /* Tailwindのsky-600相当 */
+  text-decoration: underline;
+  font-weight: 600;
+}
+.link-about:hover {
+  color: #0369a1; /* sky-800相当 */
+}
