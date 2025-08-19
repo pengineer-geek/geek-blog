@@ -24,7 +24,7 @@ export function BackLinks({
       : null;
 
   return (
-    <div className={`mt-10 space-y-3 ${className}`}>
+    <div className={`mt-10 flex flex-col space-y-3 ${className}`}>
       {cat && (
         <Link
           href={cat.href}
