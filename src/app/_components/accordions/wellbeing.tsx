@@ -8,7 +8,7 @@ import {
   IconBaby,
   IconShirt,
   IconHeartHandshake,
-} from "@/app/_components/icons";
+} from "@/app/_components/icons/index";
 
 type Post = { title: string; href: string };
 type Section = {

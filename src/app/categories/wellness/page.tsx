@@ -1,5 +1,5 @@
 import AccordionWellness from "@/app/_components/accordions/wellness";
-import { IconWellness } from "@/app/_components/icons";
+import { IconWellness } from "@/app/_components/icons/index";
 import BackLink from "@/app/_components/navigation/back-link";
 
 export default function Page() {

@@ -1,6 +1,6 @@
 // src/app/categories/career/page.tsx
 import AccordionCareer from "@/app/_components/accordions/career";
-import { IconCareer } from "@/app/_components/icons";
+import { IconCareer } from "@/app/_components/icons/index";
 import BackLink from "@/app/_components/navigation/back-link";
 
 export default function CareerPage() {

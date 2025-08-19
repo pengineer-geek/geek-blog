@@ -1,6 +1,6 @@
 // src/app/_components/back-links.tsx
 import Link from "next/link";
-import { IconBack } from "@/app/_components/icons";
+import { IconBack } from "@/app/_components/icons/index";
 
 type CategoryKey = "career" | "tech" | "wellness" | "wellbeing";
 
