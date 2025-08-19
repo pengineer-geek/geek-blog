@@ -132,7 +132,7 @@ export default function SlideOutMenu({
           </nav>
 
           <div className="px-5 py-4 border-t border-white/20 text-xs text-white/70">
-            © {new Date().getFullYear()} 技育ブログ
+            © {new Date().getFullYear()} pengineer
           </div>
         </div>
       </aside>
@@ -177,7 +177,7 @@ export function HeaderFixedWithDrawer() {
     <header className="fixed inset-x-0 top-0 z-50 bg-primary/100 shadow-sm">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Link href="/" className="text-sm font-extrabold text-white">
-          pengineer ®︎
+          ペンジニアの技育(ギーク)ブログ
         </Link>
         {/* Drawer trigger inline */}
         <SlideOutMenu />

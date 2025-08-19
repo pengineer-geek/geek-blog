@@ -5,7 +5,7 @@ import BackLink from "@/app/_components/navigation/back-link";
 
 export default function Page() {
   return (
-    <main className="container pt-4 pb-10 md:pt-6 md:pb-14">
+    <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
       {/* トップへ戻る */}
       <div className="mb-4">
         <BackLink href="/" label="トップに戻る" />
