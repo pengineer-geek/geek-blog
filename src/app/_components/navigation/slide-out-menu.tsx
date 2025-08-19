@@ -1,6 +1,7 @@
+"use client";
+// src/app/_components/navigation/slide-out-menu.tsx
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 
 /**
  * Header with a top-right hamburger that opens a slide-in menu from the right.
@@ -62,29 +63,26 @@ export default function HeaderDrawer() {
       </button>
 
       {/* Drawer + Backdrop */}
-      <AnimatePresence>
-        {open && (
-          <>
-            {/* Backdrop */}
-            <motion.div
+      {open && (
+        <>
+          {/* Backdrop */}
+          <div
               key="backdrop"
-              className="fixed inset-0 z-50 bg-black/30"
+              className={`fixed inset-0 z-50 bg-black/30 transition-opacity ${
+                open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
               onClick={close}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
             />
 
             {/* Slide-in panel */}
-            <motion.aside
+            <aside
               key="panel"
               role="dialog"
               aria-modal="true"
-              className="fixed right-0 top-0 z-[55] h-full w-[320px] max-w-[85vw] text-white"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 380, damping: 34 }}
+              className={`fixed right-0 top-0 z-[55] h-full w-[320px] max-w-[85vw] bg-gray-900/75 backdrop-blur-sm text-white
+                transform transition-transform duration-300 ${
+                  open ? "translate-x-0" : "translate-x-full"
+                }`}
             >
               <div className="flex h-full flex-col bg-gray-900/75 backdrop-blur-sm">
                 {/* Header */}
@@ -129,10 +127,9 @@ export default function HeaderDrawer() {
                   </ul>
                 </nav>
               </div>
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
+          </aside>
+        </>
+      )}
     </>
   );
 }
