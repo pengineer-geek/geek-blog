@@ -177,7 +177,7 @@ export function HeaderFixedWithDrawer() {
     <header className="fixed inset-x-0 top-0 z-50 bg-primary/100 shadow-sm">
       <div className="container mx-auto flex h-14 items-center justify-between px-4">
         <Link href="/" className="text-sm font-extrabold text-white">
-          ペンジニアの技育(ギーク)ブログ
+          pengineer ®︎
         </Link>
         {/* Drawer trigger inline */}
         <SlideOutMenu />
