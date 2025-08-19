@@ -57,7 +57,7 @@ export default async function PostPage(
   const date = data.updated ?? data.date;
 
   return (
-    <main className="container mx-auto max-w-3xl px-4 py-10">
+    <main className="container mx-auto max-w-3xl px-4 py-10 pt-14">
       <header className="mb-6">
         <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">
           {data?.title ?? ""}

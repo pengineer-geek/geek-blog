@@ -14,7 +14,7 @@ export default async function AboutPage() {
   const date = (data as any)?.updated ?? (data as any)?.date;
 
   return (
-    <main className="container mx-auto max-w-3xl px-4 py-10">
+    <main className="container mx-auto max-w-3xl px-4 py-10 pt-14">
       <div className="mb-4">
         <BackLink href="/" label="トップに戻る" />
       </div>
