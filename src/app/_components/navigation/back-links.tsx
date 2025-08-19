@@ -1,4 +1,4 @@
-// src/app/_components/navigation/back-links.tsx
+// src/app/_components/back-links.tsx
 import Link from "next/link";
 
 type CategoryKey = "career" | "tech" | "wellness" | "wellbeing";
@@ -10,7 +10,6 @@ const CATEGORY: Record<CategoryKey, { href: string; label: string }> = {
   wellbeing: { href: "/categories/wellbeing", label: "ウェルビーイング" },
 };
 
-// カテゴリページで使っている「arrow-big-left」と同じ描画
 function BackIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -34,7 +33,6 @@ export default function BackLinks({
   category,
   className = "",
 }: {
-  /** 記事が属するカテゴリ。未指定や不明ならトップのみ表示 */
   category?: CategoryKey | string;
   className?: string;
 }) {
@@ -43,11 +41,11 @@ export default function BackLinks({
       ? CATEGORY[category as CategoryKey]
       : null;
 
-  // ボタンの共通スタイル（同じ幅に揃える）
+  // 左寄せに変更: justify-start, w-fit で自然な幅
   const btn =
     "inline-flex items-center gap-2 rounded-xl border border-gray-200 " +
     "px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5 " +
-    "w-64 justify-center"; // ← ここで2つとも同じ幅に
+    "justify-start w-fit min-w-[10rem]"; // ← 左寄せ & 最小幅確保
 
   return (
     <div className={`mt-8 flex flex-col space-y-3 ${className}`}>
