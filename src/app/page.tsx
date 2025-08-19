@@ -1,7 +1,6 @@
 // src/app/page.tsx
-import Link from "next/link";
 import CategoryCard from "@/app/_components/cards/category-card";
-import { IconCareer, IconTech, IconWellness, IconWellbeing } from "./_components/icons";
+import { IconCareer, IconTech, IconWellness, IconWellbeing } from "@/app/_components/icons/index";
 
 export default function Page() {
   return (

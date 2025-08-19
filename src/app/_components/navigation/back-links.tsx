@@ -1,6 +1,5 @@
 // src/app/_components/navigation/back-links.tsx
 import Link from "next/link";
-import { IconBack } from "@/app/_components/icons/index";
 
 type CategoryKey = "career" | "tech" | "wellness" | "wellbeing";
 
@@ -11,7 +10,27 @@ const CATEGORY: Record<CategoryKey, { href: string; label: string }> = {
   wellbeing: { href: "/categories/wellbeing", label: "ウェルビーイング" },
 };
 
-export function BackLinks({
+// カテゴリページで使っている「arrow-big-left」と同じ描画
+function BackIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      {...props}
+    >
+      <path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"/>
+    </svg>
+  );
+}
+
+export default function BackLinks({
   category,
   className = "",
 }: {
@@ -24,29 +43,24 @@ export function BackLinks({
       ? CATEGORY[category as CategoryKey]
       : null;
 
+  // ボタンの共通スタイル（同じ幅に揃える）
+  const btn =
+    "inline-flex items-center gap-2 rounded-xl border border-gray-200 " +
+    "px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5 " +
+    "w-64 justify-center"; // ← ここで2つとも同じ幅に
+
   return (
-    // 余白はやや詰め気味に（必要なら className で上書き可）
-    <div className={`mt-8 flex flex-col items-start gap-2 ${className}`}>
+    <div className={`mt-8 flex flex-col space-y-3 ${className}`}>
       {cat && (
-        <Link
-          href={cat.href}
-          className="inline-flex items-center gap-2 rounded-xl border border-border/80
-                     bg-white px-3.5 py-2 text-sm text-text hover:bg-primary/5"
-        >
-          <IconBack className="h-4 w-4 text-primary" />
-          <span>{cat.label} に戻る</span>
+        <Link href={cat.href} className={btn}>
+          <BackIcon />
+          {cat.label} に戻る
         </Link>
       )}
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 rounded-xl border border-border/80
-                   bg-white px-3.5 py-2 text-sm text-text hover:bg-primary/5"
-      >
-        <IconBack className="h-4 w-4 text-primary" />
-        <span>トップに戻る</span>
+      <Link href="/" className={btn}>
+        <BackIcon />
+        トップに戻る
       </Link>
     </div>
   );
 }
-
-export default BackLinks;
