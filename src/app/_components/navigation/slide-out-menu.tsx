@@ -23,7 +23,7 @@ export default function SlideOutMenu({
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-square-menu-icon lucide-square-menu"
+      className="lucide lucide-menu-icon lucide-menu"
     >
       <rect width="18" height="18" x="3" y="3" rx="2" />
       <path d="M7 8h10" />
