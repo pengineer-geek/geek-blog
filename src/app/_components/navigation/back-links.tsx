@@ -41,11 +41,10 @@ export default function BackLinks({
       ? CATEGORY[category as CategoryKey]
       : null;
 
-  // 左寄せに変更: justify-start, w-fit で自然な幅
-  const btn =
-    "inline-flex items-center gap-2 rounded-xl border border-gray-200 " +
-    "px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5 " +
-    "justify-start w-fit min-w-[10rem]"; // ← 左寄せ & 最小幅確保
+    const btn =
+      "inline-flex items-center gap-2 rounded-xl border border-gray-200 " +
+      "px-4 py-2 text-base font-medium text-primary hover:bg-primary/5 " +
+      "justify-start w-fit min-w-[10rem]";
 
   return (
     <div className={`mt-8 flex flex-col space-y-3 ${className}`}>
