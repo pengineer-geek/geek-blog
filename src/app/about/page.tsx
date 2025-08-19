@@ -4,6 +4,7 @@ import path from "path";
 import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxComponents, mdxOptions } from "@/app/_components/mdx/config";
+import Image from "next/image";
 
 export default async function AboutPage() {
   const filePath = path.join(process.cwd(), "content", "about.mdx"); // 実ファイル名に合わせる
@@ -23,6 +24,25 @@ export default async function AboutPage() {
           </p>
         )}
       </header>
+
+      {data.cover && (
+        <figure className="mb-8 overflow-hidden rounded-xl border shadow-sm">
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src={data.cover}
+              alt={data.title ?? "cover"}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 768px, 100vw"
+              priority
+            />
+          </div>
+          {/* キャプション付けたい時だけ */}
+          {/* <figcaption className="px-3 py-2 text-center text-sm text-gray-500">
+            アバター画像（仮アイキャッチ）
+          </figcaption> */}
+        </figure>
+      )}
 
       <article className="prose prose-zinc max-w-none dark:prose-invert">
         <MDXRemote source={content} components={mdxComponents} options={mdxOptions} />
