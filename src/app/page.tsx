@@ -1,4 +1,5 @@
 // src/app/page.tsx
+import Link from "next/link";
 import CategoryCard from "@/app/_components/cards/category-card";
 import { IconCareer, IconTech, IconWellness, IconWellbeing } from "@/app/_components/icons/index";
 
@@ -33,6 +34,9 @@ export default function Page() {
               IT業界の荒波に揉まれるうちに、いつのまにかペンギンになってしまったエンジニア。
               <br />── ペンジニア
             </p>
+              <Link href="/about" className="inline-flex items-center gap-1 font-medium hover:underline">
+                自己紹介はこちら
+              </Link>
           </div>
         </div>
       </section>
