@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <main className="container py-10 md:py-14">
       {/* トップへ戻る */}
-      <div className="mb-6">
+      <div className="mb-4">
         <BackLink href="/" label="トップに戻る" />
       </div>
 
