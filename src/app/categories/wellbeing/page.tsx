@@ -1,6 +1,6 @@
-import AccordionWellbeing from "@/app/_components/accordion-wellbeing";
+import AccordionWellbeing from "@/app/_components/accordions/wellbeing";
 import { IconWellbeing } from "@/app/_components/icons";
-import BackLink from "@/app/_components/back-link";
+import BackLink from "@/app/_components/navigation/back-link";
 
 export default function Page() {
   return (

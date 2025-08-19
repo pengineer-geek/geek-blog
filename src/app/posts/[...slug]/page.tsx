@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import BackLinks from "@/app/_components/back-links";
+import BackLinks from "@/app/_components/navigation/back-links";
 
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 
