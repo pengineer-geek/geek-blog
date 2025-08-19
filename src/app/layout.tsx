@@ -1,6 +1,6 @@
 // src/app/layout.tsx
-import Header from "@/app/_components/header";
-import Footer from "@/app/_components/footer";
+import Header from "@/app/_components/layouts/header";
+import Footer from "@/app/_components/layouts/footer";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";

@@ -1,4 +1,3 @@
-// src/app/_components/back-link.tsx
 import Link from "next/link";
 
 type BackLinkProps = {
