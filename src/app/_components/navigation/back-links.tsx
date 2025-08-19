@@ -1,4 +1,6 @@
+// src/app/_components/back-links.tsx
 import Link from "next/link";
+import { IconBack } from "@/app/_components/icons";
 
 type CategoryKey = "career" | "tech" | "wellness" | "wellbeing";
 
@@ -23,20 +25,25 @@ export function BackLinks({
       : null;
 
   return (
-    <div className={`mt-10 flex flex-col space-y-3 ${className}`}>
+    // 余白はやや詰め気味に（必要なら className で上書き可）
+    <div className={`mt-8 flex flex-col items-start gap-2 ${className}`}>
       {cat && (
         <Link
           href={cat.href}
-          className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
+          className="inline-flex items-center gap-2 rounded-xl border border-border/80
+                     bg-white px-3.5 py-2 text-sm text-text hover:bg-primary/5"
         >
-          ← {cat.label}に戻る
+          <IconBack className="h-4 w-4 text-primary" />
+          <span>{cat.label} に戻る</span>
         </Link>
       )}
       <Link
         href="/"
-        className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
+        className="inline-flex items-center gap-2 rounded-xl border border-border/80
+                   bg-white px-3.5 py-2 text-sm text-text hover:bg-primary/5"
       >
-        ←← トップに戻る
+        <IconBack className="h-4 w-4 text-primary" />
+        <span>トップに戻る</span>
       </Link>
     </div>
   );
