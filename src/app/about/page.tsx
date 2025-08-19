@@ -5,6 +5,7 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { mdxComponents, mdxOptions } from "@/app/_components/mdx/config";
 import Image from "next/image";
+import BackLink from "@/app/_components/navigation/back-link";
 
 export default async function AboutPage() {
   const filePath = path.join(process.cwd(), "content", "about.mdx"); // 実ファイル名に合わせる
@@ -14,6 +15,10 @@ export default async function AboutPage() {
 
   return (
     <main className="container mx-auto max-w-3xl px-4 py-10">
+      <div className="mb-4">
+        <BackLink href="/" label="トップに戻る" />
+      </div>
+      
       <header className="mb-6">
         <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">
           {data?.title ?? "自己紹介"}
@@ -47,6 +52,10 @@ export default async function AboutPage() {
       <article className="prose prose-zinc max-w-none dark:prose-invert">
         <MDXRemote source={content} components={mdxComponents} options={mdxOptions} />
       </article>
+
+      <div className="mt-4">
+        <BackLink href="/" label="トップに戻る" />
+      </div>
     </main>
   );
 }
