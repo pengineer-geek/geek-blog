@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import BackLinks from "@/app/_components/back-links";
 
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 
@@ -140,14 +141,7 @@ export default async function PostPage(
       </article>
 
       {/* 戻る */}
-      <div className="mt-10">
-        <a
-          href="/"
-          className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
-        >
-          ← トップへ戻る
-        </a>
-      </div>
+      <BackLinks category={slug?.[0]} />
     </main>
   );
 }
