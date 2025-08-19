@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IconDiary, IconColumn } from "@/app/_components/icons";
+import { IconDiary, IconColumn } from "@/app/_components/icons/index";
 
 type Post = { title: string; href: string };
 type Sub = { key: string; title: string; posts: Post[] };

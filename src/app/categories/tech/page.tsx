@@ -1,6 +1,6 @@
 // src/app/categories/tech/page.tsx
 import AccordionTech from "@/app/_components/accordions/tech";
-import { IconTech } from "@/app/_components/icons";
+import { IconTech } from "@/app/_components/icons/index";
 import BackLink from "@/app/_components/navigation/back-link";
 
 export default function Page() {

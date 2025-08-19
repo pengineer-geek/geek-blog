@@ -211,3 +211,26 @@ export function IconHeartHandshake(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+
+// 戻るボタン
+export function IconBack({
+  className,
+}: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      {/* 左矢印（細め） */}
+      <path d="M15 19l-7-7 7-7" />
+      <path d="M20 12H4" />
+    </svg>
+  );
+}
