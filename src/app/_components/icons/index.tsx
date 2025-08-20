@@ -263,3 +263,12 @@ export function IconBack({
     </svg>
   );
 }
+
+// X(旧Twitter)
+export function IconX(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M18 2h3v20h-20v-20h3l4-4h-7v20h7l-4 4z"/>
+    </svg>
+  );
+}

@@ -139,7 +139,7 @@ export default function SlideOutMenu({
           </nav>
 
           <div className="px-5 py-4 border-t border-white/20 text-xs text-white/70">
-            © 2015-{new Date().getFullYear()} pengineer
+            © 2025-{new Date().getFullYear()} pengineer
           </div>
         </div>
       </aside>

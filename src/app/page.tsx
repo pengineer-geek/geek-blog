@@ -1,7 +1,7 @@
 // src/app/page.tsx
 import Link from "next/link";
 import CategoryCard from "@/app/_components/cards/category-card";
-import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin } from "@/app/_components/icons/index";
+import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin, IconX } from "@/app/_components/icons/index";
 
 export default function Page() {
   return (
@@ -93,7 +93,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Contents */}
+      {/* Sub Contents */}
       <section className="container py-10 md:py-14">
         <h3 className="text-xl font-extrabold text-primary">Sub Contents</h3>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
@@ -107,6 +107,24 @@ export default function Page() {
             }
             icon={<IconPenguin />}
           />
+        </div>
+      </section>
+
+      {/* Contact Me */}
+      <section className="container py-10 md:py-14">
+        <h3 className="text-xl font-extrabold text-primary">Contact Me</h3>
+        <div className="mt-4 grid gap-6 md:grid-cols-2">
+          <div className="flex items-center gap-3">
+            <IconX className="h-6 w-6" />
+            <Link
+              href="https://x.com/pengineer_geek"
+              className="link-about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              X(旧Twitter)
+            </Link>
+          </div>
         </div>
       </section>
     </main>
