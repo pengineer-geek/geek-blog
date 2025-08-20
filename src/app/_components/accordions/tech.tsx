@@ -23,6 +23,13 @@ const sections: Section[] = [
     desc: "本サイトを例に開設から運用まで",
     icon: <IconBlog className="h-6 w-6" />,
     subs: [
+      {
+        key: "how-to-setup",
+        title: "Vercelを使って簡単サイト開設",
+        posts: [
+          { title: "Vercelを使って簡単サイト開設", href: href("tech", "how-to-setup", "how-to-start") },
+        ],
+      },
     ],
   },
   {
