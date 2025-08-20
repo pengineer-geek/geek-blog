@@ -29,7 +29,7 @@ const sections: Section[] = [
         key: "high-school",
         title: "ハイスクール編 @ 自称進学校",
         posts: [
-          { title: "高校生だったころの話", href: "/career/diary/high-school/high-school-1" },
+          { title: "高校生だったころの話 -親に流された進路選択-", href: "/career/diary/high-school/high-school-1" },
         ],
       },
     ],
