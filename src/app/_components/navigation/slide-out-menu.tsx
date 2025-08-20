@@ -128,6 +128,13 @@ export default function SlideOutMenu({
                   <SubItem href="/categories/wellbeing" label="ウェルビーイング" onNavigate={close} />
                 </ul>
               </li>
+
+              <li className="px-5 py-3">
+                <div className="mb-2 text-sm tracking-wide text-white/80">サブカテゴリ</div>
+                <ul className="space-y-1">
+                  <SubItem href="/stomach" label="ペンジニアの腹の中" onNavigate={close} />
+                </ul>
+              </li>
             </ul>
           </nav>
 

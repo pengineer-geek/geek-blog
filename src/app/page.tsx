@@ -1,7 +1,7 @@
 // src/app/page.tsx
 import Link from "next/link";
 import CategoryCard from "@/app/_components/cards/category-card";
-import { IconCareer, IconTech, IconWellness, IconWellbeing } from "@/app/_components/icons/index";
+import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin } from "@/app/_components/icons/index";
 
 export default function Page() {
   return (
@@ -89,6 +89,23 @@ export default function Page() {
               </>
             }
             icon={<IconWellbeing />}
+          />
+        </div>
+      </section>
+
+      {/* Contents */}
+      <section className="container py-10 md:py-14">
+        <h3 className="text-xl font-extrabold text-primary">Sub Contents</h3>
+        <div className="mt-4 grid gap-6 md:grid-cols-2">
+          <CategoryCard
+            href="/stomach"
+            title="ペンジニアの腹の中"
+            desc={
+              <>
+                時事ネタや雑感メモなど
+              </>
+            }
+            icon={<IconPenguin />}
           />
         </div>
       </section>
