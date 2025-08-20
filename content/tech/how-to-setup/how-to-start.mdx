@@ -49,6 +49,7 @@ category: "tech"
 ## 手順①：ローカルに Next.js を作る（最小）
 
 ```bash
+# ターミナル
 ## 任意のフォルダで
 npx create-next-app@latest my-blog --ts --app --eslint --tailwind --src-dir --use-npm
 cd my-blog
@@ -57,6 +58,7 @@ cd my-blog
 ## 動作確認
 
 ```bash
+# ターミナル
 npm run dev
 ```
 
@@ -67,6 +69,7 @@ npm run dev
 ## 手順②：GitHub に公開
 
 ```bash
+# ターミナル
 git init
 git add -A
 git commit -m "feat: init"
@@ -101,6 +104,7 @@ Build 設定はデフォルトで OK → Deploy
 `src/app/(routes)/posts/hello-world/page.mdx` を作成（ルーティングは環境に合わせて調整）
 
 ```mdx
+// src/app/(routes)/posts/hello-world/page.mdx
 ---
 title: "はじめての記事"
 date: "2025-08-20"
@@ -112,6 +116,7 @@ date: "2025-08-20"
 ```
 
 ```bash
+# ターミナル
 npm run dev
 # ローカルで表示確認 → push で公開
 git add -A && git commit -m "post: hello world" && git push
