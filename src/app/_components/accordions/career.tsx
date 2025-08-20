@@ -33,6 +33,13 @@ const sections: Section[] = [
           { title: "紙切れ一枚で大学受験を終わらせた話 -ガソリンは満タン! 行き先は不明!-", href: href("career", "diary", "high-school", "high-school-2") },
         ],
       },
+      {
+        key: "university",
+        title: "キャンパスライフ編 @ 都内Aランク私立大学(理工学部)",
+        posts: [
+          { title: "華のキャンパスライフを謳歌していた話 -サークルに全てを捧げた男-", href: href("career", "diary", "university", "university-1") },
+        ],
+      },
     ],
   },
   {
@@ -41,19 +48,6 @@ const sections: Section[] = [
     desc: "キャリア形成や働き方などに関するあれこれ",
     icon: <IconColumn className="h-6 w-6" />,
     subs: [
-      { key: "for-students", title: "学生向け", posts: [{ title: "大学でやると得なこと", href: "#" }] },
-      { key: "for-workers", title: "働いている人向け", posts: [{ title: "燃え尽きない働き方", href: "#" }] },
-      { key: "for-newgrad", title: "新卒就活生向け", posts: [{ title: "面接で観られているポイント", href: "#" }] },
-      {
-        key: "for-beginners",
-        title: "未経験エンジニア求職者向け",
-        posts: [{ title: "最速で実務レベルに届く勉強法", href: "#" }],
-      },
-      {
-        key: "for-midcareer",
-        title: "中途キャリア求職者向け",
-        posts: [{ title: "転職の解像度を上げるチェックリスト", href: "#" }],
-      },
     ],
   },
 ];
