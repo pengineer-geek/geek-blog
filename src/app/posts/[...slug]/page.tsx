@@ -5,8 +5,6 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import BackLinks from "@/app/_components/navigation/back-links";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import { mdxComponents, mdxOptions } from "@/app/_components/mdx/config";
-
-// 追加
 import ArticleHero from "@/app/_components/img/article-hero";
 import { imgUrl } from "@/lib/img";
 
