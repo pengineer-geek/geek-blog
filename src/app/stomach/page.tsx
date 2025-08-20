@@ -4,7 +4,7 @@ import BackLink from "@/app/_components/navigation/back-link";
 
 export default function StomachPage() {
   return (
-    <div className="container py-10 md:py-14">
+    <div className="container pt-14 pb-10 md:pt-14 md:pb-14">
       <div className="mb-4">
         <BackLink href="/" label="トップに戻る" />
       </div>
