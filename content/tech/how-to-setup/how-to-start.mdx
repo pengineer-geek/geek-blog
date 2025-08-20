@@ -42,7 +42,7 @@ category: "tech"
 ## 完成イメージ
 - リポジトリ作成 → テンプレ生成（Next.js） → GitHub に push  
 - Vercel で Import → **自動でビルド & デプロイ**  
-- すぐに `https://xxxx.vercel.app` が発行される
+- 数十秒で `https://<project>.vercel.app` が発行される（これが公開URL）
 
 ---
 
@@ -60,7 +60,7 @@ cd my-blog
 npm run dev
 ```
 
-→ http://localhost:3000 にアクセス
+→ `http://localhost:3000` にアクセス
 
 ---
 
@@ -80,7 +80,7 @@ git push -u origin main
 
 ## 手順③：Vercel に接続してデプロイ
 
-https://vercel.com にログイン（GitHub 連携）
+`https://vercel.com` にログイン（GitHub 連携）
 
 Add New… → Project → Import Git Repository で my-blog を選ぶ
 
@@ -98,7 +98,7 @@ Build 設定はデフォルトで OK → Deploy
 
 ### 手順④：記事ページを追加（例）
 
-src/app/(routes)/posts/hello-world/page.mdx を作成（ルーティングは環境に合わせて調整）
+`src/app/(routes)/posts/hello-world/page.mdx` を作成（ルーティングは環境に合わせて調整）
 
 ```mdx
 ---
@@ -121,7 +121,7 @@ git add -A && git commit -m "post: hello world" && git push
 
 ## 手順⑤：画像の置き方（R2 を使わない最短）
 
-最初は public/ に置いて next/image で表示でもOK。
+最初は `public/` に置いて `next/image` で表示でもOK。
 大量に増えたら Cloudflare R2 + CDN に移行（このサイトの方式）。
 ※ 画像管理については別記事で紹介します
 
@@ -135,15 +135,15 @@ Analytics：Vercel Analytics を ON
 
 OG 画像：/api/og を用意して自動生成
 
-画像CDN：Cloudflare R2 にアップして next.config.js の images.remotePatterns に許可
+画像CDN：Cloudflare R2 にアップして `next.config.js` の `images.remotePatterns` に許可
 
 ---
 
 ## トラブルシュート
 
-ビルド失敗：Node のバージョン、環境変数、next.config.js の構文を確認
+ビルド失敗：Node のバージョン、環境変数、`next.config.js` の構文を確認
 
-画像が出ない：外部ホストなら images.remotePatterns に入っているか
+画像が出ない：外部ホストなら `images.remotePatterns` に入っているか
 
 404：App Router のディレクトリ名と URL の整合を確認
 
