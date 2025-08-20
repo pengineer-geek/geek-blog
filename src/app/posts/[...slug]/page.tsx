@@ -1,20 +1,22 @@
 // src/app/posts/[...slug]/page.tsx
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import BackLinks from "@/app/_components/navigation/back-links";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import { mdxComponents, mdxOptions } from "@/app/_components/mdx/config";
 
+// 追加
+import ArticleHero from "@/app/_components/img/article-hero";
+import { imgUrl } from "@/lib/img";
+
 // --- ルーティング (SSG) ---
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs(); // 例: string[][]
-  return slugs.map((slug) => ({ slug })); // slug は string[]
+  const slugs = await getAllPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 // --- メタデータ生成 ---
-// ★ Next15/React19 RC では params は Promise
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string[] }> }
 ): Promise<Metadata> {
@@ -24,30 +26,24 @@ export async function generateMetadata(
 
     const title = post.data.title ?? post.slug.at(-1) ?? "Post";
     const desc = post.data.excerpt ?? "";
-    const ogImage =
-      post.data.cover ?? `/api/og?title=${encodeURIComponent(title)}`;
+
+    // ★ hero をOGに使う（hero.fileがあればR2のURLを組み立て）
+    const ogImage = post.data.hero?.file && post.data.slug
+      ? imgUrl(post.data.slug, post.data.hero.file)
+      : `/api/og?title=${encodeURIComponent(title)}`;
 
     return {
       title,
       description: desc,
-      openGraph: {
-        title,
-        description: desc,
-        images: [{ url: ogImage }],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description: desc,
-        images: [ogImage],
-      },
+      openGraph: { title, description: desc, images: [{ url: ogImage }] },
+      twitter: { card: "summary_large_image", title, description: desc, images: [ogImage] },
     };
   } catch {
     return { title: "Post" };
   }
 }
 
-// --- MDX内で使うコンポーネント（必要に応じて拡張） ---
+// --- ページ本体 ---
 export default async function PostPage(
   { params }: { params: Promise<{ slug: string[] }> }
 ) {
@@ -69,31 +65,15 @@ export default async function PostPage(
         )}
       </header>
 
-      {data.cover && (
+      {/* ★ heroセクション（data.heroがあれば表示） */}
+      {data?.hero?.file && data?.slug && (
         <figure className="mb-8 overflow-hidden rounded-xl border shadow-sm">
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src={data.cover}
-              alt={data.title ?? "cover"}
-              fill
-              className="object-cover"
-              sizes="(min-width: 768px) 768px, 100vw"
-              priority
-            />
-          </div>
-          {/* キャプション付けたい時だけ */}
-          {/* <figcaption className="px-3 py-2 text-center text-sm text-gray-500">
-            アバター画像（仮アイキャッチ）
-          </figcaption> */}
+          <ArticleHero slug={data.slug} hero={data.hero} />
         </figure>
       )}
 
       <article className="prose prose-zinc max-w-none dark:prose-invert">
-        <MDXRemote
-          source={content}
-          components={mdxComponents}
-          options={mdxOptions}
-        />
+        <MDXRemote source={content} components={mdxComponents} options={mdxOptions} />
       </article>
 
       <BackLinks category={slug?.[0]} />

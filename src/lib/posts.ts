@@ -11,6 +11,8 @@ export type Frontmatter = {
   excerpt?: string;
   cover?: string;      // 例: "/images/og-keyboard.jpg"
   category?: string;   // 例: "tech"
+  hero?: { file: string; alt: string };
+  slug?: string;
 };
 
 export type Post = {
