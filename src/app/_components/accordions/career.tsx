@@ -26,80 +26,10 @@ const sections: Section[] = [
     icon: <IconDiary className="h-6 w-6" />,
     subs: [
       {
-        key: "hs",
-        title: "ガソリン満タン! 行き先は不明! ハイスクール編 @ 自称進学校",
+        key: "high-school",
+        title: "ハイスクール編 @ 自称進学校",
         posts: [
-          { title: "入学初日と“謎の校風”", href: "#" },
-          { title: "部活・受験・ゲーム三昧", href: "#" },
-          { title: "進路の分岐点で考えたこと", href: "#" },
-        ],
-      },
-      {
-        key: "uni",
-        title:
-          "モラトリアムど真ん中! 華のキャンパスライフ編 @ 都内Aランク私立大学(理工学士)",
-        posts: [
-          { title: "単位の取り方と時間術", href: "#" },
-          { title: "研究室に入る前にやってよかったこと", href: "#" },
-        ],
-      },
-      {
-        key: "blacklab",
-        title:
-          "驚きの黒さ! 救いのなさ!! ブラックラボ編 @ 都内Aランク私立大学院(工学修士)",
-        posts: [
-          { title: "“24時間研究”の現実", href: "#" },
-          { title: "メンタルを守るためにやったこと", href: "#" },
-        ],
-      },
-      {
-        key: "jobhunt",
-        title:
-          "富!名声!チカラ!を求めて!! 新卒就活生編 @ 都内Aランク私立大学院(工学修士)",
-        posts: [
-          { title: "ESと面接の型を作る", href: "#" },
-          { title: "内定までのロードマップ", href: "#" },
-        ],
-      },
-      {
-        key: "freshman",
-        title:
-          "フレッシュマン! 新卒社会人編 @ メガベンチャー(ゲーム会社)",
-        posts: [
-          { title: "1年目のサバイバル", href: "#" },
-          { title: "先輩に教わった“仕事の基礎”", href: "#" },
-        ],
-      },
-      {
-        key: "nojob",
-        title: "富!名声!チカラを失った!! ノージョブ編 @ 都内某所",
-        posts: [
-          { title: "無職期間でやったこと", href: "#" },
-          { title: "復帰に向けた準備", href: "#" },
-        ],
-      },
-      {
-        key: "junior",
-        title: "Hello World!! ジュニアエンジニア編 @ 小規模受託・SES企業",
-        posts: [
-          { title: "最初の現場で学んだこと", href: "#" },
-          { title: "エラーとの付き合い方", href: "#" },
-        ],
-      },
-      {
-        key: "middle",
-        title: "Thinking And Building! ミドルエンジニア編 @ 小規模自社開発企業",
-        posts: [
-          { title: "プロダクト思考の芽生え", href: "#" },
-          { title: "技術選定とチーム合意", href: "#" },
-        ],
-      },
-      {
-        key: "senior",
-        title: "I'm Back!! シニアエンジニア編 @ メガベンチャー(SaaS企業)",
-        posts: [
-          { title: "SaaSの現場での責務", href: "#" },
-          { title: "スケール時の設計感覚", href: "#" },
+          { title: "高校生だったころの話", href: "/career/diary/high-school/high-school-1" },
         ],
       },
     ],
