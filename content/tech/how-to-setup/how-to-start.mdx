@@ -10,4 +10,149 @@ category: "tech"
 ---
 # {frontmatter.title}
 
-本文……
+## はじめに
+こんにちは。ペンジニアです🐧
+
+ペンジニアの技育(ギーク)ブログを開設した経験を元に
+**Vercelを使って簡単に個人サイトを開設する方法** を紹介します。
+
+どうぞお楽しみください。
+
+---
+
+## この記事の目的
+**Vercel を使って 1 から爆速でサイトを公開できる**ようになる。
+
+## ターゲット
+- ゼロコストで簡単に個人サイトを開設したい人  
+- 最低限の Git 操作ができる人  
+- 最低限のコードが書ける人（コピペ中心でもOK）
+
+---
+
+## 事前準備（無料）
+- Google アカウント（任意）
+- **GitHub アカウント**（必須）
+- **Vercel アカウント**（GitHub 連携でサインイン）
+- **コードエディタ**：VS Code / Cursor など
+- Node.js 18+（`node -v` で確認）
+
+---
+
+## 完成イメージ
+- リポジトリ作成 → テンプレ生成（Next.js） → GitHub に push  
+- Vercel で Import → **自動でビルド & デプロイ**  
+- すぐに `https://xxxx.vercel.app` が発行される
+
+---
+
+## 手順①：ローカルに Next.js を作る（最小）
+
+```bash
+## 任意のフォルダで
+npx create-next-app@latest my-blog --ts --app --eslint --tailwind --src-dir --use-npm
+cd my-blog
+```
+
+## 動作確認
+
+```bash
+npm run dev
+```
+
+→ http://localhost:3000 にアクセス
+
+---
+
+## 手順②：GitHub に公開
+
+```bash
+git init
+git add -A
+git commit -m "feat: init"
+git branch -M main
+# 先に GitHub で空リポジトリ（例: my-blog）を作る
+git remote add origin https://github.com/<yourname>/my-blog.git
+git push -u origin main
+```
+
+---
+
+## 手順③：Vercel に接続してデプロイ
+
+https://vercel.com にログイン（GitHub 連携）
+
+Add New… → Project → Import Git Repository で my-blog を選ぶ
+
+Build 設定はデフォルトで OK → Deploy
+
+数十秒で https://<project>.vercel.app が発行される（これが公開URL）
+
+### 次回以降のデプロイ
+以後は git push するたびに 自動デプロイ。
+
+`https://vercel.com/<あなたのアカウント>/<プロジェクト名>/deployments`
+で状況を確認可能。
+
+---
+
+### 手順④：記事ページを追加（例）
+
+src/app/(routes)/posts/hello-world/page.mdx を作成（ルーティングは環境に合わせて調整）
+
+```mdx
+---
+title: "はじめての記事"
+date: "2025-08-20"
+---
+
+# {frontmatter.title}
+こんにちは！このサイトは Vercel でホスティングされています。
+
+```
+
+```bash
+npm run dev
+# ローカルで表示確認 → push で公開
+git add -A && git commit -m "post: hello world" && git push
+```
+
+---
+
+## 手順⑤：画像の置き方（R2 を使わない最短）
+
+最初は public/ に置いて next/image で表示でもOK。
+大量に増えたら Cloudflare R2 + CDN に移行（このサイトの方式）。
+※ 画像管理については別記事で紹介します
+
+---
+
+## 便利オプション（あとで可）
+
+独自ドメイン：Vercel の「Domains」で追加 → ネームサーバ/レコード設定
+
+Analytics：Vercel Analytics を ON
+
+OG 画像：/api/og を用意して自動生成
+
+画像CDN：Cloudflare R2 にアップして next.config.js の images.remotePatterns に許可
+
+---
+
+## トラブルシュート
+
+ビルド失敗：Node のバージョン、環境変数、next.config.js の構文を確認
+
+画像が出ない：外部ホストなら images.remotePatterns に入っているか
+
+404：App Router のディレクトリ名と URL の整合を確認
+
+---
+
+## まとめ
+
+GitHub に push → Vercel が自動でビルド＆公開
+
+ローカル変更 → push だけで運用
+
+画像や独自ドメイン、分析などは 必要になったら足すでOK
