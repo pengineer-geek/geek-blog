@@ -30,6 +30,7 @@ const sections: Section[] = [
         title: "ハイスクール編 @ 自称進学校",
         posts: [
           { title: "高校生だったころの話 -親に流された進路選択-", href: href("career", "diary", "high-school", "high-school-1") },
+          { title: "紙切れ一枚で大学受験を終わらせた話 -ガソリンは満タン! 行き先は不明!-", href: href("career", "diary", "high-school", "high-school-2") },
         ],
       },
     ],
