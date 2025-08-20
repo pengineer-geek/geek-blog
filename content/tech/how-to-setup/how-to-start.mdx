@@ -42,7 +42,7 @@ category: "tech"
 ## 完成イメージ
 - リポジトリ作成 → テンプレ生成（Next.js） → GitHub に push  
 - Vercel で Import → **自動でビルド & デプロイ**  
-- 数十秒で `https://<project>.vercel.app` が発行される（これが公開URL）
+- 数十秒で `https://[project].vercel.app` が発行される（これが公開URL）
 
 ---
 
@@ -72,7 +72,7 @@ git add -A
 git commit -m "feat: init"
 git branch -M main
 # 先に GitHub で空リポジトリ（例: my-blog）を作る
-git remote add origin https://github.com/<yourname>/my-blog.git
+git remote add origin https://github.com/[yourname]/my-blog.git
 git push -u origin main
 ```
 
@@ -86,12 +86,12 @@ Add New… → Project → Import Git Repository で my-blog を選ぶ
 
 Build 設定はデフォルトで OK → Deploy
 
-数十秒で https://<project>.vercel.app が発行される（これが公開URL）
+数十秒で https://[project].vercel.app が発行される（これが公開URL）
 
 ### 次回以降のデプロイ
 以後は git push するたびに 自動デプロイ。
 
-`https://vercel.com/<あなたのアカウント>/<プロジェクト名>/deployments`
+`https://vercel.com/[あなたのアカウント]/[プロジェクト名]/deployments`
 で状況を確認可能。
 
 ---
