@@ -44,9 +44,19 @@
   .prose tbody tr {
     border-bottom: 1px dotted #ccc;
   }
+
   .prose pre code {
     background: transparent !important;
     padding: 0 !important;
     color: inherit !important; /* 親preの色を使う */
+  }
+
+  blockquote.quote {
+    background: #f9f9f9;
+    border-left: 4px solid #ccc;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    color: #555;
+    font-style: italic;
   }
 }
