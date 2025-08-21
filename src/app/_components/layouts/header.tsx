@@ -11,33 +11,40 @@ export default function Header() {
           ペンジニアの技育(ギーク)ブログ
         </Link>
 
-        <CopyLinkButton />
+        <div className="flex items-center gap-2">
+          <CopyLinkButton 
+            buttonClassName="inline-flex h-10 w-10 items-center justify-center 
+                            rounded-md border border-white text-white
+                            hover:bg-white/10 focus:outline-none 
+                            focus:ring-2 focus:ring-white/50"
+          />
 
-        {/* ここに“埋め込み”トリガーが出ます */}
-        <SlideOutMenu
-          buttonClassName="inline-flex h-10 w-10 items-center justify-center 
-                          rounded-md border border-white text-white
-                          hover:bg-white/10 focus:outline-none 
-                          focus:ring-2 focus:ring-white/50"
-          icon={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-menu-icon lucide-menu"
-            >
-              <path d="M4 12h16" />
-              <path d="M4 18h16" />
-              <path d="M4 6h16" />
-            </svg>
-          }
-        />
+          {/* ここに"埋め込み"トリガーが出ます */}
+          <SlideOutMenu
+            buttonClassName="inline-flex h-10 w-10 items-center justify-center 
+                            rounded-md border border-white text-white
+                            hover:bg-white/10 focus:outline-none 
+                            focus:ring-2 focus:ring-white/50"
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-menu-icon lucide-menu"
+              >
+                <path d="M4 12h16" />
+                <path d="M4 18h16" />
+                <path d="M4 6h16" />
+              </svg>
+            }
+          />
+        </div>
       </div>
     </header>
   );

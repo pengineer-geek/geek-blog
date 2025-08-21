@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export default function CopyLinkButton() {
+interface CopyLinkButtonProps {
+  buttonClassName?: string;
+}
+
+export default function CopyLinkButton({ buttonClassName }: CopyLinkButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -19,7 +23,7 @@ export default function CopyLinkButton() {
     <div className="relative">
       <button
         onClick={handleCopy}
-        className="p-2 text-white hover:text-accent"
+        className={buttonClassName || "p-2 text-white hover:text-accent"}
         aria-label="共有リンクをコピー"
       >
         <svg
@@ -42,9 +46,11 @@ export default function CopyLinkButton() {
 
       {/* コピー済みメッセージ */}
       {copied && (
-        <span className="absolute top-full left-1/2 -translate-x-1/2 mt-1 text-xs text-green-300 bg-black px-2 py-1 rounded">
-          コピーしました！
-        </span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <span className="bg-gray-200 text-blue-900 text-base px-4 py-2 rounded shadow-lg">
+            共有リンクをコピーしました！
+          </span>
+        </div>
       )}
     </div>
   );
