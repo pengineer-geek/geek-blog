@@ -1,6 +1,7 @@
 // src/app/_components/header.tsx
 import Link from "next/link";
 import SlideOutMenu from "@/app/_components/navigation/slide-out-menu";
+import CopyLinkButton from "@/app/_components/navigation/link-button";
 
 export default function Header() {
   return (
@@ -9,6 +10,8 @@ export default function Header() {
         <Link href="/" className="text-sm font-extrabold text-white">
           ペンジニアの技育(ギーク)ブログ
         </Link>
+
+        <CopyLinkButton />
 
         {/* ここに“埋め込み”トリガーが出ます */}
         <SlideOutMenu
