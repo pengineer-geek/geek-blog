@@ -46,6 +46,16 @@ const config: Config = {
         padding: "1rem",
         screens: { "2xl": "1200px" }, // レイアウト安定
       },
+      keyframes: {
+        fadeout: {
+          "0%": { opacity: "1" },
+          "70%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
+      },
+      animation: {
+        fadeout: "fadeout 1s ease-out forwards",
+      },
     },
   },
   plugins: [],

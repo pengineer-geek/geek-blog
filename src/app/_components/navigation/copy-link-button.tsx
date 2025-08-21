@@ -13,7 +13,7 @@ export default function CopyLinkButton({ buttonClassName }: CopyLinkButtonProps)
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setTimeout(() => setCopied(false), 1000);
     } catch (err) {
       console.error("Failed to copy link", err);
     }
@@ -47,7 +47,12 @@ export default function CopyLinkButton({ buttonClassName }: CopyLinkButtonProps)
       {/* コピー済みメッセージ */}
       {copied && (
         <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          <span className="bg-gray-200 text-blue-900 text-base px-4 py-2 rounded shadow-lg">
+          <span
+            className="
+              bg-gray-200 text-blue-900 text-base px-4 py-2 rounded shadow-lg
+              animate-fadeout
+            "
+          >
             共有リンクをコピーしました！
           </span>
         </div>
