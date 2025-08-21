@@ -4,8 +4,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { IconDiary, IconColumn } from "@/app/_components/icons/index";
+import { imgUrl } from "@/lib/img";
 
-type Post = { title: string; href: string; desc: string };
+type Post = {
+  title: string;
+  href: string;
+  excerpt?: string;
+  thumbnail: string;
+};
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
@@ -17,7 +23,16 @@ type Section = {
 
 // TODO: ここにダイアリーの記事を追加する
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
-const thumbFromHref = (href: string, heroFile = "cover.jpg") => `${href}/${heroFile}`;
+
+function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+  const slug = slugParts.join("/");
+  return {
+    title,
+    href: href(...slugParts),
+    excerpt,
+    thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+  };
+}
 
 const sections: Section[] = [
   {
@@ -30,15 +45,27 @@ const sections: Section[] = [
         key: "high-school",
         title: "ハイスクール編 @ 自称進学校",
         posts: [
-          { title: "高校生だったころの話", href: href("career", "diary", "high-school", "high-school-1"), desc: "親に流された進路選択" },
-          { title: "紙切れ一枚で大学受験を終わらせた話", href: href("career", "diary", "high-school", "high-school-2"), desc: "ガソリンは満タン! 行き先は不明!" },
+          postItem(
+            ["career", "diary", "high-school", "high-school-1"],
+            "高校生だったころの話",
+            "親に流された進路選択"
+          ),
+          postItem(
+            ["career", "diary", "high-school", "high-school-2"],
+            "紙切れ一枚で大学受験を終わらせた話",
+            "ガソリンは満タン! 行き先は不明!"
+          ),
         ],
       },
       {
         key: "university",
         title: "キャンパスライフ編 @ 都内Aランク私立大学(理工学部)",
         posts: [
-          { title: "華のキャンパスライフを謳歌していた話", href: href("career", "diary", "university", "university-1"), desc: "サークルに全てを捧げた男" },
+          postItem(
+            ["career", "diary", "university", "university-1"],
+            "華のキャンパスライフを謳歌していた話",
+            "サークルに全てを捧げた男"
+          ),
         ],
       },
     ],
@@ -136,7 +163,7 @@ export default function AccordionCareer() {
                                   >
                                     {/* サムネイル */}
                                     <img
-                                      src={thumbFromHref(p.href)}
+                                      src={p.thumbnail}
                                       alt={p.title}
                                       className="h-12 w-16 flex-shrink-0 rounded object-cover"
                                       loading="lazy"
@@ -147,7 +174,7 @@ export default function AccordionCareer() {
                                       <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
                                         {p.title}
                                       </h4>
-                                      <p className="text-sm text-text/70">{p.desc}</p>
+                                      <p className="text-sm text-text/70">{p.excerpt}</p>
                                     </div>
 
                                     <svg

@@ -3,8 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons/index";
+import { imgUrl } from "@/lib/img";
 
-type Post = { title: string; href: string; desc: string };
+type Post = {
+  title: string;
+  href: string;
+  excerpt?: string;
+  thumbnail: string;
+};
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
@@ -15,7 +21,16 @@ type Section = {
 };
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
-const thumbFromHref = (href: string, heroFile = "cover.jpg") => `${href}/${heroFile}`;
+
+function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+  const slug = slugParts.join("/");
+  return {
+    title,
+    href: href(...slugParts),
+    excerpt,
+    thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+  };
+}
 
 const sections: Section[] = [
   {
@@ -28,9 +43,21 @@ const sections: Section[] = [
         key: "how-to-setup",
         title: "Vercelを使って簡単サイト開設",
         posts: [
-          { title: "Vercelを使って簡単サイト開設", href: href("tech", "how-to-setup", "how-to-start"), desc: "このサイトを立ち上げるまで" },
+          postItem(
+            ["tech", "how-to-setup", "how-to-start"],
+            "Vercelを使って簡単サイト開設",
+            "このサイトを立ち上げるまで"
+          ),
         ],
       },
+    ],
+  },
+  {
+    key: "tech-intro",
+    title: "技術紹介",
+    desc: "日々の開発で使う技術のメモや紹介",
+    icon: <IconWrench className="h-6 w-6" />,
+    subs: [
     ],
   },
   {
@@ -47,12 +74,6 @@ const sections: Section[] = [
     desc: "気になるデバイスやツールの紹介",
     icon: <IconGadget className="h-6 w-6" />,
     subs: [
-      {
-        key: "keyboard",
-        title: "キーボード・入力デバイス",
-        posts: [
-        ],
-      },
     ],
   },
 ];
@@ -137,7 +158,7 @@ export default function AccordionTech() {
                                   >
                                     {/* サムネイル */}
                                     <img
-                                      src={thumbFromHref(p.href)}
+                                      src={p.thumbnail}
                                       alt={p.title}
                                       className="h-12 w-16 flex-shrink-0 rounded object-cover"
                                       loading="lazy"
@@ -148,7 +169,7 @@ export default function AccordionTech() {
                                       <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
                                         {p.title}
                                       </h4>
-                                      <p className="text-sm text-text/70">{p.desc}</p>
+                                      <p className="text-sm text-text/70">{p.excerpt}</p>
                                     </div>
 
                                     <svg

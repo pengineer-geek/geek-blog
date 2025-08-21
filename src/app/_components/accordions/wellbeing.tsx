@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { imgUrl } from "@/lib/img";
 
 // 追加アイコン
 import {
@@ -10,7 +11,12 @@ import {
   IconHeartHandshake,
 } from "@/app/_components/icons/index";
 
-type Post = { title: string; href: string; desc: string };
+type Post = {
+  title: string;
+  href: string;
+  excerpt?: string;
+  thumbnail: string;
+};
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
@@ -21,7 +27,16 @@ type Section = {
 };
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
-const thumbFromHref = (href: string, heroFile = "cover.jpg") => `${href}/${heroFile}`;
+
+function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+  const slug = slugParts.join("/");
+  return {
+    title,
+    href: href(...slugParts),
+    excerpt,
+    thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+  };
+}
 
 const sections: Section[] = [
   {
@@ -133,7 +148,7 @@ export default function AccordionWellbeing() {
                                   >
                                     {/* サムネイル */}
                                     <img
-                                      src={thumbFromHref(p.href)}
+                                      src={p.thumbnail}
                                       alt={p.title}
                                       className="h-12 w-16 flex-shrink-0 rounded object-cover"
                                       loading="lazy"
@@ -144,7 +159,7 @@ export default function AccordionWellbeing() {
                                       <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
                                         {p.title}
                                       </h4>
-                                      <p className="text-sm text-text/70">{p.desc}</p>
+                                      <p className="text-sm text-text/70">{p.excerpt}</p>
                                     </div>
 
                                     <svg
