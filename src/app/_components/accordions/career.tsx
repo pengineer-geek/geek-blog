@@ -66,6 +66,11 @@ const sections: Section[] = [
             "華のキャンパスライフを謳歌していた話",
             "サークルに全てを捧げた男"
           ),
+          postItem(
+            ["career", "diary", "university", "university-2"],
+            "サークルを辞めてさらに堕落した話",
+            "短期的快楽を追求した男"
+          ),
         ],
       },
     ],
