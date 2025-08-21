@@ -11,12 +11,13 @@ import {
 } from "@/app/_components/icons/index";
 
 type Post = { title: string; href: string; desc: string };
+type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
   title: string;
   desc: string;
   icon: React.ReactNode;
-  posts: Post[];
+  subs: Sub[];
 };
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
@@ -28,7 +29,7 @@ const sections: Section[] = [
     title: "趣味",
     desc: "楽しみを深める活動",
     icon: <IconShirt className="h-6 w-6" />,
-    posts: [
+    subs: [
     ],
   },
   {
@@ -36,7 +37,7 @@ const sections: Section[] = [
     title: "育児",
     desc: "子育てと日々の学び",
     icon: <IconBaby className="h-6 w-6" />,
-    posts: [
+    subs: [
     ],
   },
   {
@@ -44,7 +45,7 @@ const sections: Section[] = [
     title: "その他",
     desc: "心地よさを整えるあれこれ",
     icon: <IconHeartHandshake className="h-6 w-6" />,
-    posts: [
+    subs: [
     ],
   },
 ];
