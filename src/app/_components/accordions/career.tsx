@@ -71,6 +71,11 @@ const sections: Section[] = [
             "サークルを辞めてさらに堕落した話",
             "短期的快楽を追求した男"
           ),
+          postItem(
+            ["career", "diary", "university", "university-3"],
+            "ようやく再起してきた話",
+            "筋肉と電気工学"
+          ),
         ],
       },
     ],
