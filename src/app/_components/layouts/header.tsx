@@ -1,7 +1,7 @@
 // src/app/_components/header.tsx
 import Link from "next/link";
 import SlideOutMenu from "@/app/_components/navigation/slide-out-menu";
-import CopyLinkButton from "@/app/_components/navigation/link-button";
+import CopyLinkButton from "@/app/_components/navigation/copy-link-button";
 
 export default function Header() {
   return (
