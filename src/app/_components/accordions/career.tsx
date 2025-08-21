@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconDiary, IconColumn } from "@/app/_components/icons/index";
 
-type Post = { title: string; href: string };
+type Post = { title: string; href: string; desc: string };
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
@@ -17,6 +17,7 @@ type Section = {
 
 // TODO: ここにダイアリーの記事を追加する
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+const thumbFromHref = (href: string, heroFile = "cover.jpg") => `${href}/${heroFile}`;
 
 const sections: Section[] = [
   {
@@ -29,15 +30,15 @@ const sections: Section[] = [
         key: "high-school",
         title: "ハイスクール編 @ 自称進学校",
         posts: [
-          { title: "高校生だったころの話 -親に流された進路選択-", href: href("career", "diary", "high-school", "high-school-1") },
-          { title: "紙切れ一枚で大学受験を終わらせた話 -ガソリンは満タン! 行き先は不明!-", href: href("career", "diary", "high-school", "high-school-2") },
+          { title: "高校生だったころの話", href: href("career", "diary", "high-school", "high-school-1"), desc: "親に流された進路選択" },
+          { title: "紙切れ一枚で大学受験を終わらせた話", href: href("career", "diary", "high-school", "high-school-2"), desc: "ガソリンは満タン! 行き先は不明!" },
         ],
       },
       {
         key: "university",
         title: "キャンパスライフ編 @ 都内Aランク私立大学(理工学部)",
         posts: [
-          { title: "華のキャンパスライフを謳歌していた話 -サークルに全てを捧げた男-", href: href("career", "diary", "university", "university-1") },
+          { title: "華のキャンパスライフを謳歌していた話", href: href("career", "diary", "university", "university-1"), desc: "サークルに全てを捧げた男" },
         ],
       },
     ],
@@ -125,38 +126,32 @@ export default function AccordionCareer() {
                         {/* 記事一覧 */}
                         {subOpen && (
                           <div className="px-4 pb-3">
-                            <ul className="space-y-1">
+                            <ul className="space-y-2">
                               {sub.posts.map((p, i) => (
                                 <li key={i}>
                                   <Link
                                     href={p.href}
                                     prefetch={false}
-                                    className="
-                                      group/link flex items-center justify-between gap-3
-                                      rounded-lg px-3 py-2
-                                      text-link/85 hover:text-link
-                                      hover:bg-primary/5
-                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50
-                                      transition
-                                    "
+                                    className="flex items-start gap-3 rounded-lg px-3 py-2 hover:bg-primary/5"
                                   >
-                                    {/* 左：小アイコン + タイトル（下線） */}
-                                    <span className="inline-flex items-center gap-2">
-                                      {/* 小さなリンクドット（アイコンでもOK） */}
-                                      <span className="h-1.5 w-1.5 rounded-full bg-link/70 group-hover/link:bg-link" />
-                                      <span
-                                        className="
-                                          underline underline-offset-2
-                                          decoration-link/30 group-hover/link:decoration-link
-                                        "
-                                      >
+                                    {/* サムネイル */}
+                                    <img
+                                      src={thumbFromHref(p.href)}
+                                      alt={p.title}
+                                      className="h-12 w-16 flex-shrink-0 rounded object-cover"
+                                      loading="lazy"
+                                      decoding="async"
+                                    />
+                                    {/* 右：タイトル＋（必要なら説明） */}
+                                    <div className="min-w-0">
+                                      <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
                                         {p.title}
-                                      </span>
-                                    </span>
+                                      </h4>
+                                      <p className="text-sm text-text/70">{p.desc}</p>
+                                    </div>
 
-                                    {/* 右：矢印（ほんの少しスライド） */}
                                     <svg
-                                      className="h-4 w-4 translate-x-0 text-link/70 transition group-hover/link:translate-x-0.5 group-hover/link:text-link"
+                                      className="ml-auto h-4 w-4 translate-x-0 text-link/70 transition group-hover:translate-x-0.5"
                                       viewBox="0 0 24 24"
                                       fill="none"
                                       stroke="currentColor"

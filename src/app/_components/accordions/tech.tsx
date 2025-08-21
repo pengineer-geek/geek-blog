@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons/index";
 
-type Post = { title: string; href: string };
+type Post = { title: string; href: string; desc: string };
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
   key: string;
@@ -15,6 +15,7 @@ type Section = {
 };
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+const thumbFromHref = (href: string, heroFile = "cover.jpg") => `${href}/${heroFile}`;
 
 const sections: Section[] = [
   {
@@ -27,7 +28,7 @@ const sections: Section[] = [
         key: "how-to-setup",
         title: "Vercelを使って簡単サイト開設",
         posts: [
-          { title: "Vercelを使って簡単サイト開設", href: href("tech", "how-to-setup", "how-to-start") },
+          { title: "Vercelを使って簡単サイト開設", href: href("tech", "how-to-setup", "how-to-start"), desc: "このサイトを立ち上げるまで" },
         ],
       },
     ],
@@ -50,10 +51,6 @@ const sections: Section[] = [
         key: "keyboard",
         title: "キーボード・入力デバイス",
         posts: [
-          {
-            title: "メカニカルキーボードレビュー",
-            href: href("tech", "gadget", "keyboard-mechanical"),
-          },
         ],
       },
     ],
@@ -130,35 +127,42 @@ export default function AccordionTech() {
                         {/* 記事一覧 */}
                         {subOpen && (
                           <div className="px-4 pb-3">
-                            <ul className="space-y-1">
+                            <ul className="space-y-2">
                               {sub.posts.map((p, i) => (
                                 <li key={i}>
                                   <Link
                                     href={p.href}
-                                    className="
-                                      group flex items-center justify-between rounded-lg
-                                      border border-transparent bg-primary/5/50
-                                      px-3 py-2 text-link
-                                      transition
-                                      hover:bg-primary/10 hover:border-primary/30
-                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40
-                                    "
+                                    prefetch={false}
+                                    className="flex items-start gap-3 rounded-lg px-3 py-2 hover:bg-primary/5"
                                   >
-                                    <span className="inline-flex items-center gap-2">
-                                      {/* ドットのアクセント */}
-                                      <span className="h-1.5 w-1.5 rounded-full bg-primary/70 group-hover:bg-primary" />
-                                      {/* タイトルは下線＋色変化 */}
-                                      <span className="underline underline-offset-4 decoration-border/60 group-hover:decoration-primary group-hover:text-primary">
+                                    {/* サムネイル */}
+                                    <img
+                                      src={thumbFromHref(p.href)}
+                                      alt={p.title}
+                                      className="h-12 w-16 flex-shrink-0 rounded object-cover"
+                                      loading="lazy"
+                                      decoding="async"
+                                    />
+                                    {/* 右：タイトル＋（必要なら説明） */}
+                                    <div className="min-w-0">
+                                      <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
                                         {p.title}
-                                      </span>
-                                    </span>
+                                      </h4>
+                                      <p className="text-sm text-text/70">{p.desc}</p>
+                                    </div>
 
-                                    {/* 右端の矢印（装飾） */}
                                     <svg
-                                      width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                      stroke="currentColor" strokeWidth="1.8" className="opacity-60 group-hover:opacity-100"
+                                      className="ml-auto h-4 w-4 translate-x-0 text-link/70 transition group-hover:translate-x-0.5"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="1.8"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      aria-hidden="true"
                                     >
-                                      <path d="M5 12h14" /><path d="m13 5 7 7-7 7" />
+                                      <path d="M5 12h14" />
+                                      <path d="m13 5 7 7-7 7" />
                                     </svg>
                                   </Link>
                                 </li>
