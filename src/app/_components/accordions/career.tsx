@@ -76,6 +76,11 @@ const sections: Section[] = [
             "ようやく再起してきた話",
             "筋肉と電気工学"
           ),
+          postItem(
+            ["career", "diary", "university", "university-4"],
+            "研究室選びで失敗した話",
+            "地獄への門を開けていた男"
+          ),
         ],
       },
     ],
