@@ -144,37 +144,27 @@ export default function AccordionWellbeing() {
                                   <Link
                                     href={p.href}
                                     prefetch={false}
-                                    className="flex items-start gap-3 rounded-lg px-3 py-2 hover:bg-primary/5"
+                                    className="
+                                      flex gap-3 items-start
+                                      rounded-lg border border-gray-200 bg-white
+                                      px-3 py-2
+                                      hover:bg-primary/5 hover:border-primary/50
+                                      transition
+                                    "
                                   >
-                                    {/* サムネイル */}
                                     <img
                                       src={p.thumbnail}
                                       alt={p.title}
                                       className="h-12 w-16 flex-shrink-0 rounded object-cover"
-                                      loading="lazy"
-                                      decoding="async"
                                     />
-                                    {/* 右：タイトル＋（必要なら説明） */}
                                     <div className="min-w-0">
-                                      <h4 className="font-medium text-text underline underline-offset-2 decoration-link/30 hover:decoration-link">
+                                      <h4 className="font-bold text-link group-hover:text-primary line-clamp-1">
                                         {p.title}
                                       </h4>
-                                      <p className="text-sm text-text/70">{p.excerpt}</p>
+                                      {p.excerpt && (
+                                        <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
+                                      )}
                                     </div>
-
-                                    <svg
-                                      className="ml-auto h-4 w-4 translate-x-0 text-link/70 transition group-hover:translate-x-0.5"
-                                      viewBox="0 0 24 24"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      strokeWidth="1.8"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      aria-hidden="true"
-                                    >
-                                      <path d="M5 12h14" />
-                                      <path d="m13 5 7 7-7 7" />
-                                    </svg>
                                   </Link>
                                 </li>
                               ))}
