@@ -16,6 +16,9 @@ export default function Page() {
           育児・格闘技・趣味など、 人間として得た実感を記録しています。<br />
           ──いつか誰かの、荒い海を渡るヒントになりますように。
         </p>
+        <Link href="/about-penguin" className="link-about">
+          ペンギンに込めた想い
+        </Link>
       </section>
 
       {/* About me */}
@@ -34,9 +37,9 @@ export default function Page() {
               IT業界の荒波に揉まれるうちに、いつのまにかペンギンになってしまったエンジニア。
               <br />── ペンジニア
             </p>
-              <Link href="/about" className="link-about">
-                自己紹介はこちら
-              </Link>
+            <Link href="/about-me" className="link-about">
+              自己紹介はこちら
+            </Link>
           </div>
         </div>
       </section>
