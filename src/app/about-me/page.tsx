@@ -1,4 +1,4 @@
-// src/app/about/page.tsx
+// src/app/about-me/page.tsx
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import BackLink from "@/app/_components/navigation/back-link";
 
 export default async function AboutPage() {
-  const filePath = path.join(process.cwd(), "content", "about.mdx"); // 実ファイル名に合わせる
+  const filePath = path.join(process.cwd(), "content", "about-me.mdx"); // 実ファイル名に合わせる
   const raw = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(raw);
   const date = (data as any)?.updated ?? (data as any)?.date;
