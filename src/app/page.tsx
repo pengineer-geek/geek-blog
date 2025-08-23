@@ -35,12 +35,17 @@ export default function Page() {
               <br />── ペンジニア
             </p>
             <div className="flex flex-col gap-1 mt-2">
-              <Link href="/about-me" className="link-about">
-                <span className="mr-1 no-underline">🐧</span>自己紹介はこちら
-              </Link>
-              <Link href="/about-penguin" className="link-about">
-                <span className="mr-1 no-underline">🐧</span>ペンギンに込めた想い
-              </Link>
+              <div className="flex items-center gap-1">
+                <span>🐧</span>
+                <Link href="/about-me" className="link-about">
+                  自己紹介はこちら
+                </Link>
+              </div>
+              <div className="flex items-center gap-1">
+                <Link href="/about-penguin" className="link-about">
+                  ペンギンに込めた想い
+                </Link>
+              </div>
             </div>
           </div>
         </div>
