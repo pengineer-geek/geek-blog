@@ -36,10 +36,10 @@ export default function Page() {
             </p>
             <div className="flex flex-col gap-1 mt-2">
               <Link href="/about-me" className="link-about">
-                <span className="mr-1">🐧</span>自己紹介はこちら
+                <span className="mr-1 no-underline">🐧</span>自己紹介はこちら
               </Link>
               <Link href="/about-penguin" className="link-about">
-                <span className="mr-1">🐧</span>ペンギンに込めた想い
+                <span className="mr-1 no-underline">🐧</span>ペンギンに込めた想い
               </Link>
             </div>
           </div>
