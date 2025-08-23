@@ -89,7 +89,7 @@ const sections: Section[] = [
         posts: [
           postItem(
             ["career", "diary", "graduate-school", "graduate-school-1"],
-            "研究室がブラックすぎた話",
+            "教授に全てを搾取された話",
             "驚きの黒さ! 救いのなさ!"
           ),
         ],
