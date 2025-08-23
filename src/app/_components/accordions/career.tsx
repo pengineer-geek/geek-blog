@@ -83,6 +83,17 @@ const sections: Section[] = [
           ),
         ],
       },
+      {
+        key: "graduate-school",
+        title: "ブラック研究室編 @ 都内私立大学院(工学)",
+        posts: [
+          postItem(
+            ["career", "diary", "graduate-school", "graduate-school-1"],
+            "研究室がブラックすぎた話",
+            "驚きの黒さ! 救いのなさ!"
+          ),
+        ],
+      },
     ],
   },
   {
