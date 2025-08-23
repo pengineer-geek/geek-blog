@@ -42,6 +42,7 @@ export default function Page() {
                 </Link>
               </div>
               <div className="flex items-center gap-1">
+                <span>🐧</span>
                 <Link href="/about-penguin" className="link-about">
                   ペンギンに込めた想い
                 </Link>
