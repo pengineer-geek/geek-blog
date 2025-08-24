@@ -92,6 +92,11 @@ const sections: Section[] = [
             "教授に全てを搾取された話",
             "驚きの黒さ! 救いのなさ!"
           ),
+          postItem(
+            ["career", "diary", "graduate-school", "graduate-school-2"],
+            "教授に反撃したお話",
+            "逆襲の糸口！教授への下剋上！"
+          ),
         ],
       },
     ],
