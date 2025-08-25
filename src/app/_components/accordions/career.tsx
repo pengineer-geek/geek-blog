@@ -113,6 +113,11 @@ const sections: Section[] = [
             "商社インターンに参加したお話",
             "スマホに出れなかっただけなのに"
           ),
+          postItem(
+            ["career", "diary", "job-hunting", "job-hunting-3"],
+            "本選考は地獄モードだった話",
+            "最終面接官には中身がないことがバレていた"
+          ),
         ],
       },
     ],
