@@ -108,6 +108,11 @@ const sections: Section[] = [
             "富!名声!力!を軸に就活を開始したお話",
             "人生の勝者マンを目指した男"
           ),
+          postItem(
+            ["career", "diary", "job-hunting", "job-hunting-2"],
+            "商社インターンに参加したお話",
+            "スマホに出れなかっただけなのに"
+          ),
         ],
       },
     ],
