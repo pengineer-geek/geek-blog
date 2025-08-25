@@ -99,6 +99,17 @@ const sections: Section[] = [
           ),
         ],
       },
+      {
+        key: "job-hunting",
+        title: "新卒就活編 @ 都内私立大学院(工学)",
+        posts: [
+          postItem(
+            ["career", "diary", "job-hunting", "job-hunting-1"],
+            "富!名声!力!を軸に就活を開始したお話",
+            "人生の勝者マンを目指した男"
+          ),
+        ],
+      },
     ],
   },
   {
