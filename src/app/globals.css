@@ -51,12 +51,21 @@
     color: inherit !important; /* 親preの色を使う */
   }
 
-  blockquote.quote {
+  .prose a {
+    @apply text-blue-800 underline decoration-1 hover:text-blue-600 hover:no-underline transition-colors duration-200;
+  }
+
+  .prose blockquote,
+  .prose blockquote.quote {
     background: #f9f9f9;
     border-left: 4px solid #ccc;
     margin: 0.5em 0;
     padding: 0.5em 1em;
     color: #555;
     font-style: italic;
+  }
+  
+  .prose blockquote p {
+    margin: 0;
   }
 }
