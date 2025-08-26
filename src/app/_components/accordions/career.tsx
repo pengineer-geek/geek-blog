@@ -131,16 +131,16 @@ const sections: Section[] = [
         ],
       },
       {
-        key: "geme-planner",
+        key: "game-planner",
         title: "新卒ゲームプランナー編 @ ゲーム会社(メガベンチャー)",
         posts: [
           postItem(
-            ["career", "diary", "geme-planner", "geme-planner-1"],
+            ["career", "diary", "game-planner", "game-planner-1"],
             "記念すべき人生初出社のお話",
             "飛び込んだゲーム業界で、待っていたのは…"
           ),
           postItem(
-            ["career", "diary", "geme-planner", "geme-planner-2"],
+            ["career", "diary", "game-planner", "game-planner-2"],
             "やばすぎる新卒研修3選 -理不尽All Over The World-",
             "今こそ語ろう。あの地獄のような新卒研修を"
           )
