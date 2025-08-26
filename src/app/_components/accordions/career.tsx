@@ -118,6 +118,11 @@ const sections: Section[] = [
             "本選考は地獄モードだった話",
             "最終面接官には中身がないことがバレていた"
           ),
+          postItem(
+            ["career", "diary", "job-hunting", "job-hunting-4"],
+            "追加募集は世紀末だったお話",
+            "狭き門がさらに狭まった"
+          ),
         ],
       },
     ],
