@@ -139,6 +139,11 @@ const sections: Section[] = [
             "記念すべき人生初出社のお話",
             "飛び込んだゲーム業界で、待っていたのは…"
           ),
+          postItem(
+            ["career", "diary", "geme-planner", "geme-planner-2"],
+            "やばすぎる新卒研修3選 -理不尽All Over The World-",
+            "今こそ語ろう。あの地獄のような新卒研修を"
+          )
         ],
       },
     ],
