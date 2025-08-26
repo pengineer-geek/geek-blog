@@ -130,6 +130,17 @@ const sections: Section[] = [
           )
         ],
       },
+      {
+        key: "geme-planner",
+        title: "新卒ゲームプランナー編 @ ゲーム会社(メガベンチャー)",
+        posts: [
+          postItem(
+            ["career", "diary", "geme-planner", "geme-planner-1"],
+            "記念すべき人生初出社のお話",
+            "飛び込んだゲーム業界で、待っていたのは…"
+          ),
+        ],
+      },
     ],
   },
   {
