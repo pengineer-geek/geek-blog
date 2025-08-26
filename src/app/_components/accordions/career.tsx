@@ -123,6 +123,11 @@ const sections: Section[] = [
             "追加募集は世紀末だったお話",
             "狭き門がさらに狭まった"
           ),
+          postItem(
+            ["career", "diary", "job-hunting", "job-hunting-5"],
+            "最後の求人票で奇跡が起きた話",
+            "筋肉と精神安定剤で掴み取った内定"
+          )
         ],
       },
     ],
