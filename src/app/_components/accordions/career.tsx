@@ -174,6 +174,11 @@ const sections: Section[] = [
             "育成担当者ガチャが大外れだった話",
             "パワハラ被害で人生2度目のメンタルクリニック通い"
           ),
+          postItem(
+            ["career", "diary", "game-planner", "game-planner-4"],
+            "強制幹事地獄のお話",
+            "新卒タスクという名の悪しき伝統と風習"
+          ),
         ],
       },
     ],
