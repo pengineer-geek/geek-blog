@@ -15,7 +15,7 @@ type Post = {
 type Sub = { key: string; title: React.ReactNode; posts: Post[] };
 type Section = {
   key: string;
-  title: string;
+  title: React.ReactNode;
   desc: string;
   icon: React.ReactNode;
   subs: Sub[];
@@ -37,7 +37,15 @@ function postItem(slugParts: string[], title: string, excerpt?: string): Post {
 const sections: Section[] = [
   {
     key: "diary",
-    title: "ペンジニア's Real Diary",
+    title: (
+      <>
+        <span className="text-primary">
+          <span>ペンジニア's</span>
+          <br />
+          Real Diary
+        </span>
+      </>
+    ),
     desc: "時系列に沿ったペンジニアのリアルな記録",
     icon: <IconDiary className="h-6 w-6" />,
     subs: [
@@ -185,7 +193,13 @@ const sections: Section[] = [
   },
   {
     key: "column",
-    title: "コラム",
+    title: (
+      <>
+        <span className="text-primary">
+          コラム
+        </span>
+      </>
+    ),
     desc: "キャリア形成や働き方などに関するあれこれ",
     icon: <IconColumn className="h-6 w-6" />,
     subs: [
