@@ -12,7 +12,7 @@ type Post = {
   excerpt?: string;
   thumbnail: string;
 };
-type Sub = { key: string; title: string; posts: Post[] };
+type Sub = { key: string; title: React.ReactNode; posts: Post[] };
 type Section = {
   key: string;
   title: string;
@@ -43,7 +43,12 @@ const sections: Section[] = [
     subs: [
       {
         key: "high-school",
-        title: "ハイスクール編 @ 自称進学校",
+        title: (
+          <>
+            ハイスクール編<br />
+            @ 自称進学校
+          </>
+        ),
         posts: [
           postItem(
             ["career", "diary", "high-school", "high-school-1"],
@@ -59,7 +64,12 @@ const sections: Section[] = [
       },
       {
         key: "university",
-        title: "キャンパスライフ編 @ 都内Aランク私立大学(理工学部)",
+        title: (
+          <>
+            キャンパスライフ編<br />
+            @ 都内Aランク私立大学(理工学部)
+          </>
+        ),
         posts: [
           postItem(
             ["career", "diary", "university", "university-1"],
@@ -85,7 +95,12 @@ const sections: Section[] = [
       },
       {
         key: "graduate-school",
-        title: "ブラック研究室編 @ 都内私立大学院(工学)",
+        title: (
+          <>
+            ブラック研究室編<br />
+            @ 都内私立大学院(工学)
+          </>
+        ),
         posts: [
           postItem(
             ["career", "diary", "graduate-school", "graduate-school-1"],
@@ -101,7 +116,12 @@ const sections: Section[] = [
       },
       {
         key: "job-hunting",
-        title: "新卒就活編 @ 都内私立大学院(工学)",
+        title: (
+          <>
+            新卒就活編<br />
+            @ 都内私立大学院(工学)
+          </>
+        ),
         posts: [
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-1"],
@@ -132,7 +152,12 @@ const sections: Section[] = [
       },
       {
         key: "game-planner",
-        title: "新卒ゲームプランナー編 @ ゲーム会社(メガベンチャー)",
+        title: (
+          <>
+            新卒ゲームプランナー編<br />
+            @ ゲーム会社(メガベンチャー)
+          </>
+        ),
         posts: [
           postItem(
             ["career", "diary", "game-planner", "game-planner-1"],
