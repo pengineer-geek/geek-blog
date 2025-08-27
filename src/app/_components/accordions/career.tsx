@@ -143,7 +143,12 @@ const sections: Section[] = [
             ["career", "diary", "game-planner", "game-planner-2"],
             "やばすぎる新卒研修3選 -理不尽All Over The World-",
             "今こそ語ろう。あの地獄のような新卒研修を"
-          )
+          ),
+          postItem(
+            ["career", "diary", "game-planner", "game-planner-3"],
+            "育成担当者ガチャが大外れだった話",
+            "パワハラ被害で人生2度目のメンタルクリニック通い"
+          ),
         ],
       },
     ],
