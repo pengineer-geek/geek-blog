@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { listAllPosts, PostSummary } from "@/lib/posts";
-import TagList from "@/app/_components/tags/TagList";
+import TagList from "@/app/_components/tags/tag-list";
 
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined) return [];
