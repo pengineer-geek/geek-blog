@@ -5,12 +5,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconDiary, IconColumn } from "@/app/_components/icons/index";
 import { imgUrl } from "@/lib/img";
+import TagList from "@/app/_components/tags/tag-list";
 
 type Post = {
   title: string;
   href: string;
   excerpt?: string;
   thumbnail: string;
+  tags?: string[];
 };
 type Sub = { key: string; title: React.ReactNode; posts: Post[] };
 type Section = {
@@ -24,13 +26,14 @@ type Section = {
 // TODO: ここにダイアリーの記事を追加する
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
 
-function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+function postItem(slugParts: string[], title: string, excerpt?: string, tags?: string[]): Post {
   const slug = slugParts.join("/");
   return {
     title,
     href: href(...slugParts),
     excerpt,
     thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+    tags,
   };
 }
 
@@ -61,12 +64,14 @@ const sections: Section[] = [
           postItem(
             ["career", "diary", "high-school", "high-school-1"],
             "高校生だったころの話",
-            "親に流された進路選択"
+            "親に流された進路選択",
+            ["高校", "受験", "文理選択"]
           ),
           postItem(
             ["career", "diary", "high-school", "high-school-2"],
             "紙切れ一枚で大学受験を終わらせた話",
-            "ガソリンは満タン! 行き先は不明!"
+            "ガソリンは満タン! 行き先は不明!",
+            ["高校", "受験", "指定校推薦"]
           ),
         ],
       },
@@ -82,22 +87,26 @@ const sections: Section[] = [
           postItem(
             ["career", "diary", "university", "university-1"],
             "華のキャンパスライフを謳歌していた話",
-            "サークルに全てを捧げた男"
+            "サークルに全てを捧げた男",
+            ["大学", "サークル", "受験"]
           ),
           postItem(
             ["career", "diary", "university", "university-2"],
             "サークルを辞めてさらに堕落した話",
-            "短期的快楽を追求した男"
+            "短期的快楽を追求した男",
+            ["大学", "サークル", "受験"]
           ),
           postItem(
             ["career", "diary", "university", "university-3"],
             "ようやく再起してきた話",
-            "筋肉と電気工学"
+            "筋肉と電気工学",
+            ["大学", "研究室", "筋トレ"]
           ),
           postItem(
             ["career", "diary", "university", "university-4"],
             "研究室選びで失敗した話",
-            "地獄への門を開けていた男"
+            "地獄への門を開けていた男",
+            ["大学", "研究室", "ブラック研究室"]
           ),
         ],
       },
@@ -113,12 +122,14 @@ const sections: Section[] = [
           postItem(
             ["career", "diary", "graduate-school", "graduate-school-1"],
             "教授に全てを搾取された話",
-            "驚きの黒さ! 救いのなさ!"
+            "驚きの黒さ! 救いのなさ!",
+            ["大学院", "研究室", "ブラック研究室"]
           ),
           postItem(
             ["career", "diary", "graduate-school", "graduate-school-2"],
             "教授に反撃したお話",
-            "逆襲の糸口！教授への下剋上！"
+            "逆襲の糸口！教授への下剋上！",
+            ["大学院", "研究室", "ブラック研究室"]
           ),
         ],
       },
@@ -134,27 +145,32 @@ const sections: Section[] = [
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-1"],
             "富!名声!力!を軸に就活を開始したお話",
-            "人生の勝者マンを目指した男"
+            "人生の勝者マンを目指した男",
+            ["新卒", "就活", "総合商社"]
           ),
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-2"],
             "商社インターンに参加したお話",
-            "スマホに出れなかっただけなのに"
+            "スマホに出れなかっただけなのに",
+            ["就活", "インターン", "総合商社"]
           ),
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-3"],
             "本選考は地獄モードだった話",
-            "最終面接官には中身がないことがバレていた"
+            "最終面接官には中身がないことがバレていた",
+            ["新卒", "就活", "総合商社"]
           ),
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-4"],
             "追加募集は世紀末だったお話",
-            "狭き門がさらに狭まった"
+            "狭き門がさらに狭まった",
+            ["新卒", "就活", "追加募集"]
           ),
           postItem(
             ["career", "diary", "job-hunting", "job-hunting-5"],
             "最後の求人票で奇跡が起きた話",
-            "筋肉と精神安定剤で掴み取った内定"
+            "筋肉と精神安定剤で掴み取った内定",
+            ["就活", "ベンチャー", "ゲーム業界"]
           )
         ],
       },
@@ -170,37 +186,44 @@ const sections: Section[] = [
           postItem(
             ["career", "diary", "game-planner", "game-planner-1"],
             "記念すべき人生初出社のお話",
-            "飛び込んだゲーム業界で、待っていたのは…"
+            "飛び込んだゲーム業界で、待っていたのは…",
+            ["新卒", "就活", "ゲーム業界"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-2"],
             "やばすぎる新卒研修3選 -理不尽All Over The World-",
-            "今こそ語ろう。あの地獄のような新卒研修を"
+            "今こそ語ろう。あの地獄のような新卒研修を",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-3"],
             "育成担当者ガチャが大外れだった話",
-            "パワハラ被害で人生2度目のメンタルクリニック通い"
+            "パワハラ被害で人生2度目のメンタルクリニック通い",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-4"],
             "強制幹事地獄のお話",
-            "新卒タスクという名の悪しき伝統と風習"
+            "新卒タスクという名の悪しき伝統と風習",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-5"],
             "初の大型施策担当のお話 -前編-",
-            "エイプリルフール前に嘘をつくな!"
+            "エイプリルフール前に嘘をつくな!",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-6"],
             "初の大型施策担当のお話 -後編-",
-            "意識高い系企業で意識他界"
+            "意識高い系企業で意識他界",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
           postItem(
             ["career", "diary", "game-planner", "game-planner-7"],
             "戦意喪失して退職を決意した話",
-            "新人ゲームプランナー。人生はノープラン"
+            "新人ゲームプランナー。人生はノープラン",
+            ["新卒", "ゲーム業界", "ブラック企業"]
           ),
         ],
       },
@@ -320,6 +343,9 @@ export default function AccordionCareer() {
                                       </h4>
                                       {p.excerpt && (
                                         <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
+                                      )}
+                                      {p.tags && (
+                                        <TagList tags={p.tags} size="sm" />
                                       )}
                                     </div>
                                   </Link>

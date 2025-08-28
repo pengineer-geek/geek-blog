@@ -7,6 +7,7 @@ import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import { mdxComponents, mdxOptions } from "@/app/_components/mdx/config";
 import ArticleHero from "@/app/_components/img/article-hero";
 import { imgUrl } from "@/lib/img";
+import TagList from "@/app/_components/tags/tag-list";
 
 // --- ルーティング (SSG) ---
 export async function generateStaticParams() {
@@ -61,6 +62,7 @@ export default async function PostPage(
             {new Date(date).toLocaleDateString("ja-JP")}
           </p>
         )}
+        {data.tags?.length ? <TagList tags={data.tags} size="md" /> : null}
       </header>
 
       {/* ★ heroセクション（data.heroがあれば表示） */}

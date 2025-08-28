@@ -4,12 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconDumbbell, IconUtensils, IconBed } from "@/app/_components/icons/index";
 import { imgUrl } from "@/lib/img";
+import TagList from "@/app/_components/tags/tag-list";
 
-type Post = { title: string; href: string; excerpt?: string; thumbnail: string };
-type Sub = { key: string; title: string; posts: Post[] };
+type Post = {
+  title: string;
+  href: string;
+  excerpt?: string;
+  thumbnail: string;
+  tags?: string[];
+};
+type Sub = { key: string; title: React.ReactNode; posts: Post[] };
 type Section = {
   key: string;
-  title: string;
+  title: React.ReactNode;
   desc: string;
   icon: React.ReactNode;
   subs: Sub[];
@@ -17,13 +24,14 @@ type Section = {
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
 
-function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+function postItem(slugParts: string[], title: string, excerpt?: string, tags?: string[]): Post {
   const slug = slugParts.join("/");
   return {
     title,
     href: href(...slugParts),
     excerpt,
     thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+    tags,
   };
 }
 
@@ -188,6 +196,9 @@ export default function AccordionWellness() {
                                       </h4>
                                       {p.excerpt && (
                                         <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
+                                      )}
+                                      {p.tags && (
+                                        <TagList tags={p.tags} size="sm" />
                                       )}
                                     </div>
                                   </Link>

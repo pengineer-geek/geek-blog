@@ -4,12 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons/index";
 import { imgUrl } from "@/lib/img";
+import TagList from "@/app/_components/tags/tag-list";
 
 type Post = {
   title: string;
   href: string;
   excerpt?: string;
   thumbnail: string;
+  tags?: string[];
 };
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
@@ -22,13 +24,14 @@ type Section = {
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
 
-function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+function postItem(slugParts: string[], title: string, excerpt?: string, tags?: string[]): Post {
   const slug = slugParts.join("/");
   return {
     title,
     href: href(...slugParts),
     excerpt,
     thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+    tags,
   };
 }
 
@@ -46,7 +49,8 @@ const sections: Section[] = [
           postItem(
             ["tech", "how-to-setup", "how-to-start"],
             "Vercelを使って簡単サイト開設",
-            "このサイトを立ち上げるまで"
+            "このサイトを立ち上げるまで",
+            ["vercel", "ブログ", "個人サイト"]
           ),
         ],
       },
@@ -173,6 +177,9 @@ export default function AccordionTech() {
                                       </h4>
                                       {p.excerpt && (
                                         <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
+                                      )}
+                                      {p.tags && (
+                                        <TagList tags={p.tags} size="sm" />
                                       )}
                                     </div>
                                   </Link>

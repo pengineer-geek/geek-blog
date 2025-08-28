@@ -2,15 +2,16 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { validateTags, CategoryKey } from "./tags";
 
 export type Frontmatter = {
   title: string;
   date?: string;
   updated?: string;
   tags?: string[];
+  category?: CategoryKey | string;
   excerpt?: string;
   cover?: string;      // 例: "/images/og-keyboard.jpg"
-  category?: string;   // 例: "tech"
   hero?: { file: string; alt: string };
   slug?: string;
 };
@@ -56,11 +57,27 @@ export async function getPostBySlug(slugParts: string[]): Promise<Post> {
   const raw = await fs.readFile(filePath, "utf8");
   const { content, data } = matter(raw);
 
+  const category =
+    (data.category as string | undefined) ??
+    (slugParts.length > 0 ? (slugParts[0] as string) : undefined);
+
+  const safeTags = validateTags(category as CategoryKey, data.tags);
+
   return {
     slug: slugParts,
     url: toUrl(slugParts),
     content,
-    data: (data || {}) as Frontmatter,
+    data: {
+      title: data.title,
+      date: data.date,
+      updated: data.updated,
+      tags: safeTags,
+      category: category as CategoryKey,
+      excerpt: data.excerpt,
+      cover: data.cover,
+      hero: data.hero,
+      slug: slugParts.join("/"),
+    },
   };
 }
 

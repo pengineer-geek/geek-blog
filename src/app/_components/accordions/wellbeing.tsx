@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { imgUrl } from "@/lib/img";
+import TagList from "@/app/_components/tags/tag-list";
 
 // 追加アイコン
 import {
@@ -16,6 +17,7 @@ type Post = {
   href: string;
   excerpt?: string;
   thumbnail: string;
+  tags?: string[];
 };
 type Sub = { key: string; title: string; posts: Post[] };
 type Section = {
@@ -28,13 +30,14 @@ type Section = {
 
 const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
 
-function postItem(slugParts: string[], title: string, excerpt?: string): Post {
+function postItem(slugParts: string[], title: string, excerpt?: string, tags?: string[]): Post {
   const slug = slugParts.join("/");
   return {
     title,
     href: href(...slugParts),
     excerpt,
     thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
+    tags,
   };
 }
 
@@ -163,6 +166,9 @@ export default function AccordionWellbeing() {
                                       </h4>
                                       {p.excerpt && (
                                         <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
+                                      )}
+                                      {p.tags && (
+                                        <TagList tags={p.tags} size="sm" />
                                       )}
                                     </div>
                                   </Link>
