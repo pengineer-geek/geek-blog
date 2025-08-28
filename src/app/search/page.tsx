@@ -1,7 +1,6 @@
 // src/app/search/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { listAllPosts, PostSummary } from "@/lib/posts";
 import TagList from "@/app/_components/tags/tag-list";
 import BackLink from "@/app/_components/navigation/back-link";
