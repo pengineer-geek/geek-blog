@@ -112,16 +112,11 @@ export default async function SearchPage(
               href={p.href}
               className="flex gap-3 rounded-xl border bg-white p-3 transition hover:border-primary/50 hover:bg-primary/5"
             >
-              {/* サムネ（cover があれば next/image、なければ省略でもOK） */}
-              {p.cover && (
-                <Image
+              <img
                 src={imgUrl(p.slug.join("/"), "cover.jpg")}
-                  alt={p.title}
-                  width={160}
-                  height={100}
-                  className="h-20 w-28 flex-shrink-0 rounded object-cover"
-                />
-              )}
+                alt={p.title}
+                className="h-12 w-16 flex-shrink-0 rounded object-cover"
+              />
 
               <div className="min-w-0">
                 <h3 className="font-bold text-link line-clamp-1">{p.title}</h3>
