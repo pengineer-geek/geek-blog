@@ -6,6 +6,7 @@ import { listAllPosts, PostSummary } from "@/lib/posts";
 import TagList from "@/app/_components/tags/tag-list";
 import BackLink from "@/app/_components/navigation/back-link";
 import { IconSearch } from "@/app/_components/icons";
+import { imgUrl } from "@/lib/img";
 
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined) return [];
@@ -114,7 +115,7 @@ export default async function SearchPage(
               {/* サムネ（cover があれば next/image、なければ省略でもOK） */}
               {p.cover && (
                 <Image
-                  src={p.cover}
+                src={imgUrl(p.slug.join("/"), "cover.jpg")}
                   alt={p.title}
                   width={160}
                   height={100}
