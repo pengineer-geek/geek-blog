@@ -192,6 +192,11 @@ const sections: Section[] = [
             "初の大型施策担当のお話 -前編-",
             "エイプリルフール前に嘘をつくな!"
           ),
+          postItem(
+            ["career", "diary", "game-planner", "game-planner-6"],
+            "初の大型施策担当のお話 -後編-",
+            "意識高い系企業で意識他界!"
+          ),
         ],
       },
     ],
