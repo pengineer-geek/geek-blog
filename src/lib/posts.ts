@@ -94,3 +94,44 @@ export async function getAllPosts(): Promise<Post[]> {
 
   return posts;
 }
+
+export type PostSummary = {
+  slug: string[];           // 例: ["tech","gadget","keyboard-mechanical"]
+  href: string;             // /posts/tech/gadget/keyboard-mechanical
+  title: string;
+  excerpt?: string;
+  cover?: string;
+  tags?: string[];
+  category?: string;        // 例: "tech"（slug[0]）
+  date?: string;            // 並び替えに使いたい場合
+  updated?: string;
+};
+
+// 全記事のサマリーを返す（SSG/サーバー側で使用）
+export async function listAllPosts(): Promise<PostSummary[]> {
+  const slugs = await getAllPostSlugs(); // string[][]
+  const posts = await Promise.all(
+    slugs.map(async (slug) => {
+      const p = await getPostBySlug(slug);
+
+      return {
+        slug: p.slug,
+        href: `/posts/${p.slug.join("/")}`,
+        title: p.data.title ?? p.slug.at(-1) ?? "Untitled",
+        excerpt: p.data.excerpt,
+        cover: p.data.cover,
+        tags: p.data.tags,                 // frontmatter: tags: ["..."]
+        category: p.slug[0],
+        date: p.data.date,
+        updated: p.data.updated,
+      } as PostSummary;
+    })
+  );
+
+  // 更新日→作成日で降順ソート（任意）
+  return posts.sort((a, b) => {
+    const da = a.updated ?? a.date ?? "";
+    const db = b.updated ?? b.date ?? "";
+    return (db > da ? 1 : db < da ? -1 : 0);
+  });
+}
