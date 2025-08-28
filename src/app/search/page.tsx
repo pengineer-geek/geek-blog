@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { listAllPosts, PostSummary } from "@/lib/posts";
 import TagList from "@/app/_components/tags/tag-list";
+import BackLink from "@/app/_components/navigation/back-link";
+import { IconSearch } from "@/app/_components/icons";
 
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined) return [];
@@ -58,10 +60,16 @@ export default async function SearchPage(
   });
 
   return (
-    <main className="container mx-auto max-w-4xl px-4 py-10">
+    <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
+      {/* トップへ戻る */}
+      <div className="mb-4">
+        <BackLink href="/" label="トップに戻る" />
+      </div>
+
       {/* ヘッダ */}
-      <header className="mb-6">
-        <h1 className="text-2xl font-extrabold md:text-3xl">検索</h1>
+      <div className="mb-6 flex items-center gap-3 text-primary">
+        <IconSearch className="h-7 w-7" />
+        <h1 className="text-3xl font-extrabold text-text md:text-4xl">検索</h1>
         <p className="mt-2 text-gray-600">
           {tags.length > 0 && (
             <>
