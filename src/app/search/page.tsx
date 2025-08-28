@@ -93,7 +93,7 @@ export default async function SearchPage(
             </Link>
           </div>
         )}
-      </header>
+      </div>
 
       {/* 空状態 */}
       {tags.length === 0 && !q && (
