@@ -187,6 +187,11 @@ const sections: Section[] = [
             "強制幹事地獄のお話",
             "新卒タスクという名の悪しき伝統と風習"
           ),
+          postItem(
+            ["career", "diary", "game-planner", "game-planner-5"],
+            "初の大型施策担当のお話 -前編-",
+            "エイプリルフール前に嘘をつくな!"
+          ),
         ],
       },
     ],
