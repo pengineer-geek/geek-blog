@@ -1,8 +1,11 @@
 import AccordionWellness from "@/app/_components/accordions/wellness";
 import { IconWellness } from "@/app/_components/icons/index";
 import BackLink from "@/app/_components/navigation/back-link";
+import TagPicker from "@/app/_components/tags/tag-picker";
+import { loadTagGroups } from "@/lib/tags";
 
-export default function Page() {
+export default async function Page() {
+  const groups = await loadTagGroups();
   return (
     <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
       {/* トップへ戻る */}
@@ -19,6 +22,14 @@ export default function Page() {
       <p className="mb-8 text-text/70">
         強く逞しく生きるためのウェルネス情報まとめ。
       </p>
+
+      <section className="mt-6">
+        <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
+        <TagPicker
+          groups={{ ウェルネス: groups.wellness }}
+          compact
+        />
+      </section>
 
       <AccordionWellness />
     </main>

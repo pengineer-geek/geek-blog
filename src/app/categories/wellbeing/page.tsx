@@ -1,8 +1,11 @@
 import AccordionWellbeing from "@/app/_components/accordions/wellbeing";
 import { IconWellbeing } from "@/app/_components/icons/index";
 import BackLink from "@/app/_components/navigation/back-link";
+import TagPicker from "@/app/_components/tags/tag-picker";
+import { loadTagGroups } from "@/lib/tags";
 
-export default function Page() {
+export default async function Page() {
+  const groups = await loadTagGroups();
   return (
     <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
       {/* トップへ戻る */}
@@ -20,6 +23,14 @@ export default function Page() {
       <p className="mb-8 text-text/70">
         趣味・育児・人間関係 etc. 心地よさに直結する領域を、記事にして残していきます。
       </p>
+
+      <section className="mt-6">
+        <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
+        <TagPicker
+          groups={{ ウェルビーイング: groups.wellbeing }}
+          compact
+        />
+      </section>
 
       <AccordionWellbeing />
     </main>

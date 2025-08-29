@@ -2,8 +2,11 @@
 import Link from "next/link";
 import CategoryCard from "@/app/_components/cards/category-card";
 import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin, IconX } from "@/app/_components/icons/index";
+import TagPicker from "@/app/_components/tags/tag-picker";
+import { loadTagGroups } from "@/lib/tags";
 
-export default function Page() {
+export default async function Page() {
+  const groups = await loadTagGroups();
   return (
     <main>
       {/* About this site */}
@@ -55,6 +58,23 @@ export default function Page() {
       {/* Contents */}
       <section className="container py-10 md:py-14">
         <h3 className="text-xl font-extrabold text-primary">Contents</h3>
+
+        {/* タグから探す */}
+        <section className="container py-10 md:py-14">
+          <h2 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
+            タグから探す
+          </h2>
+
+          {/* 「キャリア / テック / …」の見出しでグループ化してチップを表示 */}
+          <TagPicker
+            groups={{
+              キャリア: groups.career,
+              テック: groups.tech,
+              ウェルネス: groups.wellness,
+              ウェルビーイング: groups.wellbeing,
+            }}
+          />
+        </section>
         {/* PC 2x2 / SP 縦 */}
         <div className="mt-4 grid gap-6 md:grid-cols-2">
           <CategoryCard
