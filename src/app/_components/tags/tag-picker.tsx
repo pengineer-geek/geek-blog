@@ -112,7 +112,7 @@ export default function TagPicker({
             <button
               type="button"
               onClick={clear}
-              className={`inline-flex items-center gap-2 rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm  bg-white text-black hover:bg-gray-50`}
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 text-sm bg-white text-black hover:bg-gray-50`}
             >
               クリア
             </button>
