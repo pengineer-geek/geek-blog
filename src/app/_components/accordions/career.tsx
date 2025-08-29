@@ -56,6 +56,7 @@ const SUB_META: Record<string, { title: React.ReactNode }> = {
   "graduate-school": { title: <>ブラック研究室編<br />@ 都内私立大学院(工学)</> },
   "job-hunting": { title: <>新卒就活編<br />@ 都内私立大学院(工学)</> },
   "game-planner": { title: <>新卒ゲームプランナー編<br />@ ゲーム会社(メガベンチャー)</> },
+  "no-job": { title: <>無職編<br />@ プログラミングスクール</> },
 };
 
 const href = (slug: string) => `/posts/${slug}`;
