@@ -13,17 +13,15 @@ export default async function Page() {
         <BackLink href="/" label="トップに戻る" />
       </div>
 
-      <div className="mb-6 flex items-center gap-3">
-        <span className="text-primary">
-          <IconWellness className="h-7 w-7" />
-        </span>
-        <h1 className="text-4xl font-extrabold text-text md:text-5xl">ウェルネス</h1>
+      <div className="mb-6 flex items-center gap-3 text-primary">
+        <IconWellness className="h-7 w-7" />
+        <h1 className="text-3xl font-extrabold text-text md:text-4xl">ウェルネス</h1>
       </div>
-      <p className="mb-8 text-text/70">
+      <p className="mb-6 text-text/80">
         強く逞しく生きるためのウェルネス情報まとめ。
       </p>
 
-      <section className="mb-6 mt-6">
+      <section className="rounded-xl bg-gray-50 p-4 md:p-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ ウェルネス: groups.wellness }}
