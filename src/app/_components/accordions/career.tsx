@@ -4,17 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconDiary, IconColumn } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
+
+// 生成物（型付き）
 import postIndex from "generated/post-index";
+import type { SectionIndex, SubIndex, PostMeta } from "generated/post-index";
 
 const TOP_PREFIX = "career/";
 
+// UI用の型
 type Post = {
   title: string;
   slug: string;
   excerpt?: string;
   tags?: string[];
 };
-
 type Sub = { key: string; title: React.ReactNode; posts: Post[] };
 type Section = {
   key: string;
@@ -24,7 +27,7 @@ type Section = {
   subs: Sub[];
 };
 
-// タイトルやdescはキー→表示名の辞書で定義（自由に編集可能）
+// セクション見出し
 const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon: React.ReactNode }> = {
   diary: {
     title: (
@@ -46,6 +49,7 @@ const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon:
   },
 };
 
+// サブ見出し
 const SUB_META: Record<string, { title: React.ReactNode }> = {
   "high-school": { title: <>ハイスクール編<br />@ 自称進学校</> },
   "university": { title: <>キャンパスライフ編<br />@ 都内Aランク私立大学(理工学部)</> },
@@ -60,27 +64,29 @@ export default function AccordionCareer() {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [openSub, setOpenSub] = useState<string | null>(null);
 
-  const filteredSections = (postIndex.sections as any[])
-    .map((sec) => ({
-      ...sec,
+  // ① 生成物の型を明示
+  const sourceSections: SectionIndex[] = postIndex.sections;
+
+  // ② career/ だけを残す（型を維持）
+  const filteredSections: SectionIndex[] = sourceSections
+    .map<SectionIndex>((sec) => ({
+      key: sec.key,
       subs: sec.subs
-        .map((sub: any) => ({
-          ...sub,
-          posts: sub.posts.filter((p: any) => p.slug.startsWith(TOP_PREFIX)),
+        .map<SubIndex>((sub) => ({
+          key: sub.key,
+          posts: sub.posts.filter((p: PostMeta) => p.slug.startsWith(TOP_PREFIX)) as PostMeta[],
         }))
-        // ② 空になった sub を除外
-        .filter((sub: any) => sub.posts.length > 0),
+        .filter((sub) => sub.posts.length > 0),
     }))
-    // ③ 空になった section を除外
     .filter((sec) => sec.subs.length > 0);
 
-  // 生成された index.json を Section/Sub 構造に変換しつつ、表示用メタを合成
-  const sections = filteredSections.map((sec) => {
-    const meta = SECTION_META[sec.key] ?? { title: sec.key, desc: "", icon: null };
-    const subs = sec.subs.map((sub: any) => ({
+  // ③ UI用構造へ変換
+  const sections: Section[] = filteredSections.map((sec) => {
+    const meta = SECTION_META[sec.key] ?? { title: sec.key, desc: "", icon: null as unknown as React.ReactNode };
+    const subs: Sub[] = sec.subs.map((sub) => ({
       key: sub.key,
       title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
-      posts: sub.posts.map((p: any) => ({
+      posts: sub.posts.map<Post>((p) => ({
         title: p.title,
         slug: p.slug,
         excerpt: p.excerpt,
@@ -106,6 +112,7 @@ export default function AccordionCareer() {
         const isOpen = openSection === sec.key;
         return (
           <div key={sec.key} className="rounded-2xl border border-border bg-white shadow-sm">
+            {/* 大項目ヘッダ */}
             <button
               onClick={() => toggleSection(sec.key)}
               className="flex w-full items-center justify-between p-6 text-left"
@@ -121,6 +128,7 @@ export default function AccordionCareer() {
               <span className="ml-4 text-primary">{isOpen ? "▲" : "▼"}</span>
             </button>
 
+            {/* 中項目リスト */}
             {isOpen && (
               <div className="px-6 pb-6">
                 <ul className="space-y-2">
@@ -129,6 +137,7 @@ export default function AccordionCareer() {
                     const subOpen = openSub === subKey;
                     return (
                       <li key={sub.key} className="rounded-xl border border-border/70 bg-white">
+                        {/* 中項目ヘッダ */}
                         <button
                           onClick={() => toggleSub(sec.key, sub.key)}
                           className="flex w-full items-center justify-between rounded-xl p-3 text-left hover:bg-primary/5"
@@ -138,6 +147,7 @@ export default function AccordionCareer() {
                           <span className="text-primary">{subOpen ? "▲" : "▼"}</span>
                         </button>
 
+                        {/* 記事一覧 */}
                         {subOpen && (
                           <div className="px-4 pb-3">
                             <ul className="space-y-2">
@@ -162,7 +172,6 @@ export default function AccordionCareer() {
                                         {p.excerpt && (
                                           <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
                                         )}
-                                        {/* TagListはお好みで */}
                                       </div>
                                     </Link>
                                   </li>
