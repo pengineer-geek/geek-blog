@@ -24,35 +24,42 @@ function Chip({
   );
 }
 
-/**
- * タグをチップで選んで /search?tag=... に飛ばすピッカー。
- * - groups: { 見出し: [タグ, ...] } の形
- * - initial: 初期選択済みのタグ（任意）
- * - align: left | center でボタンの整列方法を選択（既定 left）
- * - compact: true だとボタンを小さめに
- * - 追加: 各見出しにアコーディオン（デフォルト収納）
- */
 export default function TagPicker({
   groups,
   initial = [],
   align = "left",
   compact = false,
 }: {
-  groups: Groups;
-  initial?: string[];
+  groups: Groups;       // { "キャリア": [...], "テック": [...], ... }
+  initial?: string[];   // 初期選択タグ
   align?: "left" | "center";
   compact?: boolean;
 }) {
   const [selected, setSelected] = useState<string[]>(initial);
 
-  // ▼ 追加: 各グループの開閉状態（デフォルト: 閉じる）
+  // 各グループの開閉状態（デフォルト: 閉じる）
   const [open, setOpen] = useState<Record<string, boolean>>(() => {
     const o: Record<string, boolean> = {};
     for (const key of Object.keys(groups)) o[key] = false;
     return o;
   });
+
   const toggleOpen = (key: string) =>
     setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const openAll = () =>
+    setOpen((prev) => {
+      const o: Record<string, boolean> = {};
+      for (const k of Object.keys(prev)) o[k] = true;
+      return o;
+    });
+
+  const closeAll = () =>
+    setOpen((prev) => {
+      const o: Record<string, boolean> = {};
+      for (const k of Object.keys(prev)) o[k] = false;
+      return o;
+    });
 
   const toggle = (t: string) =>
     setSelected((prev) =>
@@ -69,7 +76,7 @@ export default function TagPicker({
 
   return (
     <div className="space-y-5">
-      {/* 選択状態 */}
+      {/* 選択状態 & コントロール */}
       <div className="flex items-center gap-3">
         <div className="text-sm text-gray-600">
           選択中: {selected.length ? (
@@ -77,6 +84,22 @@ export default function TagPicker({
           ) : "なし"}
         </div>
         <div className={`ml-auto flex items-center gap-2 ${align === "center" ? "mx-auto" : ""}`}>
+          {/* すべて展開・収納ボタン（任意） */}
+          <button
+            type="button"
+            onClick={openAll}
+            className={`hidden md:inline-flex items-center rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
+          >
+            すべて展開
+          </button>
+          <button
+            type="button"
+            onClick={closeAll}
+            className={`hidden md:inline-flex items-center rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
+          >
+            すべて収納
+          </button>
+
           <Link
             href={query}
             className={`inline-flex items-center gap-2 rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
@@ -95,38 +118,52 @@ export default function TagPicker({
         </div>
       </div>
 
-      {/* グループごとのチップ（アコーディオン） */}
+      {/* 各グループ（アコーディオン） */}
       <div className="space-y-4">
-        {Object.entries(groups).map(([heading, tags]) => (
-          <section key={heading} className="rounded-xl border bg-white">
-            {/* 見出し行（開閉ボタン） */}
-            <button
-              type="button"
-              onClick={() => toggleOpen(heading)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left"
-              aria-expanded={open[heading]}
-            >
-              <div className="text-base font-bold text-text">{heading}</div>
-              <span className="text-primary">{open[heading] ? "▲" : "▼"}</span>
-            </button>
+        {Object.entries(groups).map(([heading, tags]) => {
+          const isOpen = open[heading];
+          return (
+            <section key={heading} className="rounded-xl border bg-white">
+              {/* 見出し（開閉トグル） */}
+              <button
+                type="button"
+                onClick={() => toggleOpen(heading)}
+                className="flex w-full items-center justify-between px-4 py-3 text-left"
+                aria-expanded={isOpen}
+              >
+                <div className="text-base font-bold text-text">{heading}</div>
+                {/* 統一アイコン（chevron） */}
+                <svg
+                  width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  className="text-primary"
+                >
+                  {isOpen ? (
+                    <path d="M18 15l-6-6-6 6" /> // ▲
+                  ) : (
+                    <path d="M6 9l6 6 6-6" />   // ▼
+                  )}
+                </svg>
+              </button>
 
-            {/* 中身 */}
-            {open[heading] && (
-              <div className="px-4 pb-4">
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((t) => (
-                    <Chip
-                      key={t}
-                      label={t}
-                      selected={selected.includes(t)}
-                      onToggle={() => toggle(t)}
-                    />
-                  ))}
+              {/* 中身 */}
+              {isOpen && (
+                <div className="px-4 pb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((t) => (
+                      <Chip
+                        key={t}
+                        label={t}
+                        selected={selected.includes(t)}
+                        onToggle={() => toggle(t)}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </section>
-        ))}
+              )}
+            </section>
+          );
+        })}
       </div>
     </div>
   );
