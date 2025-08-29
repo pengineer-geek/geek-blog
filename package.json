@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "predev": "node scripts/build-post-index.mjs",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "node scripts/build-post-index.mjs && next build",
+    "predev": "node scripts/build-post-index.mjs",
     "start": "next start"
   },
   "dependencies": {
