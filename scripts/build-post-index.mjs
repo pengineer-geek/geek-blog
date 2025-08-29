@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
-const CONTENT_GLOBS = ["content/posts/**/*.mdx"]; // あなたの構成に合わせて
+const CONTENT_GLOBS = ["content/**/*.mdx"];
 const OUT_DIR = path.join(process.cwd(), "generated");
 const OUT_FILE = path.join(OUT_DIR, "post-index.ts");
 
