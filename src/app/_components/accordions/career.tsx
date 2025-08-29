@@ -6,6 +6,8 @@ import { IconDiary, IconColumn } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
 import postIndex from "generated/post-index";
 
+const TOP_PREFIX = "career/";
+
 type Post = {
   title: string;
   slug: string;
@@ -46,7 +48,7 @@ const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon:
 
 const SUB_META: Record<string, { title: React.ReactNode }> = {
   "high-school": { title: <>ハイスクール編<br />@ 自称進学校</> },
-  university: { title: <>キャンパスライフ編<br />@ 都内Aランク私立大学(理工学部)</> },
+  "university": { title: <>キャンパスライフ編<br />@ 都内Aランク私立大学(理工学部)</> },
   "graduate-school": { title: <>ブラック研究室編<br />@ 都内私立大学院(工学)</> },
   "job-hunting": { title: <>新卒就活編<br />@ 都内私立大学院(工学)</> },
   "game-planner": { title: <>新卒ゲームプランナー編<br />@ ゲーム会社(メガベンチャー)</> },
@@ -58,14 +60,24 @@ export default function AccordionCareer() {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [openSub, setOpenSub] = useState<string | null>(null);
 
+  const filteredSections = (postIndex.sections as any[])
+    .map((sec) => ({
+      ...sec,
+      subs: sec.subs
+        .map((sub: any) => ({
+          ...sub,
+          posts: sub.posts.filter((p: any) => p.slug.startsWith(TOP_PREFIX)),
+        }))
+        // ② 空になった sub を除外
+        .filter((sub: any) => sub.posts.length > 0),
+    }))
+    // ③ 空になった section を除外
+    .filter((sec) => sec.subs.length > 0);
+
   // 生成された index.json を Section/Sub 構造に変換しつつ、表示用メタを合成
-  const sections: Section[] = (postIndex.sections as any[]).map((sec) => {
-    const meta = SECTION_META[sec.key] ?? {
-      title: sec.key,
-      desc: "",
-      icon: null,
-    };
-    const subs: Sub[] = sec.subs.map((sub: any) => ({
+  const sections = filteredSections.map((sec) => {
+    const meta = SECTION_META[sec.key] ?? { title: sec.key, desc: "", icon: null };
+    const subs = sec.subs.map((sub: any) => ({
       key: sub.key,
       title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
       posts: sub.posts.map((p: any) => ({
