@@ -88,29 +88,31 @@ export default function TagPicker({
           <button
             type="button"
             onClick={openAll}
-            className={`hidden md:inline-flex items-center rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
+            className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
           >
             すべて展開
           </button>
           <button
             type="button"
             onClick={closeAll}
-            className={`hidden md:inline-flex items-center rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
+            className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
           >
             すべて収納
           </button>
 
-          <Link
-            href={query}
-            className={`inline-flex items-center gap-2 rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
-          >
-            検索する
-          </Link>
+          {selected.length > 0 && (
+            <Link
+              href={query}
+              className="rounded-lg px-4 py-2 text-sm font-bold bg-primary text-white hover:bg-primary/90"
+            >
+              検索
+            </Link>
+          )}
           {selected.length > 0 && (
             <button
               type="button"
               onClick={clear}
-              className={`inline-flex items-center gap-2 rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm hover:bg-gray-50`}
+              className={`inline-flex items-center gap-2 rounded-lg border px-3 ${compact ? "py-1" : "py-2"} text-sm  bg-white text-black hover:bg-gray-50`}
             >
               クリア
             </button>
