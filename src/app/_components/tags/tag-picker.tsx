@@ -30,6 +30,7 @@ function Chip({
  * - initial: 初期選択済みのタグ（任意）
  * - align: left | center でボタンの整列方法を選択（既定 left）
  * - compact: true だとボタンを小さめに
+ * - 追加: 各見出しにアコーディオン（デフォルト収納）
  */
 export default function TagPicker({
   groups,
@@ -43,6 +44,15 @@ export default function TagPicker({
   compact?: boolean;
 }) {
   const [selected, setSelected] = useState<string[]>(initial);
+
+  // ▼ 追加: 各グループの開閉状態（デフォルト: 閉じる）
+  const [open, setOpen] = useState<Record<string, boolean>>(() => {
+    const o: Record<string, boolean> = {};
+    for (const key of Object.keys(groups)) o[key] = false;
+    return o;
+  });
+  const toggleOpen = (key: string) =>
+    setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
 
   const toggle = (t: string) =>
     setSelected((prev) =>
@@ -85,22 +95,37 @@ export default function TagPicker({
         </div>
       </div>
 
-      {/* グループごとのチップ */}
-      <div className="space-y-6">
+      {/* グループごとのチップ（アコーディオン） */}
+      <div className="space-y-4">
         {Object.entries(groups).map(([heading, tags]) => (
-          <div key={heading} className="rounded-xl border bg-white p-4">
-            <div className="mb-3 text-base font-bold text-text">{heading}</div>
-            <div className="flex flex-wrap gap-2">
-              {tags.map((t) => (
-                <Chip
-                  key={t}
-                  label={t}
-                  selected={selected.includes(t)}
-                  onToggle={() => toggle(t)}
-                />
-              ))}
-            </div>
-          </div>
+          <section key={heading} className="rounded-xl border bg-white">
+            {/* 見出し行（開閉ボタン） */}
+            <button
+              type="button"
+              onClick={() => toggleOpen(heading)}
+              className="flex w-full items-center justify-between px-4 py-3 text-left"
+              aria-expanded={open[heading]}
+            >
+              <div className="text-base font-bold text-text">{heading}</div>
+              <span className="text-primary">{open[heading] ? "▲" : "▼"}</span>
+            </button>
+
+            {/* 中身 */}
+            {open[heading] && (
+              <div className="px-4 pb-4">
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((t) => (
+                    <Chip
+                      key={t}
+                      label={t}
+                      selected={selected.includes(t)}
+                      onToggle={() => toggle(t)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
         ))}
       </div>
     </div>

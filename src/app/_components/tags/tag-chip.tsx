@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function TagChip({
   tag,
-  href = `/search?tag=${encodeURIComponent(tag)}`, // 将来の検索用リンク
+  href = `/search?tag=${encodeURIComponent(tag)}`,
   size = "md",
 }: {
   tag: string;
