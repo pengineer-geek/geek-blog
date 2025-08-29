@@ -61,7 +61,7 @@ export async function getPostBySlug(slugParts: string[]): Promise<Post> {
     (data.category as string | undefined) ??
     (slugParts.length > 0 ? (slugParts[0] as string) : undefined);
 
-  const safeTags = validateTags(category as CategoryKey, data.tags);
+  const safeTags = await validateTags(category as CategoryKey, data.tags)
 
   return {
     slug: slugParts,
