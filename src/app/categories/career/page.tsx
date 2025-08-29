@@ -23,7 +23,7 @@ export default async function CareerPage() {
         実体験ダイアリーや、仕事・キャリア形成に関するコラムなど。
       </p>
 
-      <section className="rounded-xl bg-gray-50 p-4 md:p-6">
+      <section className="rounded-xl bg-gray-100  mb-6 p-4 md:p-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ キャリア: groups.career }}
