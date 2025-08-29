@@ -6,85 +6,86 @@ import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons/index"
 import { imgUrl } from "@/lib/img";
 import TagList from "@/app/_components/tags/tag-list";
 
-type Post = {
-  title: string;
-  href: string;
-  excerpt?: string;
-  thumbnail: string;
-  tags?: string[];
-};
-type Sub = { key: string; title: string; posts: Post[] };
-type Section = {
-  key: string;
-  title: string;
-  desc: string;
-  icon: React.ReactNode;
-  subs: Sub[];
-};
+// 生成物（型付き）
+import postIndex from "generated/post-index";
+import type { SectionIndex, SubIndex, PostMeta } from "generated/post-index";
 
-const href = (...slug: string[]) => `/posts/${slug.join("/")}`;
+const TOP_PREFIX = "tech/";
 
-function postItem(slugParts: string[], title: string, excerpt?: string, tags?: string[]): Post {
-  const slug = slugParts.join("/");
-  return {
-    title,
-    href: href(...slugParts),
-    excerpt,
-    thumbnail: imgUrl(slug, "cover.jpg"), // ← ここでR2 URLを生成
-    tags,
-  };
-}
+// UI用の型
+type Post = { title: string; slug: string; excerpt?: string; tags?: string[] };
+type Sub  = { key: string; title: React.ReactNode; posts: Post[] };
+type Section = { key: string; title: React.ReactNode; desc: string; icon: React.ReactNode; subs: Sub[] };
 
-const sections: Section[] = [
-  {
-    key: "blog",
+// セクションの表示名/説明/アイコン（未定義キーはフォールバック）
+const SECTION_META: Record<
+  string,
+  { title: React.ReactNode; desc: string; icon: React.ReactNode }
+> = {
+  // 例: 記事の frontmatter.sectionKey が "how-to-setup"
+  "how-to-setup": {
     title: "個人ブログ開設・運営",
     desc: "本サイトを例に開設から運用まで",
     icon: <IconBlog className="h-6 w-6" />,
-    subs: [
-      {
-        key: "how-to-setup",
-        title: "Vercelを使って簡単サイト開設",
-        posts: [
-          postItem(
-            ["tech", "how-to-setup", "how-to-start"],
-            "Vercelを使って簡単サイト開設",
-            "このサイトを立ち上げるまで",
-            ["vercel", "ブログ", "個人サイト"]
-          ),
-        ],
-      },
-    ],
   },
-  {
-    key: "tech-intro",
+  "tech-intro": {
     title: "技術紹介",
     desc: "日々の開発で使う技術のメモや紹介",
     icon: <IconWrench className="h-6 w-6" />,
-    subs: [
-    ],
   },
-  {
-    key: "tech-intro",
-    title: "技術紹介",
-    desc: "日々の開発で使う技術のメモや紹介",
-    icon: <IconWrench className="h-6 w-6" />,
-    subs: [
-    ],
-  },
-  {
-    key: "gadget",
+  "gadget": {
     title: "ガジェット",
     desc: "気になるデバイスやツールの紹介",
     icon: <IconGadget className="h-6 w-6" />,
-    subs: [
-    ],
   },
-];
+};
+
+// サブカテゴリーの表示名（未定義はキー表示）
+const SUB_META: Record<string, { title: React.ReactNode }> = {
+  "how-to-start": { title: "はじめてのセットアップ" },
+};
+
+const href = (slug: string) => `/posts/${slug}`;
 
 export default function AccordionTech() {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [openSub, setOpenSub] = useState<string | null>(null);
+
+  // ① 生成物の型を明示
+  const sourceSections: SectionIndex[] = postIndex.sections;
+
+  // ② tech/ だけを残す（型を維持）
+  const filteredSections: SectionIndex[] = sourceSections
+    .map<SectionIndex>((sec) => ({
+      key: sec.key,
+      subs: sec.subs
+        .map<SubIndex>((sub) => ({
+          key: sub.key,
+          posts: sub.posts.filter((p: PostMeta) => p.slug.startsWith(TOP_PREFIX)) as PostMeta[],
+        }))
+        .filter((sub) => sub.posts.length > 0),
+    }))
+    .filter((sec) => sec.subs.length > 0);
+
+  // ③ UI用構造へ変換
+  const sections: Section[] = filteredSections.map((sec) => {
+    const meta = SECTION_META[sec.key] ?? {
+      title: sec.key,
+      desc: "",
+      icon: <IconWrench className="h-6 w-6" />, // デフォはレンチ
+    };
+    const subs: Sub[] = sec.subs.map((sub) => ({
+      key: sub.key,
+      title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
+      posts: sub.posts.map<Post>((p) => ({
+        title: p.title,
+        slug: p.slug,
+        excerpt: p.excerpt,
+        tags: p.tags,
+      })),
+    }));
+    return { key: sec.key, title: meta.title, desc: meta.desc, icon: meta.icon, subs };
+  });
 
   const toggleSection = (key: string) => {
     setOpenSection((prev) => (prev === key ? null : key));
@@ -101,10 +102,7 @@ export default function AccordionTech() {
       {sections.map((sec) => {
         const isOpen = openSection === sec.key;
         return (
-          <div
-            key={sec.key}
-            className="rounded-2xl border border-border bg-white shadow-sm"
-          >
+          <div key={sec.key} className="rounded-2xl border border-border bg-white shadow-sm">
             {/* 大項目ヘッダ */}
             <button
               onClick={() => toggleSection(sec.key)}
@@ -114,9 +112,7 @@ export default function AccordionTech() {
               <div className="flex items-center gap-4">
                 <div className="text-primary">{sec.icon}</div>
                 <div>
-                  <h3 className="text-xl font-extrabold text-text">
-                    {sec.title}
-                  </h3>
+                  <h3 className="text-xl font-extrabold text-text">{sec.title}</h3>
                   <p className="text-text/70">{sec.desc}</p>
                 </div>
               </div>
@@ -131,60 +127,48 @@ export default function AccordionTech() {
                     const subKey = `${sec.key}:${sub.key}`;
                     const subOpen = openSub === subKey;
                     return (
-                      <li
-                        key={sub.key}
-                        className="rounded-xl border border-border/70 bg-white"
-                      >
+                      <li key={sub.key} className="rounded-xl border border-border/70 bg-white">
                         {/* 中項目ヘッダ */}
                         <button
                           onClick={() => toggleSub(sec.key, sub.key)}
                           className="flex w-full items-center justify-between rounded-xl p-3 text-left hover:bg-primary/5"
                           aria-expanded={subOpen}
                         >
-                          <span className="font-medium text-text">
-                            {sub.title}
-                          </span>
-                          <span className="text-primary">
-                            {subOpen ? "▲" : "▼"}
-                          </span>
+                          <span className="font-medium text-text">{sub.title}</span>
+                          <span className="text-primary">{subOpen ? "▲" : "▼"}</span>
                         </button>
 
                         {/* 記事一覧 */}
                         {subOpen && (
                           <div className="px-4 pb-3">
                             <ul className="space-y-2">
-                              {sub.posts.map((p, i) => (
-                                <li key={i}>
-                                  <Link
-                                    href={p.href}
-                                    prefetch={false}
-                                    className="
-                                      flex gap-3 items-start
-                                      rounded-lg border border-gray-200 bg-white
-                                      px-3 py-2
-                                      hover:bg-primary/5 hover:border-primary/50
-                                      transition
-                                    "
-                                  >
-                                    <img
-                                      src={p.thumbnail}
-                                      alt={p.title}
-                                      className="h-12 w-16 flex-shrink-0 rounded object-cover"
-                                    />
-                                    <div className="min-w-0">
-                                      <h4 className="font-bold text-link group-hover:text-primary line-clamp-1">
-                                        {p.title}
-                                      </h4>
-                                      {p.excerpt && (
-                                        <p className="mt-0.5 text-xs text-gray-600 line-clamp-2">{p.excerpt}</p>
-                                      )}
-                                      {p.tags && (
-                                        <TagList tags={p.tags} size="sm" />
-                                      )}
-                                    </div>
-                                  </Link>
-                                </li>
-                              ))}
+                              {sub.posts.map((p, i) => {
+                                const thumb = imgUrl(p.slug, "cover.jpg");
+                                return (
+                                  <li key={i}>
+                                    <Link
+                                      href={href(p.slug)}
+                                      prefetch={false}
+                                      className="group flex items-start gap-3 rounded-lg border border-gray-200 bg-white px-3 py-2 transition hover:border-primary/50 hover:bg-primary/5"
+                                    >
+                                      <img
+                                        src={thumb}
+                                        alt={p.title}
+                                        className="h-12 w-16 flex-shrink-0 rounded object-cover"
+                                      />
+                                      <div className="min-w-0">
+                                        <h4 className="line-clamp-1 font-bold text-link group-hover:text-primary">
+                                          {p.title}
+                                        </h4>
+                                        {p.excerpt && (
+                                          <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
+                                        )}
+                                        {p.tags && <TagList tags={p.tags} size="sm" />}
+                                      </div>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         )}
