@@ -23,9 +23,7 @@ export default async function CareerPage() {
         実体験ダイアリーや、仕事・キャリア形成に関するコラムなど。
       </p>
 
-      const groups = await loadTagGroups();
-
-      <section className="mt-6">
+      <section className="mb-6 mt-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ キャリア: groups.career }}

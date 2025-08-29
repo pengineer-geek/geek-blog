@@ -23,7 +23,7 @@ export default async function Page() {
         強く逞しく生きるためのウェルネス情報まとめ。
       </p>
 
-      <section className="mt-6">
+      <section className="mb-6 mt-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ ウェルネス: groups.wellness }}

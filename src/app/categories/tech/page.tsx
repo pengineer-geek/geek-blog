@@ -24,7 +24,7 @@ export default async function Page() {
         個人ブログ運営や技術の紹介など、開発の実践知まとめ。
       </p>
 
-      <section className="mt-6">
+      <section className="mb-6 mt-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ テック: groups.tech }}

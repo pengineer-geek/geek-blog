@@ -24,7 +24,7 @@ export default async function Page() {
         趣味・育児・人間関係 etc. 心地よさに直結する領域を、記事にして残していきます。
       </p>
 
-      <section className="mt-6">
+      <section className="mb-6 mt-6">
         <h2 className="mb-3 text-xl font-bold text-text">タグで絞り込む</h2>
         <TagPicker
           groups={{ ウェルビーイング: groups.wellbeing }}
