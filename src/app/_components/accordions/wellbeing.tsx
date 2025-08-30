@@ -71,9 +71,10 @@ export default function AccordionWellbeing() {
     }))
     .filter((sec) => sec.subs.length > 0);
 
-  // ③ UI用構造へ変換
+  // ③ UI用構造へ変換（キャリア版と同じ構造 & TagListの使い方に合わせる）
   const sections: Section[] = filteredSections.map((sec) => {
-    const meta = SECTION_META[sec.key] ?? { title: sec.key, desc: "", icon: <IconHeartHandshake className="h-6 w-6" /> };
+    const meta =
+      SECTION_META[sec.key] ?? ({ title: sec.key, desc: "", icon: <IconHeartHandshake className="h-6 w-6" /> });
     const subs: Sub[] = sec.subs.map((sub) => ({
       key: sub.key,
       title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
@@ -84,6 +85,7 @@ export default function AccordionWellbeing() {
         tags: p.tags,
       })),
     }));
+
     return { key: sec.key, title: meta.title, desc: meta.desc, icon: meta.icon, subs };
   });
 

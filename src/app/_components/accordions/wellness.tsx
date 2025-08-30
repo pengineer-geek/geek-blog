@@ -10,7 +10,7 @@ import { IconDumbbell, IconUtensils, IconBed } from "@/app/_components/icons/ind
 import postIndex from "generated/post-index";
 import type { SectionIndex, SubIndex, PostMeta } from "generated/post-index";
 
-const TOP_PREFIX = "wellness/";
+const TOP_PREFIX = "wellbeing/";
 
 // UI用の型
 type Post = { title: string; slug: string; excerpt?: string; tags?: string[] };

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons/index";
+import { IconBlog, IconWrench, IconGadget } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
 import TagList from "@/app/_components/tags/tag-list";
 
@@ -13,16 +13,23 @@ import type { SectionIndex, SubIndex, PostMeta } from "generated/post-index";
 const TOP_PREFIX = "tech/";
 
 // UI用の型
-type Post = { title: string; slug: string; excerpt?: string; tags?: string[] };
-type Sub  = { key: string; title: React.ReactNode; posts: Post[] };
-type Section = { key: string; title: React.ReactNode; desc: string; icon: React.ReactNode; subs: Sub[] };
+type Post = {
+  title: string;
+  slug: string;
+  excerpt?: string;
+  tags?: string[];
+};
+type Sub = { key: string; title: React.ReactNode; posts: Post[] };
+type Section = {
+  key: string;
+  title: React.ReactNode;
+  desc: string;
+  icon: React.ReactNode;
+  subs: Sub[];
+};
 
-// セクションの表示名/説明/アイコン（未定義キーはフォールバック）
-const SECTION_META: Record<
-  string,
-  { title: React.ReactNode; desc: string; icon: React.ReactNode }
-> = {
-  // 例: 記事の frontmatter.sectionKey が "how-to-setup"
+// セクション見出し（sectionKey → 表示）
+const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon: React.ReactNode }> = {
   "how-to-setup": {
     title: "個人ブログ開設・運営",
     desc: "本サイトを例に開設から運用まで",
@@ -33,14 +40,14 @@ const SECTION_META: Record<
     desc: "日々の開発で使う技術のメモや紹介",
     icon: <IconWrench className="h-6 w-6" />,
   },
-  "gadget": {
+  gadget: {
     title: "ガジェット",
     desc: "気になるデバイスやツールの紹介",
     icon: <IconGadget className="h-6 w-6" />,
   },
 };
 
-// サブカテゴリーの表示名（未定義はキー表示）
+// サブ見出し（subKey → 表示）
 const SUB_META: Record<string, { title: React.ReactNode }> = {
   "how-to-start": { title: "はじめてのセットアップ" },
 };
@@ -67,13 +74,15 @@ export default function AccordionTech() {
     }))
     .filter((sec) => sec.subs.length > 0);
 
-  // ③ UI用構造へ変換
+  // ③ UI用構造へ変換（キャリア版と同じ構造 & TagListの使い方に合わせる）
   const sections: Section[] = filteredSections.map((sec) => {
-    const meta = SECTION_META[sec.key] ?? {
-      title: sec.key,
-      desc: "",
-      icon: <IconWrench className="h-6 w-6" />, // デフォはレンチ
-    };
+    const meta =
+      SECTION_META[sec.key] ?? ({ title: sec.key, desc: "", icon: null } as unknown as {
+        title: React.ReactNode;
+        desc: string;
+        icon: React.ReactNode;
+      });
+
     const subs: Sub[] = sec.subs.map((sub) => ({
       key: sub.key,
       title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
@@ -84,6 +93,7 @@ export default function AccordionTech() {
         tags: p.tags,
       })),
     }));
+
     return { key: sec.key, title: meta.title, desc: meta.desc, icon: meta.icon, subs };
   });
 
@@ -163,7 +173,7 @@ export default function AccordionTech() {
                                         {p.excerpt && (
                                           <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
                                         )}
-                                        {p.tags && <TagList tags={p.tags} size="sm" />}
+                                        <TagList tags={p.tags} className="mt-2" size="sm" />
                                       </div>
                                     </Link>
                                   </li>
