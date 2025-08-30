@@ -85,37 +85,38 @@ export default function TagPicker({
         </div>
         <div className={`ml-auto flex items-center gap-2 ${align === "center" ? "mx-auto" : ""}`}>
           {/* すべて展開・収納ボタン（任意） */}
-          <button
-            type="button"
-            onClick={openAll}
-            className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
-          >
-            すべて展開
-          </button>
-          <button
-            type="button"
-            onClick={closeAll}
-            className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
-          >
-            すべて収納
-          </button>
-
-          {selected.length > 0 && (
-            <Link
-              href={query}
-              className="rounded-lg px-4 py-2 text-sm font-bold bg-primary text-white hover:bg-primary/90"
-            >
-              検索
-            </Link>
-          )}
-          {selected.length > 0 && (
+          <div className="flex gap-2">
             <button
               type="button"
-              onClick={clear}
-              className={`inline-flex items-center gap-2 rounded-lg border px-3 text-sm bg-white text-black hover:bg-gray-50`}
+              onClick={openAll}
+              className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
             >
-              クリア
+              すべて展開
             </button>
+            <button
+              type="button"
+              onClick={closeAll}
+              className="rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
+            >
+              すべて収納
+            </button>
+          </div>
+          {selected.length > 0 && (
+            <div className="flex gap-2 mt-2">
+              <Link
+                href={query}
+                className="rounded-lg px-4 py-2 text-sm font-bold bg-primary text-white hover:bg-primary/90"
+              >
+                検索
+              </Link>
+              <button
+                type="button"
+                onClick={clear}
+                className="inline-flex items-center gap-2 rounded-lg border px-3 text-sm bg-white text-black hover:bg-gray-50"
+              >
+                クリア
+              </button>
+            </div>
           )}
         </div>
       </div>
