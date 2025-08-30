@@ -30,14 +30,14 @@ export default function TagPicker({
   align = "left",
   compact = false,
 }: {
-  groups: Groups;       // { "キャリア": [...], "テック": [...], ... }
-  initial?: string[];   // 初期選択タグ
+  groups: Groups;
+  initial?: string[];
   align?: "left" | "center";
   compact?: boolean;
 }) {
   const [selected, setSelected] = useState<string[]>(initial);
 
-  // 各グループの開閉状態（デフォルト: 閉じる）
+  // 各グループの開閉（初期は全て閉）
   const [open, setOpen] = useState<Record<string, boolean>>(() => {
     const o: Record<string, boolean> = {};
     for (const key of Object.keys(groups)) o[key] = false;
@@ -47,24 +47,20 @@ export default function TagPicker({
   const toggleOpen = (key: string) =>
     setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
 
-  const openAll = () =>
-    setOpen((prev) => {
-      const o: Record<string, boolean> = {};
-      for (const k of Object.keys(prev)) o[k] = true;
-      return o;
-    });
+  const openAll = () => setOpen((prev) => {
+    const o: Record<string, boolean> = {};
+    for (const k of Object.keys(prev)) o[k] = true;
+    return o;
+  });
 
-  const closeAll = () =>
-    setOpen((prev) => {
-      const o: Record<string, boolean> = {};
-      for (const k of Object.keys(prev)) o[k] = false;
-      return o;
-    });
+  const closeAll = () => setOpen((prev) => {
+    const o: Record<string, boolean> = {};
+    for (const k of Object.keys(prev)) o[k] = false;
+    return o;
+  });
 
   const toggle = (t: string) =>
-    setSelected((prev) =>
-      prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]
-    );
+    setSelected((prev) => prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]);
 
   const query = useMemo(() => {
     if (selected.length === 0) return "/search";
@@ -77,15 +73,16 @@ export default function TagPicker({
   return (
     <div className="space-y-5">
       {/* 選択状態 & コントロール */}
-      <div className="flex items-center gap-3">
-        <div className="text-sm text-gray-600">
-          選択中: {selected.length ? (
-            <span className="font-medium">{selected.join(", ")}</span>
-          ) : "なし"}
-        </div>
-        <div className={`ml-auto flex items-center gap-2 ${align === "center" ? "mx-auto" : ""}`}>
-          {/* すべて展開・収納ボタン（任意） */}
-          <div className="flex gap-2">
+      <div className="space-y-3">
+        {/* 1行目：選択中 + 右側に すべて展開/収納 */}
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-gray-600">
+            選択中: {selected.length ? (
+              <span className="font-medium">{selected.join(", ")}</span>
+            ) : "なし"}
+          </div>
+
+          <div className={`ml-auto flex items-center gap-2 ${align === "center" ? "mx-auto" : ""}`}>
             <button
               type="button"
               onClick={openAll}
@@ -101,24 +98,26 @@ export default function TagPicker({
               すべて収納
             </button>
           </div>
-          {selected.length > 0 && (
-            <div className="flex gap-2 mt-2">
-              <Link
-                href={query}
-                className="rounded-lg px-4 py-2 text-sm font-bold bg-primary text-white hover:bg-primary/90"
-              >
-                検索
-              </Link>
-              <button
-                type="button"
-                onClick={clear}
-                className="inline-flex items-center gap-2 rounded-lg border px-3 text-sm bg-white text-black hover:bg-gray-50"
-              >
-                クリア
-              </button>
-            </div>
-          )}
         </div>
+
+        {/* 2行目：検索 / クリア（選択があるときのみ） */}
+        {selected.length > 0 && (
+          <div className="flex items-center gap-2">
+            <Link
+              href={query}
+              className="rounded-lg px-4 py-2 text-sm font-bold bg-primary text-white hover:bg-primary/90"
+            >
+              検索
+            </Link>
+            <button
+              type="button"
+              onClick={clear}
+              className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm bg-white text-black hover:bg-gray-50"
+            >
+              クリア
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 各グループ（アコーディオン） */}
@@ -135,16 +134,18 @@ export default function TagPicker({
                 aria-expanded={isOpen}
               >
                 <div className="text-base font-bold text-text">{heading}</div>
-                {/* 統一アイコン（chevron） */}
                 <svg
                   width="18" height="18" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                   className="text-primary"
+                  aria-hidden="true"
                 >
                   {isOpen ? (
-                    <path d="M18 15l-6-6-6 6" /> // ▲
+                    // ▲
+                    <path d="M18 15l-6-6-6 6" />
                   ) : (
-                    <path d="M6 9l6 6 6-6" />   // ▼
+                    // ▼
+                    <path d="M6 9l6 6 6-6" />
                   )}
                 </svg>
               </button>

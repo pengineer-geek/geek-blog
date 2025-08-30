@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconDiary, IconColumn } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
+import TagList from  "@/app/_components/tags/tag-list";
 
 // 生成物（型付き）
 import postIndex from "generated/post-index";
@@ -174,6 +175,7 @@ export default function AccordionCareer() {
                                         {p.excerpt && (
                                           <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
                                         )}
+                                        <TagList tags={p.tags} className="mt-2" size="sm" />
                                       </div>
                                     </Link>
                                   </li>
