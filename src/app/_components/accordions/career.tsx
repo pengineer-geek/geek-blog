@@ -59,8 +59,8 @@ const SUB_META: Record<string, { title: React.ReactNode }> = {
   "game-planner": { title: <>新卒ゲームプランナー編<br />@ ゲーム会社(メガベンチャー)</> },
   "no-job": { title: <>無職編<br />@ プログラミングスクール</> },
   "junior-engineer": { title: <>ジュニアエンジニア編<br />@ 受託SES企業(小規模)</> },
-  "middle-engineer-1-1": { title: <>ミドルエンジニア編<br />@ 自社開発企業(小規模)<br />-学びながら作る男-</> },
-  "middle-engineer-1-2": { title: <>ミドルエンジニア編<br />@ 自社開発企業(小規模)<br />-考えながら作る男-</> },
+  "middle-engineer-1-1": { title: <>ミドルエンジニア編<br />@ 自社開発企業(小規模)<br />-片っ端から改修した男-</> },
+  "middle-engineer-1-2": { title: <>ミドルエンジニア編<br />@ 自社開発企業(小規模)<br />-業務を効率化しまくった男-</> },
 };
 
 const href = (slug: string) => `/posts/${slug}`;
