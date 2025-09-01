@@ -109,21 +109,21 @@ export default async function Page() {
       </section>
 
       {/* タグから探す */}
-      <section className="rounded-xl bg-gray-100 p-4 md:p-6">
-          <h2 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
-            タグから探す
-          </h2>
+      <section className="container py-10 md:py-14 rounded-xl bg-gray-100">
+        <h2 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
+          タグから探す
+        </h2>
 
-          {/* 「キャリア / テック / …」の見出しでグループ化してチップを表示 */}
-          <TagPicker
-            groups={{
-              キャリア: groups.career,
-              テック: groups.tech,
-              ウェルネス: groups.wellness,
-              ウェルビーイング: groups.wellbeing,
-            }}
-          />
-        </section>
+        {/* 「キャリア / テック / …」の見出しでグループ化してチップを表示 */}
+        <TagPicker
+          groups={{
+            キャリア: groups.career,
+            テック: groups.tech,
+            ウェルネス: groups.wellness,
+            ウェルビーイング: groups.wellbeing,
+          }}
+        />
+      </section>
 
       {/* Sub Contents */}
       <section className="container py-10 md:py-14">
