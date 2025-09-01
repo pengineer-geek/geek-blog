@@ -28,6 +28,7 @@ const SUB_ORDER_BY_SECTION = {
     "game-planner": 5,
     "no-job": 6,
     "junior-engineer": 7,
+    "middle-engineer-1-1": 8,
   },
 
   /** tech  */
