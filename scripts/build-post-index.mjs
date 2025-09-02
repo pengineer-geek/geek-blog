@@ -30,6 +30,7 @@ const SUB_ORDER_BY_SECTION = {
     "junior-engineer": 7,
     "middle-engineer-1-1": 8,
     "middle-engineer-1-2": 9,
+    "middle-engineer-1-3": 10,
   },
 
   /** tech  */
