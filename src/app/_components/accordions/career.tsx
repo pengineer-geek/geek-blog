@@ -156,7 +156,7 @@ export default function AccordionCareer() {
                         onClick={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1 text-sm text-link underline underline-offset-2 decoration-2 hover:text-primary"
                       >
-                        <span>{sec.metaPost.title}</span>
+                        <span>🗒️{sec.metaPost.title}</span>
                       </Link>
                     </div>
                   )}
