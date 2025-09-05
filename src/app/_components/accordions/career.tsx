@@ -61,7 +61,7 @@ const SUB_META: Record<string, { title: React.ReactNode }> = {
   "junior-engineer": { title: <>ジュニアエンジニア編<br />@ 受託SES企業(小規模)</> },
   "middle-engineer-1-1": { title: <>ミドルエンジニア 新天地 編<br />@ 自社開発企業(小規模)<br /></> },
   "middle-engineer-1-2": { title: <>ミドルエンジニア 業務効率化 編<br />@ 自社開発企業(小規模)<br /></> },
-  "side-job": { title: <>ミドルエンジニア 副業 編<br />@ 自社開発企業(小規模)<br /></> },
+  "sidejob": { title: <>業務委託(副業)編<br />@ 受託SES企業(極小規模)<br /></> },
   "middle-engineer-1-3": { title: <>ミドルエンジニア EC事業部 編<br />@ 自社開発企業(小規模)<br /></> },
   "middle-engineer-1-4": { title: <>ミドルエンジニア 転職 編<br />@ 自社開発企業(小規模)<br /></> },
 
