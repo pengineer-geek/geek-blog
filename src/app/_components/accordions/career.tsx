@@ -144,15 +144,39 @@ export default function AccordionCareer() {
                   {sec.subs.map((sub) => {
                     const subKey = `${sec.key}:${sub.key}`;
                     const subOpen = openSub === subKey;
+
+                    // ① 1件目のサムネ（cover.jpg）を取得
+                    const firstPost = sub.posts[0];
+                    const subThumb =
+                      firstPost ? imgUrl(firstPost.slug, "cover.jpg") : null;
+
                     return (
                       <li key={sub.key} className="rounded-xl border border-border/70 bg-white">
                         {/* 中項目ヘッダ */}
                         <button
                           onClick={() => toggleSub(sec.key, sub.key)}
-                          className="flex w-full items-center justify-between rounded-xl p-3 text-left hover:bg-primary/5"
+                          className="
+                            flex w-full items-center justify-between gap-3
+                            rounded-xl p-3 text-left hover:bg-primary/5
+                          "
                           aria-expanded={subOpen}
                         >
-                          <span className="font-medium text-text">{sub.title}</span>
+                          <div className="flex min-w-0 items-center gap-3">
+                            {/* ② サムネ */}
+                            {subThumb && (
+                              <img
+                                src={subThumb}
+                                alt={`${sub.key} thumbnail`}
+                                className="hidden sm:block h-10 w-10 flex-shrink-0 rounded-lg object-cover ring-1 ring-black/5"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            )}
+                            {/* ③ タイトル */}
+                            <span className="font-medium text-text">
+                              {sub.title}
+                            </span>
+                          </div>
                           <span className="text-primary">{subOpen ? "▲" : "▼"}</span>
                         </button>
 
@@ -179,7 +203,9 @@ export default function AccordionCareer() {
                                           {p.title}
                                         </h4>
                                         {p.excerpt && (
-                                          <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
+                                          <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">
+                                            {p.excerpt}
+                                          </p>
                                         )}
                                         <TagList tags={p.tags} className="mt-2" size="sm" />
                                       </div>
