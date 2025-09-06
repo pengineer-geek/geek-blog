@@ -34,6 +34,9 @@ const SUB_ORDER_BY_SECTION = {
     "middle-engineer-1-3": 11,
     "middle-engineer-1-4": 12,
   },
+  "column": {
+    "job-hunting": 10,
+  },
 
   /** tech  */
   "how-to-setup": {

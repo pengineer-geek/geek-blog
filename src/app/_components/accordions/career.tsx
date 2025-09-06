@@ -30,6 +30,7 @@ type Section = {
 };
 
 // セクション見出し
+type SubMetaBySection = Record<string, Record<string, { title: React.ReactNode }>>;
 const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon: React.ReactNode }> = {
   diary: {
     title: (
@@ -51,21 +52,32 @@ const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon:
   },
 };
 
-// サブ見出し
-const SUB_META: Record<string, { title: React.ReactNode }> = {
-  "high-school": { title: <>ハイスクール編<br />@ 自称進学校</> },
-  "university": { title: <>キャンパスライフ編<br />@ 都内Aランク私立大学(理工学部)</> },
-  "graduate-school": { title: <>ブラック研究室編<br />@ 都内私立大学院(工学)</> },
-  "job-hunting": { title: <>新卒就活編<br />@ 都内私立大学院(工学)</> },
-  "game-planner": { title: <>新卒ゲームプランナー編<br />@ ゲーム会社(メガベンチャー)</> },
-  "no-job": { title: <>無職編<br />@ プログラミングスクール</> },
-  "junior-engineer": { title: <>ジュニアエンジニア編<br />@ 受託SES企業(小規模)</> },
-  "middle-engineer-1-1": { title: <>ミドルエンジニア 新天地 編<br />@ 自社開発企業(小規模)<br /></> },
-  "middle-engineer-1-2": { title: <>ミドルエンジニア 業務効率化 編<br />@ 自社開発企業(小規模)<br /></> },
-  "sidejob": { title: <>副業エンジニア編<br />@ 受託SES企業(極小規模)<br /></> },
-  "middle-engineer-1-3": { title: <>ミドルエンジニア EC事業部 編<br />@ 自社開発企業(小規模)<br /></> },
-  "middle-engineer-1-4": { title: <>ミドルエンジニア 転職 編<br />@ 自社開発企業(小規模)<br /></> },
+const SUB_META: SubMetaBySection = {
+  // ▼ ダイアリー用
+  diary: {
+    "high-school": { title: <>ハイスクール編<br />@ 自称進学校</> },
+    "university": { title: <>キャンパスライフ編<br />@ 都内Aランク私立大学(理工学部)</> },
+    "graduate-school": { title: <>ブラック研究室編<br />@ 都内私立大学院(工学)</> },
+    "job-hunting": { title: <>新卒就活編<br />@ 都内私立大学院(工学)</> },
+    "game-planner": { title: <>新卒ゲームプランナー編<br />@ ゲーム会社(メガベンチャー)</> },
+    "no-job": { title: <>無職編<br />@ プログラミングスクール</> },
+    "junior-engineer": { title: <>ジュニアエンジニア編<br />@ 受託SES企業(小規模)</> },
+    "middle-engineer-1-1": { title: <>ミドルエンジニア 新天地 編<br />@ 自社開発企業(小規模)</> },
+    "middle-engineer-1-2": { title: <>ミドルエンジニア 業務効率化 編<br />@ 自社開発企業(小規模)</> },
+    "sidejob": { title: <>副業エンジニア編<br />@ 受託SES企業(極小規模)</> },
+    "middle-engineer-1-3": { title: <>ミドルエンジニア EC事業部 編<br />@ 自社開発企業(小規模)</> },
+    "middle-engineer-1-4": { title: <>ミドルエンジニア 転職 編<br />@ 自社開発企業(小規模)</> },
+  },
 
+  // ▼ コラム用（同じ subKey を別表示にできる）
+  column: {
+    "job-hunting": { title: <>就活・転職</> },
+  },
+
+  // ▼ どのセクションにも共通で効くデフォルト（任意）
+  "*": {
+    // 例: "meta": { title: "このセクションについて" },
+  },
 };
 
 const href = (slug: string) => `/posts/${slug}`;
@@ -102,7 +114,11 @@ export default function AccordionCareer() {
       .filter((sub) => sub.key !== "meta")
       .map((sub) => ({
         key: sub.key,
-        title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
+        title: (
+          SUB_META[sec.key]?.[sub.key]?.title ??
+          SUB_META["*"]?.[sub.key]?.title ??
+          sub.key
+        ) as React.ReactNode,
         posts: sub.posts.map<Post>((p) => ({
           title: p.title,
           slug: p.slug,
