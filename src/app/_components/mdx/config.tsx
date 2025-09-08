@@ -4,6 +4,7 @@ import { MDXRemote as MDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import TweetCard from "@/app/_components/embeds/tweet-card";
 
 type MdxRemoteOptions = ComponentProps<typeof MDX>["options"];
 
@@ -22,6 +23,7 @@ export const mdxComponents = {
   pre: (props: any) => (
     <pre  {...props} className={`my-4 overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100 ${props.className ?? ""}`} />
   ),
+  TweetCard,
 };
 
 export const mdxOptions: MdxRemoteOptions = {
