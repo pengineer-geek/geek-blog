@@ -46,6 +46,8 @@ export default async function SearchPage(
   const all = await listAllPosts();
 
   const hit = all.filter((p) => {
+    const isNotMeta = p.subKey !== "meta";
+
     // タグフィルタ
     const tagOk =
       tags.length === 0
@@ -58,7 +60,7 @@ export default async function SearchPage(
         ? true
         : (p.title + " " + (p.excerpt ?? "")).toLowerCase().includes(q.toLowerCase());
 
-    return tagOk && qOk;
+    return tagOk && qOk && isNotMeta;
   });
 
   const groups = await loadTagGroups();

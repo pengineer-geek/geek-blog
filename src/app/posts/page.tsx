@@ -38,6 +38,7 @@ function flattenPosts(): FlatPost[] {
   // 日付で降順ソート
   return out
     .filter((p) => p.slug)
+    .filter((p) => p.subKey !== "meta") // ✅ メタ記事は除外
     .sort((a, b) => {
       const at = new Date(a.updated || a.date || 0).getTime();
       const bt = new Date(b.updated || b.date || 0).getTime();

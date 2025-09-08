@@ -14,6 +14,7 @@ export type Frontmatter = {
   cover?: string;      // 例: "/images/og-keyboard.jpg"
   hero?: { file: string; alt: string };
   slug?: string;
+  subKey?: string;
 };
 
 export type Post = {
@@ -77,6 +78,7 @@ export async function getPostBySlug(slugParts: string[]): Promise<Post> {
       cover: data.cover,
       hero: data.hero,
       slug: slugParts.join("/"),
+      subKey: data.subKey,
     },
   };
 }
@@ -105,6 +107,7 @@ export type PostSummary = {
   category?: string;        // 例: "tech"（slug[0]）
   date?: string;            // 並び替えに使いたい場合
   updated?: string;
+  subKey?: string;
 };
 
 // 全記事のサマリーを返す（SSG/サーバー側で使用）
@@ -124,6 +127,7 @@ export async function listAllPosts(): Promise<PostSummary[]> {
         category: p.slug[0],
         date: p.data.date,
         updated: p.data.updated,
+        subKey: p.data.subKey,
       } as PostSummary;
     })
   );
