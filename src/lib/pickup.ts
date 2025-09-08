@@ -10,6 +10,7 @@ type FlatPost = PostMeta & {
   updated?: string;
   tags?: string[];
   hero?: { file?: string; alt?: string };
+  subKey?: string;
 };
 
 function getSections(idx: unknown): SectionIndex[] {
@@ -59,6 +60,7 @@ export function getLatestPosts(limit = 10) {
   const now = Date.now();
   return flattenPosts()
     .filter((p) => !p.draft)
+    .filter((p) => p.subKey !== "meta")
     .map((p) => ({
       p,
       t: Math.max(toTime(p.updated), toTime(p.date)),

@@ -60,7 +60,7 @@ export default async function Page() {
       <section className="container py-10 md:py-14">
         <h3 className="text-xl font-extrabold text-primary">Contents</h3>
 
-        <NewPickup title="新着記事" limit={6} />
+        <NewPickup title="新着記事" limit={5} />
 
         {/* PC 2x2 / SP 縦 */}
         <div className="mt-4 grid gap-6 md:grid-cols-2">
