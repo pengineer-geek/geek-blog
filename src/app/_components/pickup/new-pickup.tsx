@@ -20,7 +20,7 @@ export default function NewPickup({ title = "新着記事", limit = 5 }: Props) 
   return (
     <section className="my-10">
       <div className="flex items-end justify-between mb-4">
-        <h2 className="text-xl font-bold">{title}</h2>
+        <h3 className="text-xl font-extrabold text-primary">{title}</h3>
         <Link href="/posts" className="text-sm underline opacity-70 hover:opacity-100">
           すべて見る
         </Link>
