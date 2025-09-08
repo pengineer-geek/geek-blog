@@ -11,7 +11,7 @@ type Props = {
   limit?: number;
 };
 
-export default function NewPickup({ title = "新着 & Pickup", limit = 6 }: Props) {
+export default function NewPickup({ title = "新着記事", limit = 5 }: Props) {
   // ✅ limit は数値で渡す
   const posts = useMemo(() => getLatestPosts(limit), [limit]);
 

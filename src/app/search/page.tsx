@@ -1,11 +1,12 @@
 // src/app/search/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import { listAllPosts, PostSummary } from "@/lib/posts";
+import { listAllPosts } from "@/lib/posts";
 import TagList from "@/app/_components/tags/tag-list";
 import BackLink from "@/app/_components/navigation/back-link";
 import { IconSearch } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
+import TagPicker from "@/app/_components/tags/tag-picker";
 
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined) return [];
@@ -102,6 +103,23 @@ export default async function SearchPage(
           例: <code>/search?tag=新卒,ゲーム業界</code> / <code>/search?q=キーボード</code>
         </p>
       )}
+
+      {/* タグから探す */}
+      <section className="container py-10 md:py-14 rounded-xl bg-gray-100">
+        <h2 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
+          タグから探す
+        </h2>
+
+        {/* 「キャリア / テック / …」の見出しでグループ化してチップを表示 */}
+        <TagPicker
+          groups={{
+            キャリア: groups.career,
+            テック: groups.tech,
+            ウェルネス: groups.wellness,
+            ウェルビーイング: groups.wellbeing,
+          }}
+        />
+      </section>
 
       {/* 結果 */}
       <ul className="mt-6 space-y-3">
