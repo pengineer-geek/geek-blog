@@ -17,12 +17,18 @@ type FlatPost = PostMeta & {
   order?: number;
 };
 
+// 追加：型ガード & ヘルパ
+function hasSections(x: unknown): x is { sections: SectionIndex[] } {
+  return !!x && typeof x === "object" && Array.isArray((x as any).sections);
+}
+function getSections(idx: unknown): SectionIndex[] {
+  return hasSections(idx) ? idx.sections : (idx as SectionIndex[]) ?? [];
+}
+
 // postIndexをフラット化
 function flattenPosts(): FlatPost[] {
+  const sections = getSections(postIndex); // ✅ どちらの形でもOK
   const out: FlatPost[] = [];
-  const sections: SectionIndex[] =
-    (postIndex as any).sections ?? (postIndex as SectionIndex[]);
-
   for (const section of sections) {
     for (const sub of section.subs ?? []) {
       for (const p of sub.posts ?? []) out.push(p as FlatPost);
@@ -60,7 +66,7 @@ export default function PostsPage() {
           >
             <div className="aspect-video bg-neutral-100">
               <img
-                src={imgUrl(p.hero?.file || "cover.jpg")}
+                src={imgUrl(p.slug, p.hero?.file || "cover.jpg")}
                 alt={p.hero?.alt || p.title}
                 className="w-full h-full object-cover"
                 loading="lazy"
