@@ -25,14 +25,25 @@ function sortByNumber(a?: number, b?: number) {
   return av - bv;
 }
 
+function shouldSkip(p: PostMeta) {
+  // 1) diary の meta サブ（サマリー等）は除外
+  if (p.subKey === "meta") return true;
+  // 2) 将来の拡張: frontmatter で navSkip: true を入れたら除外
+  if ((p as any)?.navSkip === true) return true;
+  // 3) 念のため slug 末尾 /meta の単体ページも除外
+  if (p.slug.endsWith("/meta")) return true;
+  return false;
+}
+
 function flattenSection(sectionKey: string): PostMeta[] {
   const section = postIndex.sections.find((s) => s.key === sectionKey);
   if (!section) return [];
-  // subs の order 昇順で、各 sub 内の posts も order 昇順で平坦化
   const subs = [...section.subs].sort((a, b) => sortByNumber(a.order, b.order));
-  const acc: PostMeta[] = [] as PostMeta[];
+  const acc: PostMeta[] = [];
   for (const sub of subs) {
-    const posts = [...sub.posts].sort((a, b) => sortByNumber(a.order, b.order));
+    const posts = [...sub.posts]
+      .sort((a, b) => sortByNumber(a.order, b.order))
+      .filter((p) => !shouldSkip(p));
     acc.push(...posts);
   }
   return acc;
