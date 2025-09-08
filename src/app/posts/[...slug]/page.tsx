@@ -11,62 +11,41 @@ import { imgUrl } from "@/lib/img";
 import TagList from "@/app/_components/tags/tag-list";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-// --- types (lightweight) ---
-type PostLite = {
-  slug: string[];
-  title: string;
-  sectionKey?: string;
-  subKey?: string;
-  order?: number;
-  date?: string;
-  updated?: string;
-};
-
 // --- helpers ---
-function sortVal(p: PostLite) {
-  // 1) order が定義されていれば order で昇順
-  if (typeof p.order === "number") return [0, p.order];
-  // 2) updated / date の新しい順（ただし並びは昇順にしたいので古い→新しいの評価用タプルに）
-  const d = new Date(p.updated ?? p.date ?? 0).getTime();
-  if (d) return [1, d];
-  // 3) 最後に slug を文字列として
-  return [2, p.slug.join("/")];
+import postIndex, { PostMeta } from "generated/post-index";
+
+function buildHrefFromStringSlug(s: string) {
+  const parts = s.split("/").filter(Boolean);
+  return "/posts/" + parts.map(encodeURIComponent).join("/");
 }
 
-function byAsc(a: PostLite, b: PostLite) {
-  const av = sortVal(a);
-  const bv = sortVal(b);
-  if (av[0] !== bv[0]) return (av[0] as number) - (bv[0] as number);
-  // number / string 両対応
-  if (av[1] < bv[1]) return -1;
-  if (av[1] > bv[1]) return 1;
-  return 0;
+function sortByNumber(a?: number, b?: number) {
+  const av = typeof a === "number" ? a : Number.POSITIVE_INFINITY;
+  const bv = typeof b === "number" ? b : Number.POSITIVE_INFINITY;
+  return av - bv;
 }
 
-async function getAllPostsLite(): Promise<PostLite[]> {
-  const slugs = await getAllPostSlugs();
-  const posts: PostLite[] = [];
-  for (const slug of slugs) {
-    try {
-      const p = await getPostBySlug(slug);
-      posts.push({
-        slug: p.slug,
-        title: p.data.title ?? p.slug.at(-1) ?? "",
-        sectionKey: p.data.sectionKey,
-        subKey: p.data.subKey,
-        order: typeof p.data.order === "number" ? p.data.order : undefined,
-        date: p.data.date,
-        updated: p.data.updated,
-      });
-    } catch {
-      // skip corrupted
-    }
+function flattenSection(sectionKey: string): PostMeta[] {
+  const section = postIndex.sections.find((s) => s.key === sectionKey);
+  if (!section) return [];
+  // subs の order 昇順で、各 sub 内の posts も order 昇順で平坦化
+  const subs = [...section.subs].sort((a, b) => sortByNumber(a.order, b.order));
+  const acc: PostMeta[] = [] as PostMeta[];
+  for (const sub of subs) {
+    const posts = [...sub.posts].sort((a, b) => sortByNumber(a.order, b.order));
+    acc.push(...posts);
   }
-  return posts.sort(byAsc);
+  return acc;
 }
 
-function buildHref(slug: string[]) {
-  return "/posts/" + slug.map(encodeURIComponent).join("/");
+function findPrevNextByIndex(sectionKey: string, currentSlugParts: string[]) {
+  const list = flattenSection(sectionKey);
+  const currentSlug = currentSlugParts.join("/");
+  const i = list.findIndex((p) => p.slug === currentSlug);
+  if (i === -1) return { prev: undefined as PostMeta | undefined, next: undefined as PostMeta | undefined };
+  const prev = i > 0 ? list[i - 1] : undefined;
+  const next = i < list.length - 1 ? list[i + 1] : undefined;
+  return { prev, next };
 }
 
 // --- ルーティング (SSG) ---
@@ -112,14 +91,12 @@ export default async function PostPage(
   const date = data.updated ?? data.date;
 
   // === Prev/Next 探索ロジック ===
-  const all = await getAllPostsLite();
-
-  const pool: PostLite[] = all.filter((p) => p.sectionKey === data.sectionKey);
-
-  // プールに自分が含まれない場合はナビゲーション無し
-  const selfIdx = pool.findIndex((p) => p.slug.join("/") === post.slug.join("/"));
-  const prev = selfIdx > 0 ? pool[selfIdx - 1] : undefined;
-  const next = selfIdx >= 0 && selfIdx < pool.length - 1 ? pool[selfIdx + 1] : undefined;
+  // sectionKey は Frontmatter 未定義の可能性があるため slug から安全に推定
+  // slug 例: ["career", "diary", ...] → sectionKey = "diary"
+  const safeSectionKey = (data as any)?.sectionKey ?? post.slug?.[1];
+  const { prev, next } = safeSectionKey
+    ? findPrevNextByIndex(safeSectionKey, post.slug ?? "")
+    : { prev: undefined, next: undefined };
 
   return (
     <main className="container mx-auto max-w-3xl px-4 py-10 pt-14">
@@ -155,7 +132,7 @@ export default async function PostPage(
           {/* Prev */}
           {prev ? (
             <Link
-              href={buildHref(prev.slug)}
+              href={buildHrefFromStringSlug(prev.slug)}
               className="group flex items-center gap-3 rounded-xl border p-4 no-underline shadow-sm transition hover:shadow-md"
             >
               <ArrowLeft className="h-5 w-5 shrink-0 opacity-70 transition group-hover:opacity-100" />
@@ -171,7 +148,7 @@ export default async function PostPage(
           {/* Next */}
           {next ? (
             <Link
-              href={buildHref(next.slug)}
+              href={buildHrefFromStringSlug(next.slug)}
               className="group flex items-center justify-end gap-3 rounded-xl border p-4 no-underline shadow-sm transition hover:shadow-md"
             >
               <div className="min-w-0 text-right">

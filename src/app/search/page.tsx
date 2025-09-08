@@ -135,7 +135,7 @@ export default async function SearchPage(
               className="flex gap-3 rounded-xl border bg-white p-3 transition hover:border-primary/50 hover:bg-primary/5"
             >
               <img
-                src={imgUrl(p.slug.join("/"), "cover.jpg")}
+                src={imgUrl(p.slug?.join("/") || "", "cover.jpg")}
                 alt={p.title}
                 className="h-12 w-16 flex-shrink-0 rounded object-cover"
               />

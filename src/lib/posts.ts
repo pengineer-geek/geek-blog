@@ -129,7 +129,7 @@ export async function listAllPosts(): Promise<PostSummary[]> {
         title: p.data.title ?? p.slug.at(-1) ?? "Untitled",
         excerpt: p.data.excerpt,
         cover: p.data.cover,
-        tags: p.data.tags,                 // frontmatter: tags: ["..."]
+        tags: p.data.tags,
         category: p.slug[0],
         date: p.data.date,
         updated: p.data.updated,
