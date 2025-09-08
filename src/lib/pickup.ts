@@ -5,6 +5,11 @@ import type { SectionIndex, PostMeta } from "generated/post-index";
 type FlatPost = PostMeta & {
   draft?: boolean;
   order?: number;
+  slug?: string;
+  date?: string;
+  updated?: string;
+  tags?: string[];
+  hero?: { file?: string; alt?: string };
 };
 
 function getSections(idx: unknown): SectionIndex[] {
