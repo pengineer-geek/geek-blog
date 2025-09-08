@@ -58,7 +58,7 @@ export default async function Page() {
 
       {/* Contents */}
       <section className="container py-10 md:py-14">
-        <h3 className="text-xl font-extrabold text-primary">Contents</h3>
+        <h2 className="text-xl font-extrabold text-primary">Contents</h2>
 
         <NewPickup title="新着記事" limit={5} />
 
@@ -113,9 +113,9 @@ export default async function Page() {
 
       {/* タグから探す */}
       <section className="container py-10 md:py-14 rounded-xl bg-gray-100">
-        <h2 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
+        <h3 className="mb-4 text-2xl font-extrabold text-text md:text-3xl">
           タグから探す
-        </h2>
+        </h3>
 
         {/* 「キャリア / テック / …」の見出しでグループ化してチップを表示 */}
         <TagPicker
