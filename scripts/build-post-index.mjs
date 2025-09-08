@@ -36,6 +36,7 @@ const SUB_ORDER_BY_SECTION = {
   },
   "column": {
     "job-hunting": 10,
+    "qualification": 20,
   },
 
   /** tech  */
@@ -44,9 +45,19 @@ const SUB_ORDER_BY_SECTION = {
   },
 
   /** wellness */
-  "training": { weight: 1, bjj: 2 },
-  "nutrition": { recipe: 1, supplement: 2 },
-  "recovery": { sleep: 1, relax: 2 },
+  "training": {
+    "weight-training": 1,
+    "bjj": 2,
+  },
+
+  "nutrition": { 
+    "recipe": 1,
+    "supplement": 2,
+  },
+  "recovery": {
+    "sleep": 1,
+    "relax": 2,
+  },
 };
 
 /** ---------- ここから処理 ---------- */
