@@ -15,6 +15,8 @@ export type Frontmatter = {
   hero?: { file: string; alt: string };
   slug?: string;
   subKey?: string;
+  sectionKey?: string;
+  order?: number;
 };
 
 export type Post = {
@@ -79,6 +81,8 @@ export async function getPostBySlug(slugParts: string[]): Promise<Post> {
       hero: data.hero,
       slug: slugParts.join("/"),
       subKey: data.subKey,
+      sectionKey: data.sectionKey,
+      order: data.order,
     },
   };
 }
@@ -108,6 +112,8 @@ export type PostSummary = {
   date?: string;            // 並び替えに使いたい場合
   updated?: string;
   subKey?: string;
+  sectionKey?: string;
+  order?: number;
 };
 
 // 全記事のサマリーを返す（SSG/サーバー側で使用）
@@ -128,6 +134,8 @@ export async function listAllPosts(): Promise<PostSummary[]> {
         date: p.data.date,
         updated: p.data.updated,
         subKey: p.data.subKey,
+        sectionKey: p.data.sectionKey,
+        order: p.data.order,
       } as PostSummary;
     })
   );
