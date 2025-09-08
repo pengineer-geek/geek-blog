@@ -4,6 +4,7 @@ import CategoryCard from "@/app/_components/cards/category-card";
 import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin, IconX } from "@/app/_components/icons/index";
 import TagPicker from "@/app/_components/tags/tag-picker";
 import { loadTagGroups } from "@/lib/tags";
+import NewPickup from "@/app/_components/pickup/new-pickup";
 
 export default async function Page() {
   const groups = await loadTagGroups();
@@ -58,6 +59,8 @@ export default async function Page() {
       {/* Contents */}
       <section className="container py-10 md:py-14">
         <h3 className="text-xl font-extrabold text-primary">Contents</h3>
+
+        <NewPickup title="新着記事" limit={6} />
 
         {/* PC 2x2 / SP 縦 */}
         <div className="mt-4 grid gap-6 md:grid-cols-2">
