@@ -7,6 +7,7 @@ import BackLink from "@/app/_components/navigation/back-link";
 import { IconSearch } from "@/app/_components/icons";
 import { imgUrl } from "@/lib/img";
 import TagPicker from "@/app/_components/tags/tag-picker";
+import { loadTagGroups } from "@/lib/tags";
 
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined) return [];
@@ -59,6 +60,8 @@ export default async function SearchPage(
 
     return tagOk && qOk;
   });
+
+  const groups = await loadTagGroups();
 
   return (
     <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
