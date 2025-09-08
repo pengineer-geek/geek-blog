@@ -54,7 +54,7 @@ export default function PostsPage() {
   const hasMore = visible < allPosts.length;
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
+    <main className="container pt-14 pb-10 md:pt-14 md:pb-14">
       <h1 className="text-2xl font-bold mb-8">記事一覧</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
