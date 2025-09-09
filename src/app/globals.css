@@ -36,6 +36,12 @@
     @apply relative pl-2 text-gray-700 border-l-4 border-[#004D80] font-medium text-base;
   }
 
+  .prose h2 > a,
+  .prose h3 > a,
+  .prose h4 > a {
+    @apply text-inherit no-underline block w-full h-full;
+  }
+
   .prose table {
     @apply w-full border-collapse text-left border border-gray-400; /* 外枠は実線 */
   }
