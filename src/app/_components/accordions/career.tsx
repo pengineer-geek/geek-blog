@@ -73,6 +73,7 @@ const SUB_META: SubMetaBySection = {
   column: {
     "job-hunting": { title: <>就活・転職</> },
     "qualification": { title: <>資格</> },
+    "literacy": { title: <>情報リテラシー</> },
   },
 
   // ▼ どのセクションにも共通で効くデフォルト（任意）
