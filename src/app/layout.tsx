@@ -63,6 +63,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
+        <meta name="google-site-verification" content="BLV2VsQoWOmc353dHECcFN506gBTJJjgnsrkc4a1S2g" />
       </head>
       <body className={cn(inter.className, "bg-background text-text")}>
         <Header />
