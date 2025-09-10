@@ -17,7 +17,12 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
   icons: {
-    icon: "/favicon/favicon.ico",        // デフォルト
+    icon: [
+      "/favicon.ico",
+      "/favicon/favicon-16x16.png",
+      "/favicon/favicon-32x32.png",
+      "/favicon/favicon.ico"
+    ],
     shortcut: "/favicon/favicon.ico",    // ショートカット用
     apple: "/favicon/apple-touch-icon-180.png", // iOS用（180×180 PNG）
   },
@@ -26,6 +31,7 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     title: "ペンジニアの技育（ギーク）ブログ",
+    siteName: "ペンジニアの技育（ギーク）ブログ",
     description:
       "IT業界の荒波に揉まれるうちにペンギンになってしまったエンジニア。",
     images: [
@@ -44,6 +50,7 @@ export const metadata: Metadata = {
       "IT業界の荒波に揉まれるうちにペンギンになってしまったエンジニア。",
     images: ["/ogp-pengineer.png"],
   },
+  alternates: { canonical: "/" }
 };
 
 export default function RootLayout({
@@ -62,8 +69,18 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
         <meta name="theme-color" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
         <meta name="google-site-verification" content="BLV2VsQoWOmc353dHECcFN506gBTJJjgnsrkc4a1S2g" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "ペンジニアの技育（ギーク）ブログ",
+              "url": "https://pengineer-geek-blog.vercel.app/"
+            }),
+          }}
+        />
       </head>
       <body className={cn(inter.className, "bg-background text-text")}>
         <Header />
