@@ -49,7 +49,7 @@ const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon:
 
 // サブ見出し（subKey → 表示）
 const SUB_META: Record<string, { title: React.ReactNode }> = {
-  "how-to-start": { title: "はじめてのセットアップ" },
+  "how-to-start": { title: "サイト構築・運用" },
 };
 
 const href = (slug: string) => `/posts/${slug}`;
