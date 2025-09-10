@@ -1,0 +1,163 @@
+---
+title: "Google検索に出るまでにやったこと全部公開！"
+slug: "career/column/blog/google-search"
+hero: { file: "cover.jpg", alt: "Google検索結果に表示されるブログ記事" }
+date: "2025-09-10"
+updated: "2025-09-10"
+tags: ["ブログ運営", "SEO", "GSC"]
+excerpt: "ブログ記事を書いてもGoogle検索に出ない!? 実際に本サイトが検索結果に表示されるまでのフロー"
+category: "tech"
+sectionKey: "how-to-setup"
+subKey: "seo"
+order: 1
+---
+# {frontmatter.title}
+{frontmatter.excerpt}
+
+## はじめに
+
+「書いたのに検索に出ない…」は誰もが通る道。  
+
+このブログ（**Vercel + Next.js + `*.vercel.app`**）も、公開直後は**どのキーワードでも無反応**でした。ここでは**実際に検索に出るまで**にやったことを、**タイムライン＋手順**で公開します。
+
+---
+
+## 🔑 手順のざっくり流れ（全体像）
+
+1. **Search Console にアクセス & ログイン**
+2. **プロパティを追加（今回は *URLプレフィックス* を選択）**
+3. **所有権を確認（メタタグ or HTML ファイル）**
+4. **サイトマップ（sitemap.xml）を登録**
+5. **各記事のインデックス申請（URL検査）**
+6. **数時間〜1日待ち → 反映確認**
+
+> **なぜ URLプレフィックス？**  
+> 今回は `https://pengineer-geek-blog.vercel.app` を運用していたため、**URLプレフィックス**で登録。  
+> ※将来、独自ドメインを導入してサブドメイン含め一括で管理したいなら**ドメインプロパティ**が便利（DNS認証が必要）。
+
+---
+
+## 実録タイムライン
+
+### Day 0
+- Next.js で記事を公開。  
+- 検索しても出ない（当然）。  
+- **Search Console（GSC）にログイン → プロパティ追加**へ。
+  <img 
+    src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image7.jpg" 
+    alt="GSCログイン"
+    className="rounded-md border border-muted w-full mb-4"
+  />
+- **URLプレフィックス**を選び、`https://xxxxxx.vercel.app` を入力。
+  <img 
+    src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image2.jpg" 
+    alt="URLプレフィックスを選択"
+    className="rounded-md border border-muted w-full mb-4"
+  />
+
+### Day 0（そのまま続行）
+- **所有権の確認方法**は **メタタグ**を選択。  
+  `layout.tsx` の `<head>` に verification メタを追加 → デプロイ。
+
+```tsx
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "サイトのタイトル",
+  description: "サイト説明",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ja">
+      <head>
+        {/* ▼ GSC 所有権確認（URLプレフィックスの場合） */}
+        <meta name="google-site-verification" content="xxxxxxxxxxxxxxxxxxxx" />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+> 代替案：**HTMLファイル方式**
+> `public/googlexxxxxxxxxxxxxxx.html` を置いてもOK（GSCで指示されるファイル名と中身をそのまま配置）。
+
+- 所有権の確認
+- GSC で**所有権が確認済み**に。
+
+<img 
+  src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image6.jpg" 
+  alt="所有権の確認"
+  className="rounded-md border border-muted w-full mb-4"
+/>
+
+* **サイトマップ送信**（`https://xxxxxx.vercel.app/sitemap.xml`）。
+
+<img 
+  src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image1.jpg" 
+  alt="サイトマップ追加"
+  className="rounded-md border border-muted w-full mb-4"
+/>
+
+<img 
+  src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image5.jpg" 
+  alt="サイトマップ追加"
+  className="rounded-md border border-muted w-full mb-4"
+/>
+
+**この時点ではサイトマップの読み込みに失敗していますが、時間をおけば解消します**
+
+---
+
+### Day 1（約24時間後）
+
+* **記事URLを「URL検査」→ インデックス登録をリクエスト**。
+* 指名検索（ブログ名）で**検索結果に出現**を確認！
+* 一部の記事はまだ出ない → その都度 URL検査で申請。
+
+<img 
+  src="https://pub-c07fd8d39c7745bea0ba922479c92da8.r2.dev/career/column/blog/google-search/image4.jpg" 
+  alt="サイトマップ追加"
+  className="rounded-md border border-muted w-full mb-4"
+/>
+
+---
+
+#### 任意 : 記事ごとにインデックス申請
+
+* GSC の \*\*「URL検査」\*\*に対象 URL を貼る
+* \*\*「インデックス登録をリクエスト」\*\*を実行
+* リクエストは回数制限あり → **優先度の高い記事から**申請
+
+---
+
+## うまくいかなかった時に見たポイント（実体験）
+
+* **URL が 404 のまま**：
+  デプロイ反映前に申請してた。**デプロイ完了後**に再申請でOK。
+* **サイトマップの URL が間違い**：
+  `*.vercel.app` と独自ドメインを混在 → **運用ドメイン側に統一**。
+* **`noindex` がテンプレに残ってた**：
+  下書き時の名残。**本番ビルドの `<meta name="robots">` を確認**。
+* **内部リンクが薄くてクロール遅い**：
+  トップ・カテゴリ・関連記事から**内部リンクで辿れる**ように調整。
+
+---
+
+## まとめ（体験談の所感）
+
+* **やったことはシンプル**：GSC（URLプレフィックス）登録 → 所有権確認 → サイトマップ → URL検査
+* **最初の反映は1日程度**。その後も順位は**数日〜数週間で上下**。
+* 反映スピードを上げたいなら、**内部リンク**と**サイト構造の一貫性**が効く。
+* そして何より、**更新を続ける**のが最強（ここがいちばん難しい…！）
+
+---
+
+## 付録：運用メモ（Next.js）
+
+* **記事の `updated`** をちゃんと更新 → `sitemap.xml` の `lastModified` が効く
+* **OG画像/タイトル**は毎回確認（SNS拡散→被リンクの入口になりやすい）
+* **`/posts/[...slug]`** の生成で 404 が混ざるとクロールの無駄が増えるので注意
