@@ -63,7 +63,7 @@ const SUB_META: SubMetaBySection = {
 
   // ▼ コラム用（同じ subKey を別表示にできる）
   nutrition: {
-    // todo
+    "recipe": { title: <>レシピ</> },
   },
 
   recovery: {
