@@ -45,6 +45,12 @@ function flattenPosts(): FlatPost[] {
 
 function toTime(s?: string) {
   if (!s) return 0;
+  // "YYYY-MM-DD" はローカル日付の 00:00 として扱う（UTC扱いを避ける）
+  const m = /^\d{4}-\d{2}-\d{2}$/.exec(s);
+  if (m) {
+    const [y, mo, d] = s.split("-").map(Number);
+    return new Date(y, mo - 1, d).getTime(); // ← ローカル基準
+  }
   const t = new Date(s).getTime();
   return Number.isFinite(t) ? t : 0;
 }
