@@ -37,7 +37,8 @@ const SUB_ORDER_BY_SECTION = {
   "column": {
     "job-hunting": 10,
     "qualification": 20,
-    "literacy": 30,
+    "workstyle": 30,
+    "literacy": 40,
   },
 
   /** tech  */
