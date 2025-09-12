@@ -62,20 +62,9 @@ export default async function Page() {
 
         <NewPickup title="新着記事" limit={5} />
 
-        <h3 className="text-xl font-extrabold text-primary">Random</h3>
-        <div>
-          <Link
-            href="/random"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 font-semibold text-white hover:opacity-90 active:opacity-80"
-          >
-            🎲 ランダムで記事をPick
-          </Link>
-        </div>
-
         {/* PC 2x2 / SP 縦 */}
-        <h3 className="text-xl font-extrabold text-primary">Categories</h3>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
+          <h3 className="text-xl font-extrabold text-primary">Categories</h3>
           <CategoryCard
             href="/categories/career"
             title="キャリア"
@@ -122,6 +111,16 @@ export default async function Page() {
           />
         </div>
       </section>
+
+      <div className="container py-10 md:py-14">
+        <Link
+          href="/random"
+          prefetch={false}
+          className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 font-semibold text-white hover:opacity-90 active:opacity-80"
+        >
+          🎲 ランダムで記事をPick
+        </Link>
+      </div>
 
       {/* タグから探す */}
       <section className="container py-10 md:py-14 rounded-xl bg-gray-100">
