@@ -64,13 +64,28 @@ const SUB_ORDER_BY_SECTION = {
 
 /** ---------- ここから処理 ---------- */
 
-function sortPosts(posts) {
+function sortPosts(posts, sectionKey) {
+  const isDiary = sectionKey === "diary";
+
   return posts.sort((a, b) => {
-    const ao = a.order ?? 0, bo = b.order ?? 0;
-    if (ao !== bo) return ao - bo;
+    // 1) order の優先
+    const aHas = typeof a.order === "number";
+    const bHas = typeof b.order === "number";
+    if (aHas || bHas) {
+      if (aHas && bHas && a.order !== b.order) {
+        // diary は昇順（小さい→大きい）、それ以外は降順（大きい→小さい）
+        return isDiary ? a.order - b.order : b.order - a.order;
+      }
+      if (aHas && !bHas) return -1; // order を持つ方を優先
+      if (!aHas && bHas) return 1;
+    }
+
+    // 2) 次に date（両方持っていれば「新しい方を先」＝常に降順）
     const ad = a.date ? Date.parse(a.date) : 0;
     const bd = b.date ? Date.parse(b.date) : 0;
-    if (ad !== bd) return bd - ad; // desc
+    if (ad !== bd) return bd - ad;
+
+    // 3) 最後はタイトル
     return a.title.localeCompare(b.title);
   });
 }
