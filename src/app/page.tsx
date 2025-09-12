@@ -63,8 +63,8 @@ export default async function Page() {
         <NewPickup title="新着記事" limit={5} />
 
         {/* PC 2x2 / SP 縦 */}
+        <h3 className="text-xl font-extrabold text-primary">Categories</h3>
         <div className="mt-4 grid gap-6 md:grid-cols-2">
-          <h3 className="text-xl font-extrabold text-primary">Categories</h3>
           <CategoryCard
             href="/categories/career"
             title="キャリア"
