@@ -112,7 +112,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <div className="container py-10 md:py-14">
+      <div className="container py-2 md:py-4">
         <Link
           href="/random"
           prefetch={false}
