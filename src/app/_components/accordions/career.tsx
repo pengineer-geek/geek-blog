@@ -72,6 +72,7 @@ const SUB_META: SubMetaBySection = {
   // ▼ コラム用（同じ subKey を別表示にできる）
   column: {
     "job-hunting": { title: <>就活・転職</> },
+    "career-up": { title: <>キャリアアップ</> },
     "qualification": { title: <>資格</> },
     "workstyle": { title: <>ワークスタイル</> },
     "literacy": { title: <>情報リテラシー</> },
