@@ -157,7 +157,7 @@ const sections = [];
 for (const [sectionKey, subMap] of sectionMap) {
   const subs = [];
   for (const [subKey, posts] of subMap) {
-    const sortedPosts = sortPosts(posts);
+    const sortedPosts = sortPosts(posts, sectionKey); 
     const subOrder = calcSubOrder(sectionKey, subKey, sortedPosts, SUB_ORDER_BY_SECTION);
     subs.push({ key: subKey, order: subOrder, posts: sortedPosts });
   }
