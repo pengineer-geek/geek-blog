@@ -73,6 +73,7 @@ const SUB_META: SubMetaBySection = {
   column: {
     "job-hunting": { title: <>就活・転職</> },
     "career-up": { title: <>キャリアアップ</> },
+    "web-industry": { title: <>Web業界</> },
     "qualification": { title: <>資格</> },
     "workstyle": { title: <>ワークスタイル</> },
     "literacy": { title: <>情報リテラシー</> },
