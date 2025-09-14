@@ -120,14 +120,14 @@ export default function ChainDiagram({
             className="inline-block w-3 h-3 rounded border"
             style={{ background: "#f3f4f6", borderColor: "#9ca3af" }}
           />
-          中抜き層（薄色）
+          中間層
         </span>
         <span className="inline-flex items-center gap-1">
           <span
             className="inline-block w-3 h-3 rounded border"
             style={{ background: "#e0f2fe", borderColor: "#38bdf8" }}
           />
-          通常
+          発注者
         </span>
       </div>
     </figure>
