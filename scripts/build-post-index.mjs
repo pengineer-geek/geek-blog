@@ -16,6 +16,7 @@ const SECTION_ORDER = {
   "training": 6,
   "nutrition": 7,
   "recovery": 8,
+  "others": 20,
 };
 
 const SUB_ORDER_BY_SECTION = {

@@ -19,34 +19,43 @@ import type { SectionIndex, SubIndex, PostMeta } from "generated/post-index";
 const TOP_PREFIX = "wellbeing/";
 
 // UI用の型
-type Post = { title: string; slug: string; excerpt?: string; tags?: string[] };
+type Post = {
+  title: string;
+  slug: string;
+  excerpt?: string;
+  tags?: string[];
+};
 type Sub = { key: string; title: React.ReactNode; posts: Post[] };
-type Section = { key: string; title: React.ReactNode; desc: string; icon: React.ReactNode; subs: Sub[] };
+type Section = {
+  key: string;
+  title: React.ReactNode;
+  desc: string;
+  icon: React.ReactNode;
+  subs: Sub[];
+  metaPost?: Post;
+};
 
 // セクション見出し（sectionKey → 表示）
+type SubMetaBySection = Record<string, Record<string, { title: React.ReactNode }>>;
 const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon: React.ReactNode }> = {
-  hobby: {
-    title: "趣味",
-    desc: "楽しみを深める活動",
-    icon: <IconShirt className="h-6 w-6" />,
-  },
-  childcare: {
-    title: "育児",
-    desc: "子育てと日々の学び",
-    icon: <IconBaby className="h-6 w-6" />,
-  },
   others: {
-    title: "その他",
-    desc: "心地よさを整えるあれこれ",
+    title: <span className="text-primary">その他</span>,
+    desc: "その他ウェルビーイングに関するあれこれ",
     icon: <IconHeartHandshake className="h-6 w-6" />,
   },
 };
 
 // サブカテゴリーの表示名（未定義はキー文字列にフォールバック）
-const SUB_META: Record<string, { title: React.ReactNode }> = {
-  // 例:
-  // "running": { title: "ランニング" },
-  // "lifehack": { title: "ライフハック" },
+const SUB_META: SubMetaBySection = {
+  // ▼ コラム用（同じ subKey を別表示にできる）
+  others: {
+    //
+  },
+
+  // ▼ どのセクションにも共通で効くデフォルト（任意）
+  "*": {
+    // 例: "meta": { title: "このセクションについて" },
+  },
 };
 
 const href = (slug: string) => `/posts/${slug}`;
@@ -58,7 +67,7 @@ export default function AccordionWellbeing() {
   // ① 生成物の型を明示
   const sourceSections: SectionIndex[] = postIndex.sections;
 
-  // ② wellbeing/ だけを残す（型を維持）
+  // ② career/ だけを残す（型を維持）
   const filteredSections: SectionIndex[] = sourceSections
     .map<SectionIndex>((sec) => ({
       key: sec.key,
@@ -71,23 +80,38 @@ export default function AccordionWellbeing() {
     }))
     .filter((sec) => sec.subs.length > 0);
 
-  // ③ UI用構造へ変換（キャリア版と同じ構造 & TagListの使い方に合わせる）
+  // ③ UI用構造へ変換
   const sections: Section[] = filteredSections.map((sec) => {
-    const meta =
-      SECTION_META[sec.key] ?? ({ title: sec.key, desc: "", icon: <IconHeartHandshake className="h-6 w-6" /> });
-    const subs: Sub[] = sec.subs.map((sub) => ({
-      key: sub.key,
-      title: (SUB_META[sub.key]?.title ?? sub.key) as React.ReactNode,
-      posts: sub.posts.map<Post>((p) => ({
-        title: p.title,
-        slug: p.slug,
-        excerpt: p.excerpt,
-        tags: p.tags,
-      })),
-    }));
-
-    return { key: sec.key, title: meta.title, desc: meta.desc, icon: meta.icon, subs };
+    const meta = SECTION_META[sec.key] ?? { title: sec.key, desc: "", icon: null as unknown as React.ReactNode };
+  
+    // metaサブを拾う
+    const metaFirst = sec.subs.find((s) => s.key === "meta")?.posts?.[0];
+  
+    // 表示用のsubsからは meta を除外
+    const subs: Sub[] = sec.subs
+      .filter((sub) => sub.key !== "meta")
+      .map((sub) => ({
+        key: sub.key,
+        title: (
+          SUB_META[sec.key]?.[sub.key]?.title ??
+          SUB_META["*"]?.[sub.key]?.title ??
+          sub.key
+        ) as React.ReactNode,
+        posts: sub.posts.map<Post>((p) => ({
+          title: p.title,
+          slug: p.slug,
+          excerpt: p.excerpt,
+          tags: p.tags,
+        })),
+      }));
+  
+    const metaPost: Post | undefined = metaFirst
+      ? { title: metaFirst.title, slug: metaFirst.slug, excerpt: metaFirst.excerpt, tags: metaFirst.tags }
+      : undefined;
+  
+    return { key: sec.key, title: meta.title, desc: meta.desc, icon: meta.icon, subs, metaPost };
   });
+  
 
   const toggleSection = (key: string) => {
     setOpenSection((prev) => (prev === key ? null : key));
@@ -116,6 +140,20 @@ export default function AccordionWellbeing() {
                 <div>
                   <h3 className="text-xl font-extrabold text-text">{sec.title}</h3>
                   <p className="text-text/70">{sec.desc}</p>
+
+                  {/* ▼ ここを追加（メタ記事リンク） */}
+                  {sec.metaPost && (
+                    <div className="mt-1">
+                      <Link
+                        href={href(sec.metaPost.slug)}
+                        prefetch={false}
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 text-sm text-link underline underline-offset-2 decoration-2 hover:text-primary"
+                      >
+                        <span>🗒️{sec.metaPost.title}</span>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
               <span className="ml-4 text-primary">{isOpen ? "▲" : "▼"}</span>
@@ -128,15 +166,39 @@ export default function AccordionWellbeing() {
                   {sec.subs.map((sub) => {
                     const subKey = `${sec.key}:${sub.key}`;
                     const subOpen = openSub === subKey;
+
+                    // ① 1件目のサムネ（cover.jpg）を取得
+                    const firstPost = sub.posts[0];
+                    const subThumb =
+                      firstPost ? imgUrl(firstPost.slug, "cover.jpg") : null;
+
                     return (
                       <li key={sub.key} className="rounded-xl border border-border/70 bg-white">
                         {/* 中項目ヘッダ */}
                         <button
                           onClick={() => toggleSub(sec.key, sub.key)}
-                          className="flex w-full items-center justify-between rounded-xl p-3 text-left hover:bg-primary/5"
+                          className="
+                            flex w-full items-center justify-between gap-3
+                            rounded-xl p-3 text-left hover:bg-primary/5
+                          "
                           aria-expanded={subOpen}
                         >
-                          <span className="font-medium text-text">{sub.title}</span>
+                          <div className="flex min-w-0 items-center gap-3">
+                            {/* ② サムネ */}
+                            {subThumb && (
+                              <img
+                                src={subThumb}
+                                alt={`${sub.key} thumbnail`}
+                                className="hidden sm:block h-10 w-10 flex-shrink-0 rounded-lg object-cover ring-1 ring-black/5"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            )}
+                            {/* ③ タイトル */}
+                            <span className="font-medium text-text">
+                              {sub.title}
+                            </span>
+                          </div>
                           <span className="text-primary">{subOpen ? "▲" : "▼"}</span>
                         </button>
 
@@ -163,9 +225,11 @@ export default function AccordionWellbeing() {
                                           {p.title}
                                         </h4>
                                         {p.excerpt && (
-                                          <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">{p.excerpt}</p>
+                                          <p className="mt-0.5 line-clamp-2 text-xs text-gray-600">
+                                            {p.excerpt}
+                                          </p>
                                         )}
-                                        {p.tags && <TagList tags={p.tags} size="sm" />}
+                                        <TagList tags={p.tags} className="mt-2" size="sm" />
                                       </div>
                                     </Link>
                                   </li>
