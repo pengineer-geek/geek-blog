@@ -49,7 +49,7 @@ const SECTION_META: Record<string, { title: React.ReactNode; desc: string; icon:
 const SUB_META: SubMetaBySection = {
   // ▼ コラム用（同じ subKey を別表示にできる）
   others: {
-    //
+    "habit": {title: <>習慣</>}
   },
 
   // ▼ どのセクションにも共通で効くデフォルト（任意）

@@ -63,6 +63,11 @@ const SUB_ORDER_BY_SECTION = {
     "sleep": 1,
     "relax": 2,
   },
+
+  /** wellbeing */
+  "others": {
+    "habit": 10
+  },
 };
 
 /** ---------- ここから処理 ---------- */
