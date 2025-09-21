@@ -17,6 +17,7 @@ const SECTION_ORDER = {
   "nutrition": 7,
   "recovery": 8,
   "others": 20,
+  "stomach": 50,
 };
 
 const SUB_ORDER_BY_SECTION = {
@@ -68,6 +69,8 @@ const SUB_ORDER_BY_SECTION = {
   "others": {
     "habit": 10
   },
+
+  /** stomach */
 };
 
 /** ---------- ここから処理 ---------- */
