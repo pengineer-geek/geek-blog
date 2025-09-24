@@ -54,9 +54,9 @@ const SUB_LABEL_JA: Record<string, string> = {
 };
 // ─────────────────────────────────────────────
 
-function toPostHref(slug: string) {
+function toPostsHref(slug: string) {
   const s = slug.replace(/^\/+|\/+$/g, '');         // 両端の / を除去
-  return s.startsWith('post/') ? `/${s}` : `/post/${s}`;
+  return s.startsWith('posts/') ? `/${s}` : `/posts/${s}`;
 }
 
 /** フォールバック：key を見やすい日本語に（未定義時） */
@@ -101,7 +101,7 @@ export default function TreeCategories({ indexData }: Props) {
             children: sub.posts.map((p: PostMeta) => ({
               id: `leaf:${p.slug}`,
               label: p.title,
-              href: toPostHref(p.slug),
+              href: toPostsHref(p.slug),
             })),
           })),
         })),
