@@ -6,6 +6,7 @@ import TagPicker from "@/app/_components/tags/tag-picker";
 import { loadTagGroups } from "@/lib/tags";
 import NewPickup from "@/app/_components/pickup/new-pickup";
 import CategoriesTabs from "@/app/_components/home/categories-tabs";
+import postIndex from 'generated/post-index';
 
 export default async function Page() {
   const groups = await loadTagGroups();
@@ -65,14 +66,7 @@ export default async function Page() {
 
         {/* ▼ ここをタブに置き換え */}
         <h3 className="text-xl font-extrabold text-primary">Categories</h3>
-        <CategoriesTabs
-          groups={{
-            career: groups.career,
-            tech: groups.tech,
-            wellness: groups.wellness,
-            wellbeing: groups.wellbeing,
-          }}
-        />
+        <CategoriesTabs indexData={postIndex} />
       </section>
 
       <div className="container py-2 md:py-4">
