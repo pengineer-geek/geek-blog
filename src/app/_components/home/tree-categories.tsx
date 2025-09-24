@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { SectionIndex, SubIndex, PostMeta } from '@/post-index'; // ← @generated の型を使う
+import type { SectionIndex, SubIndex, PostMeta } from 'generated/post-index'; // ← @generated の型を使う
 type PostIndexData = { sections: SectionIndex[] };
 
 // 4カテゴリと、それに含める sectionKey の対応表
