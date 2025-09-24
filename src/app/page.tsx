@@ -5,6 +5,7 @@ import { IconCareer, IconTech, IconWellness, IconWellbeing, IconPenguin, IconX }
 import TagPicker from "@/app/_components/tags/tag-picker";
 import { loadTagGroups } from "@/lib/tags";
 import NewPickup from "@/app/_components/pickup/new-pickup";
+import CategoriesTabs from "@/app/_components/home/categories-tabs";
 
 export default async function Page() {
   const groups = await loadTagGroups();
@@ -60,56 +61,18 @@ export default async function Page() {
       <section className="container py-10 md:py-14">
         <h2 className="text-xl font-extrabold text-primary">Contents</h2>
 
-        <NewPickup title="新着記事" limit={5} />
+        <NewPickup title="新着記事" limit={10} />
 
-        {/* PC 2x2 / SP 縦 */}
+        {/* ▼ ここをタブに置き換え */}
         <h3 className="text-xl font-extrabold text-primary">Categories</h3>
-        <div className="mt-4 grid gap-6 md:grid-cols-2">
-          <CategoryCard
-            href="/categories/career"
-            title="キャリア"
-            desc={
-              <>
-                実体験ダイアリーや
-                <br />
-                仕事・キャリア形成についてのコラムなど
-              </>
-            }
-            icon={<IconCareer />}
-          />
-          <CategoryCard
-            href="/categories/tech"
-            title="テック"
-            desc={
-              <>
-                開発メモ、<br />
-                作ったものの話など
-              </>
-            }
-            icon={<IconTech />}
-          />
-          <CategoryCard
-            href="/categories/wellness"
-            title="ウェルネス"
-            desc={
-              <>
-                運動・食事・睡眠。<br />
-                コンディションを上げるためのノウハウなど
-              </>
-            }
-            icon={<IconWellness />}
-          />
-          <CategoryCard
-            href="/categories/wellbeing"
-            title="ウェルビーイング"
-            desc={
-              <>
-                心と思考を整えるためのあれこれ
-              </>
-            }
-            icon={<IconWellbeing />}
-          />
-        </div>
+        <CategoriesTabs
+          groups={{
+            career: groups.career,
+            tech: groups.tech,
+            wellness: groups.wellness,
+            wellbeing: groups.wellbeing,
+          }}
+        />
       </section>
 
       <div className="container py-2 md:py-4">
