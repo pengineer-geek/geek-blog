@@ -155,6 +155,11 @@ for (const f of files) {
     order: typeof fm.order === "number" ? fm.order : undefined,
     subOrder: typeof fm.subOrder === "number" ? fm.subOrder : undefined, // ★任意
   };
+  // ★ meta 記事はインデックス対象外にする
+  if (meta.slug.endsWith("meta") || meta.title.toLowerCase() === "meta") {
+    console.log(`[post-index] Skip meta article: ${f}`);
+    continue;
+  }
 
   if (!sectionMap.has(meta.sectionKey)) sectionMap.set(meta.sectionKey, new Map());
   const subMap = sectionMap.get(meta.sectionKey);

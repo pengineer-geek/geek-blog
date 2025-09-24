@@ -54,6 +54,11 @@ const SUB_LABEL_JA: Record<string, string> = {
 };
 // ─────────────────────────────────────────────
 
+function toPostHref(slug: string) {
+  const s = slug.replace(/^\/+|\/+$/g, '');         // 両端の / を除去
+  return s.startsWith('post/') ? `/${s}` : `/post/${s}`;
+}
+
 /** フォールバック：key を見やすい日本語に（未定義時） */
 function labelFromKey(key: string) {
   return SUB_LABEL_JA[key] || SECTION_LABEL_JA[key] || key.replace(/-/g, ' ');
@@ -96,7 +101,7 @@ export default function TreeCategories({ indexData }: Props) {
             children: sub.posts.map((p: PostMeta) => ({
               id: `leaf:${p.slug}`,
               label: p.title,
-              href: `/${p.slug}`,
+              href: toPostHref(p.slug),
             })),
           })),
         })),
